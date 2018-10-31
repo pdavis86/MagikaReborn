@@ -1,18 +1,8 @@
 package magikareborn.init;
 
-import magikareborn.fluids.FluidMana;
-import net.minecraftforge.fluids.FluidRegistry;
+import magikareborn.fluids.ManaFluid;
 
 public class ModFluids {
 
-    public static FluidMana fluidMana;
-
-    public static void registerFluids()
-    {
-        System.out.println("Registering fluids");
-
-        fluidMana = new FluidMana();
-
-        FluidRegistry.registerFluid(fluidMana);
-    }
+    //public static final ManaFluid MANA_FLUID = new ManaFluid();
 }

@@ -1,6 +1,5 @@
 package magikareborn;
 
-import magikareborn.proxy.CommonProxy;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;
 
@@ -13,8 +12,7 @@ public class Config {
     public static boolean isThisAGoodTutorial = true;
     public static String yourRealName = "Steve";
 
-    public static void readConfig() {
-        Configuration cfg = CommonProxy.config;
+    public static void readConfig(Configuration cfg) {
         try {
             cfg.load();
             initGeneralConfig(cfg);

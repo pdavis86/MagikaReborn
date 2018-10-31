@@ -1,12 +1,21 @@
 package magikareborn.textures;
 
+import magikareborn.ModRoot;
+import net.minecraft.util.ResourceLocation;
+
 public class ResourceManager {
 
-    public static String getBlockTexturePathStem(){
-        return "textures/blocks";
-    }
+    public static final String VARIANT_INVENTORY = "inventory";
 
-    public static String getBlockTexturePath(String textureFileName){
+    private static final String _resourceDomain = ModRoot.MODID.toLowerCase();
+    //private static final String _blockTexturePathStem = "textures/blocks";
+    private static final String _fluidTexturePathStem = "blocks/fluids/";
+
+    /*public static String getBlockTexturePath(String textureFileName){
         return String.format("%s/%s", getBlockTexturePathStem(), textureFileName);
+    }*/
+
+    public static ResourceLocation getFluidResourceLocation(String textureFileName){
+        return new ResourceLocation(_resourceDomain, _fluidTexturePathStem + textureFileName);
     }
 }

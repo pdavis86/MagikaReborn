@@ -1,16 +1,17 @@
 package magikareborn.init;
 
-//import magikareborn.ModRoot;
-import magikareborn.blocks.BlockLiquidMana;
-//import net.minecraft.item.ItemBlock;
-//import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import magikareborn.blocks.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-//@ObjectHolder(ModRoot.MODID)
 public class ModBlocks {
 
-    //@ObjectHolder("liquidEssence")
-    public static BlockLiquidMana blockLiquidMana;
+    public static final DataBlock DATA_BLOCK = new DataBlock();
+    //public static final ManaFluidBlock MANA_FLUID_BLOCK = new ManaFluidBlock();
+    public static final LecternBlock LECTERN_BLOCK = new LecternBlock();
 
-    //@ObjectHolder("liquidEssence")
-    //public static final ItemBlock itemBlockLiquidEssence = null;
+    @SideOnly(Side.CLIENT)
+    public static void initModels() {
+        DATA_BLOCK.initModel();
+    }
 }

@@ -1,6 +1,7 @@
 package magikareborn;
 
 import magikareborn.proxy.CommonProxy;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -8,7 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 //import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Level;
+//import org.apache.logging.log4j.Level;
 
 @Mod(modid = ModRoot.MODID, name = ModRoot.MODNAME, version = ModRoot.MODVERSION, useMetadata = true)
 public class ModRoot {
@@ -24,6 +25,10 @@ public class ModRoot {
     public static ModRoot instance;
 
     public static Logger logger;
+
+    static {
+        FluidRegistry.enableUniversalBucket();
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

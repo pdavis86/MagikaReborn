@@ -1,0 +1,6 @@
+fluid.fluidNameliquidmana=name goes here
+
+tile.magikareborn.liquidmana.name=Liquid mana
+
+tile.magikareborn.datablock.name=Counter
+message.magikareborn.counter_par=Counter: %d
