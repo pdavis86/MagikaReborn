@@ -20,3 +20,9 @@ build
 # other
 eclipse
 run
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Project-specific ignores #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~#
+logs
