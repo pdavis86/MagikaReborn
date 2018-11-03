@@ -1,7 +1,7 @@
 package magikareborn.blocks;
 
 import magikareborn.base.BaseBlock;
-import magikareborn.textures.ResourceManager;
+import magikareborn.helpers.ResourceHelper;
 import magikareborn.tileentities.DataTileEntity;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -37,13 +37,19 @@ public class DataBlock extends BaseBlock implements ITileEntityProvider {
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceManager.VARIANT_INVENTORY));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceHelper.VARIANT_INVENTORY));
     }
 
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
         return new DataTileEntity();
     }
+
+    /*@Nullable
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return new DataTileEntity();
+    }*/
 
     private DataTileEntity getTE(World world, BlockPos blockPos){
         return (DataTileEntity) world.getTileEntity(blockPos);

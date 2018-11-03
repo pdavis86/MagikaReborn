@@ -1,6 +1,11 @@
-fluid.fluidNameliquidmana=name goes here
-
-tile.magikareborn.liquidmana.name=Liquid mana
+fluid.manafluid=Mana
+tile.magikareborn.manafluidblock.name=Liquid mana
 
 tile.magikareborn.datablock.name=Counter
 message.magikareborn.counter_par=Counter: %d
+
+tile.magikareborn.blinkingblock.name=Blinker
+
+tile.magikareborn.pedestalblock.name=Pedestal
+
+tile.magikareborn.tinychestblock.name=Tiny Chest

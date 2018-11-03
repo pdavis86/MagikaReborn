@@ -3,26 +3,35 @@ package magikareborn;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;
 
+import java.io.File;
+
 public class Config {
 
     private static final String CATEGORY_GENERAL = "general";
     private static final String CATEGORY_DIMENSIONS = "dimensions";
-    
+
+    private static Configuration _config;
+
     //todo: replace these
     public static boolean isThisAGoodTutorial = true;
     public static String yourRealName = "Steve";
 
-    public static void readConfig(Configuration cfg) {
+    public static void readConfig(File modConfigurationDirectory) {
+        _config = new Configuration(new File(modConfigurationDirectory.getPath(),"MagikaReborn.cfg"));
         try {
-            cfg.load();
-            initGeneralConfig(cfg);
-            initDimensionConfig(cfg);
+            _config.load();
+            initGeneralConfig(_config);
+            initDimensionConfig(_config);
         } catch (Exception ex) {
             ModRoot.logger.log(Level.ERROR, "Problem loading config file!", ex);
         } finally {
-            if (cfg.hasChanged()) {
-                cfg.save();
-            }
+            saveChanges();
+        }
+    }
+
+    public static void saveChanges() {
+        if (_config.hasChanged()) {
+            _config.save();
         }
     }
 

@@ -8,4 +8,4 @@ if ($answer -eq 'y') {
 	Start-Process -FilePath "E:\Dev\MagikaReborn\logs\latest.log"
 }
 
-[Runspace]::DefaultRunspace.CloseAsync()
+exit
