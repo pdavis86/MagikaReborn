@@ -22,18 +22,20 @@ public class ModFluids {
 
     public static ModFluid MANA_FLUID = new ModFluid(
             "manafluid",
-            new ResourceLocation(ModRoot.MODID, "liquid_still"),
-            new ResourceLocation(ModRoot.MODID, "liquid_flowing")
+            new ResourceLocation(ModRoot.MODID, "mana_still"),
+            new ResourceLocation(ModRoot.MODID, "mana_flow")
     );
 
-    @SideOnly(Side.CLIENT)
+    //todo: look into this again. Looks to be how to simplify the blockstate json
+
+    /*@SideOnly(Side.CLIENT)
     public static void initModels() {
 
         System.out.println("Registering fluid models");
         //registerFluidModels(MANA_FLUID);
-    }
+    }*/
 
-    public static void registerFluidModels(Fluid fluid) {
+    /*public static void registerFluidModels(Fluid fluid) {
         if(fluid == null) {
             return;
         }
@@ -74,5 +76,5 @@ public class ModFluids {
         public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
             return location;
         }
-    }
+    }*/
 }

@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "forge:fluid"
+  },
+  "variants": {
+    "inventory": [{ "custom": {"fluid": "manafluid"} }],
+    "level=0": [{ "custom": {"fluid": "manafluid"} }],
+    "level=1": [{ "custom": {"fluid": "manafluid"} }],
+    "level=2": [{ "custom": {"fluid": "manafluid"} }],
+    "level=3": [{ "custom": {"fluid": "manafluid"} }],
+    "level=4": [{ "custom": {"fluid": "manafluid"} }],
+    "level=5": [{ "custom": {"fluid": "manafluid"} }],
+    "level=6": [{ "custom": {"fluid": "manafluid"} }],
+    "level=7": [{ "custom": {"fluid": "manafluid"} }],
+    "level=8": [{ "custom": {"fluid": "manafluid"} }],
+    "level=9": [{ "custom": {"fluid": "manafluid"} }],
+    "level=10": [{ "custom": {"fluid": "manafluid"} }],
+    "level=11": [{ "custom": {"fluid": "manafluid"} }],
+    "level=12": [{ "custom": {"fluid": "manafluid"} }],
+    "level=13": [{ "custom": {"fluid": "manafluid"} }],
+    "level=14": [{ "custom": {"fluid": "manafluid"} }],
+    "level=15": [{ "custom": {"fluid": "manafluid"} }]
+  }
+}

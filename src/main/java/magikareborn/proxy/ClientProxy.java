@@ -3,6 +3,7 @@ package magikareborn.proxy;
 import magikareborn.ModRoot;
 import magikareborn.init.ModBlocks;
 import magikareborn.init.ModFluids;
+import magikareborn.init.ModItems;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.Mod;
@@ -30,7 +31,8 @@ public class ClientProxy extends CommonProxy {
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
         ModBlocks.initModels();
-        ModFluids.initModels();
+        ModItems.initModels();
+        //ModFluids.initModels();
     }
 
 }

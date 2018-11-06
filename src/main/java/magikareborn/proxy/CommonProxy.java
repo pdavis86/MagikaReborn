@@ -5,10 +5,7 @@ import magikareborn.ModRoot;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.init.ModBlocks;
 import magikareborn.init.ModFluids;
-import magikareborn.tileentities.BlinkingTileEntity;
-import magikareborn.tileentities.DataTileEntity;
-import magikareborn.tileentities.PedestalTileEntity;
-import magikareborn.tileentities.TinyChestTileEntity;
+import magikareborn.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -76,27 +73,20 @@ public class CommonProxy {
         ModBlocks.MANA_FLUID_BLOCK.setRegistryName(new ResourceLocation(ModRoot.MODID.toLowerCase(), ModFluids.MANA_FLUID.getName().toLowerCase()));
         event.getRegistry().register(ModBlocks.MANA_FLUID_BLOCK);*/
 
-        ModBlocks.MANA_FLUID_BLOCK.setCreativeTab(CreativeTabs.MISC);
-        ModBlocks.MANA_FLUID_BLOCK.setRegistryName("blah");
-        ModBlocks.MANA_FLUID_BLOCK.setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + "blah".toLowerCase());
-        event.getRegistry().register(ModBlocks.MANA_FLUID_BLOCK);
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.MANA_FLUID_BLOCK), 0, new ModelResourceLocation(ModBlocks.MANA_FLUID_BLOCK.getRegistryName(), ResourceHelper.VARIANT_INVENTORY));
-        ModelLoader.registerItemVariants(Item.getItemFromBlock(ModBlocks.MANA_FLUID_BLOCK));
+        //ModBlocks.MANA_FLUID_BLOCK.setCreativeTab(CreativeTabs.MISC);
+        //ModBlocks.MANA_FLUID_BLOCK.setRegistryName("blah");
+        //ModBlocks.MANA_FLUID_BLOCK.setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + "blah".toLowerCase());
+        //event.getRegistry().register(ModBlocks.MANA_FLUID_BLOCK);
+        //ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.MANA_FLUID_BLOCK), 0, new ModelResourceLocation(ModBlocks.MANA_FLUID_BLOCK.getRegistryName(), ResourceHelper.VARIANT_INVENTORY));
+        //ModelLoader.registerItemVariants(Item.getItemFromBlock(ModBlocks.MANA_FLUID_BLOCK));
 
         System.out.println("Registering Blocks");
         event.getRegistry().registerAll(
-            //ModBlocks.MANA_FLUID_BLOCK,
-            ModBlocks.DATA_BLOCK,
-            ModBlocks.BLINKING_BLOCK,
-            ModBlocks.PEDESTAL_BLOCK,
-            ModBlocks.TINYCHEST_BLOCK
-            //ModBlocks.LecternBlock
+            ModBlocks.MANA_FLUID_BLOCK
         );
 
-        registerTileEntity(DataTileEntity.class);
-        registerTileEntity(BlinkingTileEntity.class);
-        registerTileEntity(PedestalTileEntity.class);
-        registerTileEntity(TinyChestTileEntity.class);
+        System.out.println("Registering Tile Entities");
+        //registerTileEntity(????.class);
     }
 
     private static void registerTileEntity(Class<? extends TileEntity> classType){
@@ -109,16 +99,9 @@ public class CommonProxy {
 
         System.out.println("Registering Items");
 
-        System.out.println("FINDME: " + ModBlocks.MANA_FLUID_BLOCK.getRegistryName().getResourcePath());
-
         event.getRegistry().registerAll(
-            new ItemBlock(ModBlocks.MANA_FLUID_BLOCK).setRegistryName(ModBlocks.MANA_FLUID_BLOCK.getRegistryName()),
-            ModBlocks.DATA_BLOCK.getNewItem(),
-            ModBlocks.BLINKING_BLOCK.getNewItem(),
-            ModBlocks.PEDESTAL_BLOCK.getNewItem(),
-            ModBlocks.TINYCHEST_BLOCK.getNewItem()
-            //ModBlocks.LecternBlock.getNewItem(),
-            //ModItems.LecternItem,
+            ModItems.MAGIKA_OPUS_ITEM,
+            ModBlocks.MANA_FLUID_BLOCK.getNewItem()
         );
     }
 

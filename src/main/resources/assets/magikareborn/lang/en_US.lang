@@ -1,11 +1,4 @@
 fluid.manafluid=Mana
 tile.magikareborn.manafluidblock.name=Liquid mana
 
-tile.magikareborn.datablock.name=Counter
-message.magikareborn.counter_par=Counter: %d
-
-tile.magikareborn.blinkingblock.name=Blinker
-
-tile.magikareborn.pedestalblock.name=Pedestal
-
-tile.magikareborn.tinychestblock.name=Tiny Chest
+item.magikareborn.magikaopusitem.name=Magika Opus
