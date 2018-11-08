@@ -1,9 +1,9 @@
 package magikareborn.items;
 
+import magikareborn.Capabilities.IOpusCapability;
+import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.base.BaseItem;
-import magikareborn.containers.SkillTreeGui;
 import magikareborn.helpers.ResourceHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,8 +23,17 @@ public class MagikaOpusItem extends BaseItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-        if (worldIn.isRemote){
-            Minecraft.getMinecraft().displayGuiScreen(new SkillTreeGui());
+        if (worldIn.isRemote) {
+            IOpusCapability opusCapability = playerIn.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+
+            System.out.println("Selected tab on rightclick: " + playerIn.getCapability(OpusCapabilityStorage.CAPABILITY, null).getSelectedTab());
+
+            //todo: get the data if missing then open GUI
+            /*if (opusCapability.getSelectedTab() == -1) {
+
+            } else {
+                Minecraft.getMinecraft().displayGuiScreen(new SkillTreeGui());
+            }*/
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -34,4 +43,5 @@ public class MagikaOpusItem extends BaseItem {
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemModelResourceLocation(this));
     }
+
 }

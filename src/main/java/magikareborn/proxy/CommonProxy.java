@@ -1,21 +1,23 @@
 package magikareborn.proxy;
 
+import magikareborn.Capabilities.ManaCapabilitySerializer;
+import magikareborn.Capabilities.ManaCapabilityStorage;
+import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.Capabilities.OpusCapabilitySerializer;
 import magikareborn.Config;
 import magikareborn.ModRoot;
-import magikareborn.helpers.ResourceHelper;
 import magikareborn.init.ModBlocks;
 import magikareborn.init.ModFluids;
 import magikareborn.init.ModItems;
+import magikareborn.network.PacketHandler;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -34,8 +36,9 @@ public class CommonProxy {
         File modConfigurationDirectory = e.getModConfigurationDirectory();
         Config.readConfig(modConfigurationDirectory);
 
-        /*ModFluids.MANA_FLUID.setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + ModFluids.MANA_FLUID.getName().toLowerCase());
-        FluidRegistry.addBucketForFluid(ModFluids.MANA_FLUID);*/
+        PacketHandler.registerPacketTypes();
+        OpusCapabilityStorage.register();
+        ManaCapabilityStorage.register();
     }
 
     public void init(FMLInitializationEvent e) {
@@ -46,39 +49,11 @@ public class CommonProxy {
         Config.saveChanges();
     }
 
-    /*private static void registerFluid(Fluid fluid, Block block){
-
-        String unlocalizedName = ModRoot.MODID.toLowerCase() + "." + fluid.getName().toLowerCase();
-
-        fluid.setUnlocalizedName(unlocalizedName);
-        //FluidRegistry.registerFluid(fluid);
-        FluidRegistry.addBucketForFluid(fluid);
-
-        if(block != null) {
-            block.setUnlocalizedName(unlocalizedName);
-            block.setRegistryName(new ResourceLocation(ModRoot.MODID.toLowerCase(), fluid.getName().toLowerCase()));
-        }
-    }*/
-
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
 
         System.out.println("Registering fluids");
-        /*Fluid fluid = new ManaFluid();
-        Block fluidBlock = new ManaFluidBlock();
-        registerFluid(fluid, fluidBlock);*/
         FluidRegistry.addBucketForFluid(ModFluids.MANA_FLUID);
-
-        /*ModBlocks.MANA_FLUID_BLOCK.setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + ModFluids.MANA_FLUID.getName().toLowerCase());
-        ModBlocks.MANA_FLUID_BLOCK.setRegistryName(new ResourceLocation(ModRoot.MODID.toLowerCase(), ModFluids.MANA_FLUID.getName().toLowerCase()));
-        event.getRegistry().register(ModBlocks.MANA_FLUID_BLOCK);*/
-
-        //ModBlocks.MANA_FLUID_BLOCK.setCreativeTab(CreativeTabs.MISC);
-        //ModBlocks.MANA_FLUID_BLOCK.setRegistryName("blah");
-        //ModBlocks.MANA_FLUID_BLOCK.setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + "blah".toLowerCase());
-        //event.getRegistry().register(ModBlocks.MANA_FLUID_BLOCK);
-        //ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.MANA_FLUID_BLOCK), 0, new ModelResourceLocation(ModBlocks.MANA_FLUID_BLOCK.getRegistryName(), ResourceHelper.VARIANT_INVENTORY));
-        //ModelLoader.registerItemVariants(Item.getItemFromBlock(ModBlocks.MANA_FLUID_BLOCK));
 
         System.out.println("Registering Blocks");
         event.getRegistry().registerAll(
@@ -104,5 +79,15 @@ public class CommonProxy {
             ModBlocks.MANA_FLUID_BLOCK.getNewItem()
         );
     }
+
+    @SubscribeEvent
+    public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+
+        if(event.getObject() instanceof EntityPlayer) {
+            event.addCapability(new ResourceLocation(ModRoot.MODID,"opuscapability"), new OpusCapabilitySerializer());
+            event.addCapability(new ResourceLocation(ModRoot.MODID, "manacapability"), new ManaCapabilitySerializer());
+        }
+    }
+
 
 }

@@ -60,18 +60,17 @@ public class ManaFluidBlock extends BlockFluidClassic {
         //or, in Itickable, List entities = worldObj.getEntitiesWithinAABB(EntityItem.class, scanAbove);
 
         //todo: this is crap
-        EntityPlayer player = worldIn.playerEntities.get(0);
+        /*EntityPlayer player = worldIn.playerEntities.get(0);
 
         if(entityIn instanceof EntityPlayer) {
 
-            ItemStack heldItemStack = player.getHeldItem(EnumHand.MAIN_HAND);
-
-            TextComponentString component = new TextComponentString("You fell in the mana holding " + (heldItemStack != null ? heldItemStack.getDisplayName() : "nothing"));
-            component.getStyle().setColor(TextFormatting.BLUE);
-            player.sendStatusMessage(component, false);
+            //ItemStack heldItemStack = player.getHeldItem(EnumHand.MAIN_HAND);
+            //TextComponentString component = new TextComponentString("You fell in the mana holding " + (heldItemStack != null ? heldItemStack.getDisplayName() : "nothing"));
+            //component.getStyle().setColor(TextFormatting.BLUE);
+            //player.sendStatusMessage(component, false);
 
             return;
-        }
+        }*/
 
         if(entityIn instanceof EntityCreeper){
             entityIn.setDead();
@@ -103,11 +102,12 @@ public class ManaFluidBlock extends BlockFluidClassic {
             }, 6.0F, 1.0D, 1.2D));*/
 
         }
-        else if(entityIn instanceof EntityItem) {
+        /*else if(entityIn instanceof EntityItem) {
 
             ItemStack itemStack = ((EntityItem) entityIn).getItem();
-            TextComponentString msg = new TextComponentString("Item stack is: " + itemStack.getDisplayName());
-            player.sendStatusMessage(msg, false);
+
+            //TextComponentString msg = new TextComponentString("Item stack is: " + itemStack.getDisplayName());
+            //player.sendStatusMessage(msg, false);
 
             if(itemStack.getItem() == Item.getItemFromBlock(Blocks.DIRT)){
 
@@ -117,13 +117,15 @@ public class ManaFluidBlock extends BlockFluidClassic {
 
                 entityIn.setDead();
 
-                TextComponentString component = new TextComponentString("You dropped: " + entityIn.getName());
-                component.getStyle().setColor(TextFormatting.GREEN);
-                player.sendStatusMessage(component, false);
+                //TextComponentString component = new TextComponentString("You dropped: " + entityIn.getName());
+                //component.getStyle().setColor(TextFormatting.GREEN);
+                //player.sendStatusMessage(component, false);
+
+
 
                 player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.MANA_FLUID_BLOCK));
             }
-        }
+        }*/
 
 
     }

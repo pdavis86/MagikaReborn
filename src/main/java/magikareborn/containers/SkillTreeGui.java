@@ -1,5 +1,9 @@
 package magikareborn.containers;
 
+import magikareborn.Capabilities.IManaCapability;
+import magikareborn.Capabilities.IOpusCapability;
+import magikareborn.Capabilities.ManaCapabilitySerializer;
+import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.helpers.ResourceHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -26,7 +30,7 @@ public class SkillTreeGui extends GuiScreen {
     private GuiButton _defensiveSpellsButton;
     private int _activeButtonId;
 
-    private int getButtonLeft(int index){
+    private int getButtonLeft(int index) {
         return (_buttonSize + _buttonPadding) * index;
     }
 
@@ -45,14 +49,23 @@ public class SkillTreeGui extends GuiScreen {
         int left = getUiLeft();
         int top = getUiTop();
 
-        System.out.println("Screen size is: " + width + " x " + height);
-        System.out.println("UI size is: " + _xSize + " x " + _ySize);
-        System.out.println("Position is: " + left + " x " + top);
+        //System.out.println("Screen size is: " + width + " x " + height);
+        //System.out.println("UI size is: " + _xSize + " x " + _ySize);
+        //System.out.println("Position is: " + left + " x " + top);
 
-        _questsButton = new GuiButton(0, left, top, _buttonSize, _buttonSize,"Q" );
-        _utilitySpellsButton = new GuiButton(1, left + getButtonLeft(1), top, _buttonSize, _buttonSize, "U" );
-        _offenseSpellsButton = new GuiButton(2, left + getButtonLeft(2), top, _buttonSize, _buttonSize, "O" );
-        _defensiveSpellsButton = new GuiButton(3, left + getButtonLeft(3), top, _buttonSize, _buttonSize, "D" );
+        System.out.println("Getting player Opus capability");
+        IOpusCapability opusCapability = Minecraft.getMinecraft().player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+        //System.out.println("Opus capability is null: " + (opusCapability == null));
+        System.out.println("Opus capability getSelectedTab is: " + opusCapability.getSelectedTab());
+
+        System.out.println("Getting player Mana capability");
+        IManaCapability manaCapability = Minecraft.getMinecraft().player.getCapability(ManaCapabilitySerializer.MANA_CAP, null);
+        //System.out.println("Mana capability is null: " + (manaCapability == null));
+
+        _questsButton = new GuiButton(0, left, top, _buttonSize, _buttonSize, "Q");
+        _utilitySpellsButton = new GuiButton(1, left + getButtonLeft(1), top, _buttonSize, _buttonSize, "U");
+        _offenseSpellsButton = new GuiButton(2, left + getButtonLeft(2), top, _buttonSize, _buttonSize, "O");
+        _defensiveSpellsButton = new GuiButton(3, left + getButtonLeft(3), top, _buttonSize, _buttonSize, "D");
 
         this.buttonList.add(_questsButton);
         this.buttonList.add(_utilitySpellsButton);
@@ -133,10 +146,15 @@ public class SkillTreeGui extends GuiScreen {
         //drawBackground(0x00FF00); //dirt texture
         drawDefaultBackground(); //semi transparent dark overlay
 
-        if (_activeButtonId == _questsButton.id){ drawQuestScreen(); }
-        else if (_activeButtonId == _utilitySpellsButton.id) { drawUtilityScreen(); }
-        else if (_activeButtonId == _offenseSpellsButton.id) { drawOffensiveScreen(); }
-        else if (_activeButtonId == _defensiveSpellsButton.id) { drawDefensiveScreen(); }
+        if (_activeButtonId == _questsButton.id) {
+            drawQuestScreen();
+        } else if (_activeButtonId == _utilitySpellsButton.id) {
+            drawUtilityScreen();
+        } else if (_activeButtonId == _offenseSpellsButton.id) {
+            drawOffensiveScreen();
+        } else if (_activeButtonId == _defensiveSpellsButton.id) {
+            drawDefensiveScreen();
+        }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
