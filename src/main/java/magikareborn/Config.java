@@ -17,7 +17,7 @@ public class Config {
     public static String yourRealName = "Steve";
 
     public static void readConfig(File modConfigurationDirectory) {
-        _config = new Configuration(new File(modConfigurationDirectory.getPath(),"MagikaReborn.cfg"));
+        _config = new Configuration(new File(modConfigurationDirectory.getPath(), "MagikaReborn.cfg"));
         try {
             _config.load();
             initGeneralConfig(_config);

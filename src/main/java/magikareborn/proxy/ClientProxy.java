@@ -2,7 +2,6 @@ package magikareborn.proxy;
 
 import magikareborn.ModRoot;
 import magikareborn.init.ModBlocks;
-import magikareborn.init.ModFluids;
 import magikareborn.init.ModItems;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.obj.OBJLoader;

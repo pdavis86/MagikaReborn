@@ -88,19 +88,21 @@ public class SkillTreeGui extends GuiScreen {
         //drawBackground(0x00FF00); //dirt texture
         drawDefaultBackground(); //semi transparent dark overlay
 
-        int activeButtonId = _opusCapability.getSelectedTab();
-        if (activeButtonId == _questsButton.id) {
-            drawQuestScreen();
-        } else if (activeButtonId == _utilitySpellsButton.id) {
-            drawUtilityScreen();
-        } else if (activeButtonId == _offenseSpellsButton.id) {
-            drawOffensiveScreen();
-        } else if (activeButtonId == _defensiveSpellsButton.id) {
-            drawDefensiveScreen();
-        } else if (activeButtonId == -1) {
-            //System.out.println("_activeButtonId is still -1");
+        if (!_opusCapability.isInitialised()) {
+            //System.out.println("Still haven't received the OpusUpdatePacket from the server");
             _opusCapability = Minecraft.getMinecraft().player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
             //todo: draw loading screen
+        } else {
+            int activeButtonId = _opusCapability.getSelectedTab();
+            if (activeButtonId == _questsButton.id) {
+                drawQuestScreen();
+            } else if (activeButtonId == _utilitySpellsButton.id) {
+                drawUtilityScreen();
+            } else if (activeButtonId == _offenseSpellsButton.id) {
+                drawOffensiveScreen();
+            } else if (activeButtonId == _defensiveSpellsButton.id) {
+                drawDefensiveScreen();
+            }
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);

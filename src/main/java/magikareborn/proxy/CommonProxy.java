@@ -1,9 +1,7 @@
 package magikareborn.proxy;
 
-import magikareborn.Capabilities.ManaCapabilitySerializer;
-import magikareborn.Capabilities.ManaCapabilityStorage;
-import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.Capabilities.OpusCapabilitySerializer;
+import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.Config;
 import magikareborn.ModRoot;
 import magikareborn.init.ModBlocks;
@@ -31,14 +29,13 @@ import java.io.File;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
-        
+
     public void preInit(FMLPreInitializationEvent e) {
         File modConfigurationDirectory = e.getModConfigurationDirectory();
         Config.readConfig(modConfigurationDirectory);
 
         PacketHandler.registerPacketTypes();
         OpusCapabilityStorage.register();
-        ManaCapabilityStorage.register();
     }
 
     public void init(FMLInitializationEvent e) {
@@ -57,14 +54,14 @@ public class CommonProxy {
 
         //System.out.println("Registering Blocks");
         event.getRegistry().registerAll(
-            ModBlocks.MANA_FLUID_BLOCK
+                ModBlocks.MANA_FLUID_BLOCK
         );
 
         //System.out.println("Registering Tile Entities");
         //registerTileEntity(????.class);
     }
 
-    private static void registerTileEntity(Class<? extends TileEntity> classType){
+    private static void registerTileEntity(Class<? extends TileEntity> classType) {
         //System.out.println("Registering TileEntity with name: " + classType.getSimpleName().toLowerCase());
         GameRegistry.registerTileEntity(classType, new ResourceLocation(ModRoot.MODID.toLowerCase() + ":" + classType.getSimpleName().toLowerCase()));
     }
@@ -75,17 +72,16 @@ public class CommonProxy {
         //System.out.println("Registering Items");
 
         event.getRegistry().registerAll(
-            ModItems.MAGIKA_OPUS_ITEM,
-            ModBlocks.MANA_FLUID_BLOCK.getNewItem()
+                ModItems.MAGIKA_OPUS_ITEM,
+                ModBlocks.MANA_FLUID_BLOCK.getNewItem()
         );
     }
 
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
-        if(event.getObject() instanceof EntityPlayer) {
-            event.addCapability(new ResourceLocation(ModRoot.MODID,"opuscapability"), new OpusCapabilitySerializer());
-            event.addCapability(new ResourceLocation(ModRoot.MODID, "manacapability"), new ManaCapabilitySerializer());
+        if (event.getObject() instanceof EntityPlayer) {
+            event.addCapability(new ResourceLocation(ModRoot.MODID, "opuscapability"), new OpusCapabilitySerializer());
         }
     }
 

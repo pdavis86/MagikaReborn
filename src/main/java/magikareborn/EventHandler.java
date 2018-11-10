@@ -1,8 +1,6 @@
 package magikareborn;
 
-import magikareborn.Capabilities.IManaCapability;
 import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.ManaCapabilitySerializer;
 import magikareborn.Capabilities.OpusCapabilityStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Mod;
@@ -17,7 +15,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
-        player.getCapability(OpusCapabilityStorage.CAPABILITY, null).onPlayerLoggedIn();
+        player.getCapability(OpusCapabilityStorage.CAPABILITY, null).init(player);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -35,10 +33,6 @@ public class EventHandler {
         IOpusCapability oldCapability = evt.getOriginal().getCapability(OpusCapabilityStorage.CAPABILITY, null);
         IOpusCapability newCapability = evt.getEntityPlayer().getCapability(OpusCapabilityStorage.CAPABILITY, null);
         newCapability.cloneFrom(oldCapability);
-
-        IManaCapability newMana = evt.getEntityPlayer().getCapability(ManaCapabilitySerializer.MANA_CAP, null);
-        IManaCapability oldMana = evt.getOriginal().getCapability(ManaCapabilitySerializer.MANA_CAP, null);
-        newMana.setMana(oldMana.getMana());
     }
 
     /*@SubscribeEvent

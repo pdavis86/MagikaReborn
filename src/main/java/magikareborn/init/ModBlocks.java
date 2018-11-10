@@ -1,6 +1,6 @@
 package magikareborn.init;
 
-import magikareborn.blocks.*;
+import magikareborn.blocks.ManaFluidBlock;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.creativetab.CreativeTabs;

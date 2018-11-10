@@ -11,6 +11,9 @@ import javax.annotation.Nullable;
 public class OpusCapabilitySerializer implements ICapabilitySerializable<NBTTagCompound> {
 
     private static final String TAGNAME_SELECTED_TAB = "selectedtab";
+    private static final String TAGNAME_MAGIC_LEVEL = "magiclevel";
+    private static final String TAGNAME_MAGIC_XP = "magicxp";
+    private static final String TAGNAME_MANA = "mana";
 
     private final IOpusCapability _opusCapability;
 
@@ -36,12 +39,19 @@ public class OpusCapabilitySerializer implements ICapabilitySerializable<NBTTagC
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tagCompound = new NBTTagCompound();
         tagCompound.setInteger(TAGNAME_SELECTED_TAB, _opusCapability.getSelectedTab());
+        tagCompound.setInteger(TAGNAME_MAGIC_LEVEL, _opusCapability.getMagicLevel());
+        tagCompound.setFloat(TAGNAME_MAGIC_XP, _opusCapability.getMagicXp());
+        tagCompound.setFloat(TAGNAME_MANA, _opusCapability.getMana());
         return tagCompound;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
         _opusCapability.setSelectedTab(nbt.getInteger(TAGNAME_SELECTED_TAB));
+        _opusCapability.setMagicLevel(nbt.getInteger(TAGNAME_MAGIC_LEVEL));
+        _opusCapability.setMagicXp(nbt.getInteger(TAGNAME_MAGIC_XP));
+        _opusCapability.setMana(nbt.getInteger(TAGNAME_MANA));
+        //Don't call init(). That's done on the login event.
     }
 
 }

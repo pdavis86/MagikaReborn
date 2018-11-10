@@ -14,7 +14,7 @@ public class GuiProxy implements IGuiHandler {
         BlockPos pos = new BlockPos(x, y, z);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof BaseTileEntityWithGui) {
-            return ((BaseTileEntityWithGui)te).getServerGuiElement(ID, player, world, x, y, z);
+            return ((BaseTileEntityWithGui) te).getServerGuiElement(ID, player, world, x, y, z);
         }
         return null;
     }
@@ -24,7 +24,7 @@ public class GuiProxy implements IGuiHandler {
         BlockPos pos = new BlockPos(x, y, z);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof BaseTileEntityWithGui) {
-            return ((BaseTileEntityWithGui)te).getClientGuiElement(ID, player, world, x, y, z);
+            return ((BaseTileEntityWithGui) te).getClientGuiElement(ID, player, world, x, y, z);
         }
         return null;
     }

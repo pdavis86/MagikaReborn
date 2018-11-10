@@ -14,15 +14,15 @@ public class ResourceHelper {
     private static final String _fluidsTexturePathStem = "blocks/fluids/";
     private static final String _guisTexturePathStem = "textures/guis/";
 
-    public static ModelResourceLocation getItemModelResourceLocation(Item item){
+    public static ModelResourceLocation getItemModelResourceLocation(Item item) {
         return new ModelResourceLocation(item.getRegistryName(), VARIANT_INVENTORY);
     }
 
-    public static ResourceLocation getFluidResourceLocation(String textureFileName){
+    public static ResourceLocation getFluidResourceLocation(String textureFileName) {
         return new ResourceLocation(_resourceDomain, _fluidsTexturePathStem + textureFileName);
     }
 
-    public static ResourceLocation getGuiResourceLocation(String textureFileName){
+    public static ResourceLocation getGuiResourceLocation(String textureFileName) {
         return new ResourceLocation(_resourceDomain, _guisTexturePathStem + textureFileName + ".png");
     }
 }
