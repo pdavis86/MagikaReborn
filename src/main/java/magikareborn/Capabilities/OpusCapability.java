@@ -29,7 +29,7 @@ public class OpusCapability implements IOpusCapability {
 
     @Override
     public void cloneFrom(IOpusCapability oldCapability) {
-        //todo:
+        setSelectedTab(oldCapability.getSelectedTab());
     }
 
 }

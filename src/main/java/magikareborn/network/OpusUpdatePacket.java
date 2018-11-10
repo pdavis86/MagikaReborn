@@ -6,13 +6,13 @@ import magikareborn.Capabilities.OpusCapability;
 import magikareborn.Capabilities.OpusCapabilityStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class OpusPacket implements IMessage {
+public class OpusUpdatePacket implements IMessage {
 
     //Flags
     public static final int FLAG_UPDATE_MANA = 0x1;
@@ -23,10 +23,10 @@ public class OpusPacket implements IMessage {
     private int _updateFlags;
 
     //Required
-    public OpusPacket() {
+    public OpusUpdatePacket() {
     }
 
-    public OpusPacket(IOpusCapability capability) {
+    public OpusUpdatePacket(IOpusCapability capability) {
         Capability = capability;
     }
 
@@ -62,27 +62,35 @@ public class OpusPacket implements IMessage {
         Capability.setSelectedTab(buf.readInt());
     }
 
-    public static class OpusPacketHandler implements IMessageHandler<OpusPacket, IMessage> {
+    public static class OpusPacketHandler implements IMessageHandler<OpusUpdatePacket, IMessage> {
         @Override
-        public IMessage onMessage(OpusPacket message, MessageContext ctx) {
+        public IMessage onMessage(OpusUpdatePacket message, MessageContext ctx) {
             //only access blocks and tile entities if world.isBlockLoaded(pos) is true.
 
             if (ctx.side == Side.SERVER) {
-                EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
+                //EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
                 /*serverPlayer.sendMessage(new TextComponentString("Server received message from client"));*/
 
-                IOpusCapability opusCapability = serverPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-
                 //serverPlayer.getServerWorld().addScheduledTask(() -> {
-                opusCapability.cloneFrom(message.Capability);
+                //    do stuff
                 //});
             } else {
 
                 EntityPlayerSP clientPlayer = Minecraft.getMinecraft().player;
-                /*clientPlayer.sendMessage(new TextComponentString("Client received message from server"));*/
+
+                //clientPlayer.sendMessage(new TextComponentString("Client received message from server"));
+                System.out.println("Client received OpusUpdatePacket from server");
+
                 if (clientPlayer == null) {
                     System.out.println("Client player was NULL");
+                    return null;
                 }
+
+                //clientPlayer.sendMessage(new TextComponentString("Loading Opus data"));
+                System.out.println("Loading Opus data");
+
+                IOpusCapability opusCapability = clientPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+                opusCapability.cloneFrom(message.Capability);
             }
 
             // No response packet

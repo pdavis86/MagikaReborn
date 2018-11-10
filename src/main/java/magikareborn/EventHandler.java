@@ -13,12 +13,12 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 @Mod.EventBusSubscriber
 public class EventHandler {
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
 
         player.getCapability(OpusCapabilityStorage.CAPABILITY, null).afterLogin();
-    }
+    }*/
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone evt) {

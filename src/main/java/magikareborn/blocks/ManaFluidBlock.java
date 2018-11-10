@@ -2,24 +2,16 @@ package magikareborn.blocks;
 
 import magikareborn.ModRoot;
 import magikareborn.helpers.ResourceHelper;
-import magikareborn.init.ModBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -38,7 +30,7 @@ public class ManaFluidBlock extends BlockFluidClassic {
         setCreativeTab(creativeTab);
     }
 
-    public Item getNewItem(){
+    public Item getNewItem() {
         return new ItemBlock(this).setRegistryName(getRegistryName());
     }
 
@@ -53,7 +45,7 @@ public class ManaFluidBlock extends BlockFluidClassic {
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         super.onEntityCollidedWithBlock(worldIn, pos, state, entityIn);
 
-        if(entityIn.world.isRemote) {
+        if (entityIn.world.isRemote) {
             return;
         }
 
@@ -72,12 +64,13 @@ public class ManaFluidBlock extends BlockFluidClassic {
             return;
         }*/
 
-        if(entityIn instanceof EntityCreeper){
+        if (entityIn instanceof EntityCreeper) {
+
             entityIn.setDead();
 
             EntityLightningBolt bolt = new EntityLightningBolt(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, true);
             bolt.setPosition(entityIn.posX, entityIn.posY, entityIn.posZ);
-            entityIn.world.spawnEntity(bolt);
+            entityIn.world.addWeatherEffect(bolt);
 
             worldIn.setBlockToAir(pos);
 
@@ -85,6 +78,7 @@ public class ManaFluidBlock extends BlockFluidClassic {
             villager.setPosition(entityIn.posX, entityIn.posY, entityIn.posZ);
 
             entityIn.world.spawnEntity(villager);
+
             //villager.attackEntityFrom(new EntityDamageSource("creeper conversion", player), 18.0f); //todo: localise
             //villager.tasks.addTask(1, new EntityAIAvoidEntity<EntityPlayer>(villager, EntityPlayer.class, 6.0f, 1.0D, 1.2D));
             //villager.tasks.addTask(0, new EntityAIPanic(villager, 6.0D));
