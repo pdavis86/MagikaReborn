@@ -1,6 +1,6 @@
 package magikareborn.Capabilities;
 
-public class ManaCapability implements  IManaCapability {
+public class ManaCapability implements IManaCapability {
 
     private float _mana = 250.0F;
 

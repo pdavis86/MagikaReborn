@@ -14,86 +14,72 @@ public class ModFluid extends Fluid {
     protected static SoundEvent fillSound = SoundEvents.ITEM_BUCKET_FILL;
     protected static Material material = Material.WATER;
 
-    public ModFluid(String fluidName, ResourceLocation still, ResourceLocation flowing)
-    {
+    public ModFluid(String fluidName, ResourceLocation still, ResourceLocation flowing) {
         super(fluidName, still, flowing);
     }
 
-    public ModFluid(String fluidName, ResourceLocation still, ResourceLocation flowing, int mapColor)
-    {
+    public ModFluid(String fluidName, ResourceLocation still, ResourceLocation flowing, int mapColor) {
         this(fluidName, still, flowing);
         setColor(mapColor);
     }
 
-    public ModFluid(String fluidName, ResourceLocation still, ResourceLocation flowing, int mapColor, float overlayAlpha)
-    {
+    public ModFluid(String fluidName, ResourceLocation still, ResourceLocation flowing, int mapColor, float overlayAlpha) {
         this(fluidName, still, flowing, mapColor);
         setAlpha(overlayAlpha);
     }
 
     @Override
-    public int getColor()
-    {
+    public int getColor() {
         return mapColor;
     }
 
-    public ModFluid setColor(int parColor)
-    {
+    public ModFluid setColor(int parColor) {
         mapColor = parColor;
         return this;
     }
 
-    public float getAlpha()
-    {
+    public float getAlpha() {
         return overlayAlpha;
     }
 
-    public ModFluid setAlpha(float parOverlayAlpha)
-    {
+    public ModFluid setAlpha(float parOverlayAlpha) {
         overlayAlpha = parOverlayAlpha;
         return this;
     }
 
     @Override
-    public ModFluid setEmptySound(SoundEvent parSound)
-    {
+    public ModFluid setEmptySound(SoundEvent parSound) {
         emptySound = parSound;
         return this;
     }
 
     @Override
-    public SoundEvent getEmptySound()
-    {
+    public SoundEvent getEmptySound() {
         return emptySound;
     }
 
     @Override
-    public ModFluid setFillSound(SoundEvent parSound)
-    {
+    public ModFluid setFillSound(SoundEvent parSound) {
         fillSound = parSound;
         return this;
     }
 
     @Override
-    public SoundEvent getFillSound()
-    {
+    public SoundEvent getFillSound() {
         return fillSound;
     }
 
-    public ModFluid setMaterial(Material parMaterial)
-    {
+    public ModFluid setMaterial(Material parMaterial) {
         material = parMaterial;
         return this;
     }
 
-    public Material getMaterial()
-    {
+    public Material getMaterial() {
         return material;
     }
 
     @Override
-    public boolean doesVaporize(FluidStack fluidStack)
-    {
+    public boolean doesVaporize(FluidStack fluidStack) {
         if (block == null)
             return false;
         return block.getDefaultState().getMaterial() == getMaterial();

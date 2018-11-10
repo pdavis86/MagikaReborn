@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 
 abstract public class BaseItem extends Item {
 
-    public BaseItem(String name, CreativeTabs creativeTab){
+    public BaseItem(String name, CreativeTabs creativeTab) {
         setRegistryName(name.toLowerCase());
         setUnlocalizedName(ModRoot.MODID + "." + name.toLowerCase());
         setCreativeTab(creativeTab);

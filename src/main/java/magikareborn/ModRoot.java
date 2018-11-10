@@ -38,7 +38,7 @@ public class ModRoot {
         logger = event.getModLog();
         //logger.log(Level.ERROR, "Test!");
 
-        System.out.println("preInit() " + event.getModMetadata().name);
+        //System.out.println("preInit() " + event.getModMetadata().name);
 
         proxy.preInit(event);
     }

@@ -17,7 +17,8 @@ public class OpusCapabilityStorage implements Capability.IStorage<IOpusCapabilit
     //Registration instance of this class
     private static final OpusCapabilityStorage _storage = new OpusCapabilityStorage();
 
-    private OpusCapabilityStorage() {}
+    private OpusCapabilityStorage() {
+    }
 
     public static void register() {
         CapabilityManager.INSTANCE.register(IOpusCapability.class, _storage, new Callable<IOpusCapability>() {

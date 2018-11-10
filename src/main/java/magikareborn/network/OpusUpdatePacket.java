@@ -6,7 +6,7 @@ import magikareborn.Capabilities.OpusCapability;
 import magikareborn.Capabilities.OpusCapabilityStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -68,26 +68,18 @@ public class OpusUpdatePacket implements IMessage {
             //only access blocks and tile entities if world.isBlockLoaded(pos) is true.
 
             if (ctx.side == Side.SERVER) {
-                //EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
-                /*serverPlayer.sendMessage(new TextComponentString("Server received message from client"));*/
-
-                //serverPlayer.getServerWorld().addScheduledTask(() -> {
-                //    do stuff
-                //});
+                EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
+                serverPlayer.getServerWorld().addScheduledTask(() -> {
+                    IOpusCapability opusCapability = serverPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+                    opusCapability.cloneFrom(message.Capability);
+                });
             } else {
-
                 EntityPlayerSP clientPlayer = Minecraft.getMinecraft().player;
 
-                //clientPlayer.sendMessage(new TextComponentString("Client received message from server"));
-                System.out.println("Client received OpusUpdatePacket from server");
-
                 if (clientPlayer == null) {
-                    System.out.println("Client player was NULL");
+                    //System.out.println("OpusUpdatePacket: Client player was NULL");
                     return null;
                 }
-
-                //clientPlayer.sendMessage(new TextComponentString("Loading Opus data"));
-                System.out.println("Loading Opus data");
 
                 IOpusCapability opusCapability = clientPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
                 opusCapability.cloneFrom(message.Capability);

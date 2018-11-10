@@ -10,21 +10,18 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber
 public class EventHandler {
 
-    /*@SubscribeEvent
+    @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
-
-        player.getCapability(OpusCapabilityStorage.CAPABILITY, null).afterLogin();
-    }*/
+        player.getCapability(OpusCapabilityStorage.CAPABILITY, null).onPlayerLoggedIn();
+    }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone evt) {
-
-        System.out.println("onPlayerClone");
-
         if (!evt.isWasDeath() || evt.isCanceled()) {
             return;
         }
@@ -34,9 +31,6 @@ public class EventHandler {
         /*if(evt.getEntityPlayer().getEntityWorld().getGameRules().getBoolean("keepInventory")) {
             return;
         }*/
-
-        //todo: test this
-        System.out.println("You died! But don't worry, you're Opus data is not lost :)");
 
         IOpusCapability oldCapability = evt.getOriginal().getCapability(OpusCapabilityStorage.CAPABILITY, null);
         IOpusCapability newCapability = evt.getEntityPlayer().getCapability(OpusCapabilityStorage.CAPABILITY, null);

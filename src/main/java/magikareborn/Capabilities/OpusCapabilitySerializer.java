@@ -10,9 +10,11 @@ import javax.annotation.Nullable;
 
 public class OpusCapabilitySerializer implements ICapabilitySerializable<NBTTagCompound> {
 
+    private static final String TAGNAME_SELECTED_TAB = "selectedtab";
+
     private final IOpusCapability _opusCapability;
 
-    public OpusCapabilitySerializer(){
+    public OpusCapabilitySerializer() {
         _opusCapability = new OpusCapability();
     }
 
@@ -33,15 +35,13 @@ public class OpusCapabilitySerializer implements ICapabilitySerializable<NBTTagC
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tagCompound = new NBTTagCompound();
-        /*NBTTagList riderList = new NBTTagList();
-        riderList.appendTag(entityTag);
-        tagCompound.setTag("riders", riderList);*/
+        tagCompound.setInteger(TAGNAME_SELECTED_TAB, _opusCapability.getSelectedTab());
         return tagCompound;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        //NBTTagList riderList = nbt.getTagList("riders", 10);
+        _opusCapability.setSelectedTab(nbt.getInteger(TAGNAME_SELECTED_TAB));
     }
 
 }

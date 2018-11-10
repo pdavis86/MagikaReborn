@@ -5,15 +5,10 @@ public class OpusCapability implements IOpusCapability {
     private int _selectedTab = -1;
 
     @Override
-    public void afterLogin() {
-
-        //todo: data appears not to be saving :'(
-
+    public void onPlayerLoggedIn() {
+        //Server has 0, client has -1. Client knows it needs to request the data.
         if (getSelectedTab() == -1) {
-            System.out.println("Setting selected tab to 0");
             setSelectedTab(0);
-        } else {
-            System.out.println("No need to change selected tab");
         }
     }
 

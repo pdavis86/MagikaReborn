@@ -6,11 +6,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
 
 abstract public class BaseBlock extends Block {
 
-    public BaseBlock(String name, Material material, CreativeTabs creativeTab){
+    public BaseBlock(String name, Material material, CreativeTabs creativeTab) {
         super(material);
         setRegistryName(name.toLowerCase());
         setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + name.toLowerCase());
@@ -21,7 +20,7 @@ abstract public class BaseBlock extends Block {
         return this.getRegistryName();
     }*/
 
-    public Item getNewItem(){
+    public Item getNewItem() {
         return new ItemBlock(this).setRegistryName(getRegistryName());
     }
 }

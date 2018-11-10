@@ -52,15 +52,15 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
 
-        System.out.println("Registering fluids");
+        //System.out.println("Registering fluids");
         FluidRegistry.addBucketForFluid(ModFluids.MANA_FLUID);
 
-        System.out.println("Registering Blocks");
+        //System.out.println("Registering Blocks");
         event.getRegistry().registerAll(
             ModBlocks.MANA_FLUID_BLOCK
         );
 
-        System.out.println("Registering Tile Entities");
+        //System.out.println("Registering Tile Entities");
         //registerTileEntity(????.class);
     }
 
@@ -72,7 +72,7 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
 
-        System.out.println("Registering Items");
+        //System.out.println("Registering Items");
 
         event.getRegistry().registerAll(
             ModItems.MAGIKA_OPUS_ITEM,

@@ -2,21 +2,7 @@ package magikareborn.init;
 
 import magikareborn.ModRoot;
 import magikareborn.base.ModFluid;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
 
 public class ModFluids {
 
@@ -31,7 +17,7 @@ public class ModFluids {
     /*@SideOnly(Side.CLIENT)
     public static void initModels() {
 
-        System.out.println("Registering fluid models");
+        //System.out.println("Registering fluid models");
         //registerFluidModels(MANA_FLUID);
     }*/
 

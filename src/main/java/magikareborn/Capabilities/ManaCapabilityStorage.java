@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class ManaCapabilityStorage implements Capability.IStorage<IManaCapability> {
 
-    public static void register(){
+    public static void register() {
         //todo: replace
         CapabilityManager.INSTANCE.register(IManaCapability.class, new ManaCapabilityStorage(), ManaCapability.class);
     }

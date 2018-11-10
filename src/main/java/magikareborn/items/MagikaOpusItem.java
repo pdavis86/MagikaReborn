@@ -1,6 +1,5 @@
 package magikareborn.items;
 
-import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.base.BaseItem;
 import magikareborn.containers.SkillTreeGui;
 import magikareborn.helpers.ResourceHelper;
@@ -26,10 +25,6 @@ public class MagikaOpusItem extends BaseItem {
 
         if (worldIn.isRemote) {
             Minecraft.getMinecraft().displayGuiScreen(new SkillTreeGui());
-        }
-        else {
-            //todo: move this
-            playerIn.getCapability(OpusCapabilityStorage.CAPABILITY, null).afterLogin();
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
