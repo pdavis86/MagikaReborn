@@ -25,6 +25,7 @@ public class SkillTreeGui extends GuiScreen {
     private static final ResourceLocation _offenseSpellsTabResourceLocation = ResourceHelper.getGuiResourceLocation("OpusTabOffensive");
     private static final ResourceLocation _defensiveSpellsTabResourceLocation = ResourceHelper.getGuiResourceLocation("OpusTabDefensive");
 
+    //todo: add close button
     private GuiButton _questsButton;
     private GuiButton _utilitySpellsButton;
     private GuiButton _offenseSpellsButton;

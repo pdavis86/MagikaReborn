@@ -28,7 +28,7 @@ public class UiOverlayGui extends Gui {
             int barTop = height - barLeft - barHeight;
             int manaWidth = (int)Math.floor((opusCapability.getMana() / opusCapability.getManaMax()) * barWidth) ;
             drawRect(barLeft, barTop, barLeft + barWidth, barTop + barHeight, 0xFF000000); //todo: remove this
-            drawRect(barLeft, barTop, manaWidth, barTop + barHeight, 0xFF50A0C8);
+            drawRect(barLeft, barTop, barLeft + manaWidth, barTop + barHeight, 0xFF50A0C8);
             //todo: draw textured rectangle over the top
 
             GL11.glPopMatrix();

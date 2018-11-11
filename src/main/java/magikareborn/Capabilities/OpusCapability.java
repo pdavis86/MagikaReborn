@@ -125,24 +125,17 @@ public class OpusCapability implements IOpusCapability {
         //todo: check for mana regen skill
 
         if (_mana == _manaMax) {
-            //System.out.println("Mana is full at " + _mana);
             return;
         } else if (_manaRegenCooldown > 0) {
             _manaRegenCooldown -= 1;
         } else {
-
             //todo: is this a good cooldown amount?
-            _manaRegenCooldown = 200;
-
-            //System.out.println("Mana was " + _mana);
-
+            _manaRegenCooldown = 40;
             //todo: is this a good amount to regen?
-            _mana += _manaMax / 10;
+            _mana += _manaMax / 20;
             if (_mana > _manaMax) {
                 _mana = _manaMax;
             }
-
-            //System.out.println("Mana is now " + _mana);
 
             sendToServer();
         }

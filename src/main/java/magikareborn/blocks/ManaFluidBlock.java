@@ -37,7 +37,7 @@ public class ManaFluidBlock extends BlockFluidClassic {
     @SideOnly(Side.CLIENT)
     public void initModel() {
         Item item = Item.getItemFromBlock(this);
-        ModelLoader.setCustomModelResourceLocation(item, 0, ResourceHelper.getItemModelResourceLocation(item));
+        ModelLoader.setCustomModelResourceLocation(item, 0, ResourceHelper.getItemInventoryModelResourceLocation(item));
         ModelLoader.registerItemVariants(item);
     }
 
@@ -76,7 +76,6 @@ public class ManaFluidBlock extends BlockFluidClassic {
 
             EntityVillager villager = new EntityVillager(entityIn.world);
             villager.setPosition(entityIn.posX, entityIn.posY, entityIn.posZ);
-
             entityIn.world.spawnEntity(villager);
 
             //villager.attackEntityFrom(new EntityDamageSource("creeper conversion", player), 18.0f); //todo: localise

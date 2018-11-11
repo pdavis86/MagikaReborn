@@ -2,9 +2,11 @@ package magikareborn.proxy;
 
 import magikareborn.ModRoot;
 import magikareborn.init.ModBlocks;
+import magikareborn.init.ModEntities;
 import magikareborn.init.ModItems;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -19,6 +21,8 @@ public class ClientProxy extends CommonProxy {
         super.preInit(e);
 
         OBJLoader.INSTANCE.addDomain(ModRoot.MODID);
+
+        ModEntities.registerEntityRenderers();
     }
 
     @Override
@@ -31,7 +35,6 @@ public class ClientProxy extends CommonProxy {
     public static void registerModels(ModelRegistryEvent event) {
         ModBlocks.initModels();
         ModItems.initModels();
-        //ModFluids.initModels();
     }
 
 }

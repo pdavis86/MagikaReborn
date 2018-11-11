@@ -32,7 +32,7 @@ public class MagikaOpusItem extends BaseItem {
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemModelResourceLocation(this));
+        ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemInventoryModelResourceLocation(this));
     }
 
 }
