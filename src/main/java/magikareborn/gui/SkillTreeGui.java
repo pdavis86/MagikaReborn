@@ -1,4 +1,4 @@
-package magikareborn.containers;
+package magikareborn.gui;
 
 import magikareborn.Capabilities.IOpusCapability;
 import magikareborn.Capabilities.OpusCapabilityStorage;
@@ -64,18 +64,10 @@ public class SkillTreeGui extends GuiScreen {
         this.buttonList.add(_offenseSpellsButton);
         this.buttonList.add(_defensiveSpellsButton);
 
-        //System.out.println("Getting player Opus capability");
         _opusCapability = Minecraft.getMinecraft().player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-        //System.out.println("SkillTree: Opus capability getSelectedTab is: " + _opusCapability.getSelectedTab());
-
-        if (_opusCapability.getSelectedTab() == -1) {
-            //System.out.println("SkillTree: Requesting Opus data");
-            PacketHandler.INSTANCE.sendToServer(new OpusRequestPacket());
-        }
-
-        //System.out.println("Getting player Mana capability");
-        //IManaCapability manaCapability = Minecraft.getMinecraft().player.getCapability(ManaCapabilitySerializer.MANA_CAP, null);
-        //System.out.println("Mana capability is null: " + (manaCapability == null));
+        /*if (!_opusCapability.isInitialised()) {
+            _opusCapability.requestFromServer();
+        }*/
     }
 
     @Override
@@ -93,6 +85,12 @@ public class SkillTreeGui extends GuiScreen {
             _opusCapability = Minecraft.getMinecraft().player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
             //todo: draw loading screen
         } else {
+            if(_opusCapability.getMagicLevel() == 0){
+                _opusCapability.setMagicLevel(1);
+                _opusCapability.sendToServer();
+                //todo: show achievement
+            }
+
             int activeButtonId = _opusCapability.getSelectedTab();
             if (activeButtonId == _questsButton.id) {
                 drawQuestScreen();
@@ -112,7 +110,7 @@ public class SkillTreeGui extends GuiScreen {
     protected void actionPerformed(GuiButton button) throws IOException {
 
         _opusCapability.setSelectedTab(button.id);
-        PacketHandler.INSTANCE.sendToServer(new OpusUpdatePacket(_opusCapability));
+        _opusCapability.sendToServer();
 
         super.actionPerformed(button);
     }

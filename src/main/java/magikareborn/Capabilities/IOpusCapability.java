@@ -12,6 +12,10 @@ public interface IOpusCapability {
 
     void cloneFrom(IOpusCapability oldCapability);
 
+    void requestFromServer();
+
+    void sendToServer();
+
 
     //Selected Tab
     int getSelectedTab();
@@ -23,6 +27,8 @@ public interface IOpusCapability {
     void setMana(float value);
 
     float getMana();
+
+    float getManaMax();
 
     void subtractMana(float cost);
 
@@ -39,6 +45,8 @@ public interface IOpusCapability {
     void setMagicXp(float xp);
 
     float getMagicXp();
+
+    float getMagicXpMax();
 
     void addMagicXp(float xp);
 

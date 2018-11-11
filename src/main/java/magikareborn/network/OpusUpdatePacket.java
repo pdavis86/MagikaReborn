@@ -14,52 +14,45 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class OpusUpdatePacket implements IMessage {
 
-    //Flags
-    public static final int FLAG_UPDATE_MANA = 0x1;
-    public static final int FLAG_UPDATE_UTILITY = 0x2;
-
-    public IOpusCapability Capability;
-
-    private int _updateFlags;
+    private IOpusCapability _capability;
 
     //Required
     public OpusUpdatePacket() {
     }
 
     public OpusUpdatePacket(IOpusCapability capability) {
-        Capability = capability;
+        _capability = capability;
     }
 
-    public int addUpdateFlag(int flag) {
-        _updateFlags = _updateFlags & flag;
-        return _updateFlags;
-    }
-
-    public int removeUpdateFlags(int flag) {
-        _updateFlags = _updateFlags ^ flag;
-        return _updateFlags;
+    public IOpusCapability getCapability() {
+        return  _capability;
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeInt(_updateFlags);
-        buf.writeInt(Capability.getSelectedTab());
+        //buf.writeInt(_updateFlags);
 
-        if ((_updateFlags & FLAG_UPDATE_MANA) == FLAG_UPDATE_MANA) {
-            //todo:
+        buf.writeInt(_capability.getSelectedTab());
+        buf.writeInt(_capability.getMagicLevel());
+        buf.writeFloat(_capability.getMagicXp());
+        buf.writeFloat(_capability.getMana());
+
+        /*if ((_updateFlags & FLAG_UPDATE_MANA) == FLAG_UPDATE_MANA) {
         }
 
         if ((_updateFlags & FLAG_UPDATE_UTILITY) == FLAG_UPDATE_UTILITY) {
-            //todo:
-        }
+        }*/
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        _updateFlags = buf.readInt();
+        //_updateFlags = buf.readInt();
 
-        Capability = new OpusCapability();
-        Capability.setSelectedTab(buf.readInt());
+        _capability = new OpusCapability();
+        _capability.setSelectedTab(buf.readInt());
+        _capability.setMagicLevel(buf.readInt());
+        _capability.setMagicXp(buf.readFloat());
+        _capability.setMana(buf.readFloat());
     }
 
     public static class OpusPacketHandler implements IMessageHandler<OpusUpdatePacket, IMessage> {
@@ -71,7 +64,7 @@ public class OpusUpdatePacket implements IMessage {
                 EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
                 serverPlayer.getServerWorld().addScheduledTask(() -> {
                     IOpusCapability opusCapability = serverPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-                    opusCapability.cloneFrom(message.Capability);
+                    opusCapability.cloneFrom(message.getCapability());
                 });
             } else {
                 EntityPlayerSP clientPlayer = Minecraft.getMinecraft().player;
@@ -82,7 +75,7 @@ public class OpusUpdatePacket implements IMessage {
                 }
 
                 IOpusCapability opusCapability = clientPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-                opusCapability.cloneFrom(message.Capability);
+                opusCapability.cloneFrom(message.getCapability());
             }
 
             // No response packet

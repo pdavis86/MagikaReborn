@@ -2,7 +2,13 @@ package magikareborn;
 
 import magikareborn.Capabilities.IOpusCapability;
 import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.gui.UiOverlayGui;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -16,6 +22,11 @@ public class EventHandler {
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
         player.getCapability(OpusCapabilityStorage.CAPABILITY, null).init(player);
+    }
+
+    @SubscribeEvent
+    public static void onRenderGui(RenderGameOverlayEvent.Post event) {
+        new UiOverlayGui(Minecraft.getMinecraft());
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -33,6 +44,21 @@ public class EventHandler {
         IOpusCapability oldCapability = evt.getOriginal().getCapability(OpusCapabilityStorage.CAPABILITY, null);
         IOpusCapability newCapability = evt.getEntityPlayer().getCapability(OpusCapabilityStorage.CAPABILITY, null);
         newCapability.cloneFrom(oldCapability);
+    }
+
+    @SubscribeEvent
+    public static void onEntityLiving(LivingEvent.LivingUpdateEvent event) {
+        Entity entity = event.getEntity();
+        World world = entity.getEntityWorld();
+
+        if (world.isRemote && entity instanceof EntityPlayer) {
+            IOpusCapability capability = entity.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+            if (!capability.isInitialised()) {
+                capability.requestFromServer();
+            } else {
+                capability.regenMana();
+            }
+        }
     }
 
     /*@SubscribeEvent

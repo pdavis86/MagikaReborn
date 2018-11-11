@@ -1,7 +1,7 @@
 package magikareborn.items;
 
 import magikareborn.base.BaseItem;
-import magikareborn.containers.SkillTreeGui;
+import magikareborn.gui.SkillTreeGui;
 import magikareborn.helpers.ResourceHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
