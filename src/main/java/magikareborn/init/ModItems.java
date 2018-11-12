@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModItems {
 
 	//todo: why is this not working?
-    public static final CreativeTabs MAGIKA_REBORN_TAB = (new CreativeTabs("tabMagicaReborn") {
+    public static final CreativeTabs MAGIKA_REBORN_CREATIVE_TAB = (new CreativeTabs("tabMagikaReborn") {
         @Override
         public ItemStack getTabIconItem() {
             //todo: change icon

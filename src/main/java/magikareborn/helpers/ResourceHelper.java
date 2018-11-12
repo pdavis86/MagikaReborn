@@ -3,6 +3,7 @@ package magikareborn.helpers;
 import magikareborn.ModRoot;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class ResourceHelper {
@@ -25,5 +26,10 @@ public class ResourceHelper {
     public static ResourceLocation getEntityResourceLocation(String entityClassSimpleName) {
         //System.out.println("There needs to be a texture in " + _entitiesTexturePathStem + entityClassSimpleName);
         return new ResourceLocation(_resourceDomain, _entitiesTexturePathStem + entityClassSimpleName + ".png"); //.toLowerCase()
+    }
+
+    public static ResourceLocation getTileEntityResourceLocation(Class<? extends TileEntity> classType) {
+        //return new ResourceLocation(ModRoot.MODID.toLowerCase() + ":" + classType.getSimpleName().toLowerCase());
+        return new ResourceLocation(_resourceDomain, classType.getSimpleName().toLowerCase());
     }
 }

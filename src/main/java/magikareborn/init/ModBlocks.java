@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModBlocks {
 
-    public static final ManaFluidBlock MANA_FLUID_BLOCK = new ManaFluidBlock("ManaFluidBlock", ModFluids.MANA_FLUID, new MaterialLiquid(MapColor.ICE), CreativeTabs.MISC);
+    public static final ManaFluidBlock MANA_FLUID_BLOCK = new ManaFluidBlock("ManaFluidBlock", ModFluids.MANA_FLUID, new MaterialLiquid(MapColor.ICE), ModItems.MAGIKA_REBORN_CREATIVE_TAB);
     public static  final LightSpellBlock LIGHT_SPELL_BLOCK = new LightSpellBlock();
 
     @SideOnly(Side.CLIENT)

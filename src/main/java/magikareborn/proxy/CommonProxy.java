@@ -62,13 +62,13 @@ public class CommonProxy {
         );
 
         //System.out.println("Registering Tile Entities");
-        //registerTileEntity(????.class);
+        //GameRegistry.registerTileEntity(????.class, ResourceHelper.getTileEntityResourceLocation(????.class));
     }
 
-    private static void registerTileEntity(Class<? extends TileEntity> classType) {
+    /* private static void registerTileEntity(Class<? extends TileEntity> classType) {
         //System.out.println("Registering TileEntity with name: " + classType.getSimpleName().toLowerCase());
         GameRegistry.registerTileEntity(classType, new ResourceLocation(ModRoot.MODID.toLowerCase() + ":" + classType.getSimpleName().toLowerCase()));
-    }
+    }*/
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {

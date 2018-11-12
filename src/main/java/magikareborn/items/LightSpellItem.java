@@ -3,6 +3,7 @@ package magikareborn.items;
 import magikareborn.base.BaseItem;
 import magikareborn.entities.ProjectileEntity;
 import magikareborn.helpers.ResourceHelper;
+import magikareborn.init.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -17,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class LightSpellItem extends BaseItem {
 
     public LightSpellItem() {
-        super("LightSpellItem", CreativeTabs.MISC);
+        super("LightSpellItem", ModItems.MAGIKA_REBORN_CREATIVE_TAB);
     }
 
     @Override

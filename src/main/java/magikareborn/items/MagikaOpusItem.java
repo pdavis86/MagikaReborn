@@ -3,6 +3,7 @@ package magikareborn.items;
 import magikareborn.base.BaseItem;
 import magikareborn.gui.SkillTreeGui;
 import magikareborn.helpers.ResourceHelper;
+import magikareborn.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class MagikaOpusItem extends BaseItem {
 
     public MagikaOpusItem() {
-        super("MagikaOpusItem", CreativeTabs.MISC);
+        super("MagikaOpusItem", ModItems.MAGIKA_REBORN_CREATIVE_TAB);
     }
 
     @Override

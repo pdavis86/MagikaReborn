@@ -6,17 +6,18 @@ import magikareborn.init.ModItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SuppressWarnings("deprecation")
 public class LightSpellBlock extends BaseBlock {
 
     public LightSpellBlock() {
-        super("LightSpellBlock", Material.CIRCUITS, ModItems.MAGIKA_REBORN_TAB);
+        super("LightSpellBlock", Material.CIRCUITS, ModItems.MAGIKA_REBORN_CREATIVE_TAB);
         //setTickRandomly(true);
-        setLightLevel(15f);
+        setLightLevel(1f);
+        //todo: investigate how Blocks.REDSTONE_WIRE can be small
     }
 
     @SideOnly(Side.CLIENT)
