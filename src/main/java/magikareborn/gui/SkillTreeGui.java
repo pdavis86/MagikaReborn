@@ -86,12 +86,6 @@ public class SkillTreeGui extends GuiScreen {
             _opusCapability = Minecraft.getMinecraft().player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
             //todo: draw loading screen
         } else {
-            if(_opusCapability.getMagicLevel() == 0){
-                _opusCapability.setMagicLevel(1);
-                _opusCapability.sendToServer();
-                //todo: show achievement
-            }
-
             int activeButtonId = _opusCapability.getSelectedTab();
             if (activeButtonId == _questsButton.id) {
                 drawQuestScreen();

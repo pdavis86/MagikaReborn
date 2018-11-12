@@ -1,5 +1,7 @@
 package magikareborn.entities;
 
+import magikareborn.Capabilities.IOpusCapability;
+import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.init.ModBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -12,6 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+//todo: generalise this class
 public class ProjectileEntity extends EntityThrowable {
 
     private int _maxTicksToLive;
@@ -40,62 +43,67 @@ public class ProjectileEntity extends EntityThrowable {
 
     @Override
     protected void onImpact(RayTraceResult result) {
-        if (!world.isRemote) {
-            this.setDead();
 
-            if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
+        if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
+            if (!world.isRemote) {
 
-                //todo: replace with light block
-                IBlockState blockState = world.getBlockState(result.getBlockPos());
-                if (blockState.isFullCube()) {
-                    //world.setBlockState(new BlockPos(this.prevPosX, this.prevPosY, this.prevPosZ), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(new BlockPos(this.prevPosX, this.prevPosY, this.prevPosZ), ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());
-                } else {
-                    world.destroyBlock(result.getBlockPos(), true);
-                    //world.setBlockState(result.getBlockPos(), Blocks.GLOWSTONE.getDefaultState());
-                    world.setBlockState(result.getBlockPos(), ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());
+                this.setDead();
+
+                IBlockState oldBlockState = world.getBlockState(result.getBlockPos());
+                if (oldBlockState.getBlock() != ModBlocks.LIGHT_SPELL_BLOCK) {
+                    IBlockState newBlockState = ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState();
+                    if (oldBlockState.isFullCube()) {
+                        world.setBlockState(new BlockPos(this.prevPosX, this.prevPosY, this.prevPosZ), newBlockState);
+                    } else {
+                        world.destroyBlock(result.getBlockPos(), true);
+                        world.setBlockState(result.getBlockPos(), newBlockState);
+                    }
+
+                    IOpusCapability opusCapability = thrower.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+                    //todo: where should this value comeFrom
+                    opusCapability.addMagicXp(0.1f);
                 }
-
-                /*IBlockState collisionBlockState = world.getBlockState(result.getBlockPos());
-                int blockX = result.getBlockPos().getX();
-                int blockY = result.getBlockPos().getY();
-                int blockZ = result.getBlockPos().getZ();
-
-                int blockFace = hmmmmmmmm;
-
-                //if (collisionBlockState.getBlock() == Blocks.AIR) blockFace = -1;
-                //if (blockFace != -1){
-                switch (blockFace) {
-                    case 0:
-                        blocky--;
-                        break;
-                    case 1:
-                        blocky++;
-                        break;
-                    case 2:
-                        blockz--;
-                        break;
-                    case 3:
-                        blockz++;
-                        break;
-                    case 4:
-                        blockx--;
-                        break;
-                    case 5:
-                        blockx++;
-                        break;
-                }
-                //}
-
-                BlockPos adjustedBlockPos = new BlockPos(blockX, blockY, blockZ);
-
-                if (world.getBlockState(adjustedBlockPos) != Blocks.AIR) {
-                    return;
-                }
-
-                world.setBlockState(adjustedBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());*/
             }
         }
+
+        /*IBlockState collisionBlockState = world.getBlockState(result.getBlockPos());
+        int blockX = result.getBlockPos().getX();
+        int blockY = result.getBlockPos().getY();
+        int blockZ = result.getBlockPos().getZ();
+
+        int blockFace = hmmmmmmmm;
+
+        //if (collisionBlockState.getBlock() == Blocks.AIR) blockFace = -1;
+        //if (blockFace != -1){
+        switch (blockFace) {
+            case 0:
+                blocky--;
+                break;
+            case 1:
+                blocky++;
+                break;
+            case 2:
+                blockz--;
+                break;
+            case 3:
+                blockz++;
+                break;
+            case 4:
+                blockx--;
+                break;
+            case 5:
+                blockx++;
+                break;
+        }
+        //}
+
+        BlockPos adjustedBlockPos = new BlockPos(blockX, blockY, blockZ);
+
+        if (world.getBlockState(adjustedBlockPos) != Blocks.AIR) {
+            return;
+        }
+
+        world.setBlockState(adjustedBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());*/
     }
 
     @Override

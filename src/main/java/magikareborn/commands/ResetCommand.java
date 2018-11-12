@@ -32,7 +32,7 @@ public class ResetCommand extends CommandBase {
         if (args.length == 1 && args[0] == "reset") {
             IOpusCapability newOpusCapability = new OpusCapability();
             for (EntityPlayerMP player : server.getPlayerList().getPlayers()) {
-                player.getCapability(OpusCapabilityStorage.CAPABILITY, null).cloneFrom(newOpusCapability);
+                player.getCapability(OpusCapabilityStorage.CAPABILITY, null).cloneFrom(newOpusCapability, true);
                 PacketHandler.INSTANCE.sendTo(new OpusUpdatePacket(newOpusCapability), player);
             }
         }

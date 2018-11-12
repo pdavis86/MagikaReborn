@@ -1,10 +1,10 @@
 package magikareborn.items;
 
-import magikareborn.base.BaseItem;
+import magikareborn.base.BaseSpell;
 import magikareborn.entities.ProjectileEntity;
 import magikareborn.helpers.ResourceHelper;
+import magikareborn.helpers.SoundHelper;
 import magikareborn.init.ModItems;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -15,42 +15,51 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class LightSpellItem extends BaseItem {
+public class LightSpellItem extends BaseSpell {
 
     public LightSpellItem() {
         super("LightSpellItem", ModItems.MAGIKA_REBORN_CREATIVE_TAB);
     }
 
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-
-        //todo: what is a good cooldown time? Should it come from the spell?
-        playerIn.getCooldownTracker().setCooldown(this, 10);
-
-        if (worldIn.isRemote) {
-            //todo: change sound
-            worldIn.playSound(playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_ENDERPEARL_THROW, null, 1, 1, false);
-        }
-        else {
-            //todo: check mana
-            //todo: take mana
-            worldIn.spawnEntity(new ProjectileEntity(worldIn, playerIn));
-
-            //todo: remove
-            /*EntityEnderPearl pearl = new EntityEnderPearl(worldIn, playerIn);
-            //pearl.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
-            pearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            worldIn.spawnEntity(pearl);*/
-        }
-
-        //Entity example = new EntityThrowable(worldIn);
-
-        return super.onItemRightClick(worldIn, playerIn, handIn);
-    }
-
     @SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemInventoryModelResourceLocation(this));
+    }
+
+    @Override
+    public int getMinMagicLevel() {
+        return 1;
+    }
+
+    @Override
+    public float getManaCost() {
+        return 0.2f;
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+
+        if (!worldIn.isRemote) {
+            if (canCast(playerIn)) {
+                //todo: what is a good cooldown time? Should it come from the spell?
+                playerIn.getCooldownTracker().setCooldown(this, 1);
+
+            //todo: change sound
+            /*if (worldIn.isRemote) {
+                worldIn.playSound(playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_ENDERPEARL_THROW, null, 1, 1, false);
+            } else {*/
+            SoundHelper.playSoundForPlayer(playerIn, SoundEvents.ENTITY_ENDERPEARL_THROW, 1, 1);
+            worldIn.spawnEntity(new ProjectileEntity(worldIn, playerIn));
+            //}
+            }
+        }
+        //todo: move to teleport spell
+        /*EntityEnderPearl pearl = new EntityEnderPearl(worldIn, playerIn);
+        //pearl.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
+        pearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+        worldIn.spawnEntity(pearl);*/
+
+        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
 }

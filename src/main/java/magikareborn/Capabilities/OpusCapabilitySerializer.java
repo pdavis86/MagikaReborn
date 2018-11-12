@@ -49,8 +49,8 @@ public class OpusCapabilitySerializer implements ICapabilitySerializable<NBTTagC
     public void deserializeNBT(NBTTagCompound nbt) {
         _opusCapability.setSelectedTab(nbt.getInteger(TAGNAME_SELECTED_TAB));
         _opusCapability.setMagicLevel(nbt.getInteger(TAGNAME_MAGIC_LEVEL));
-        _opusCapability.setMagicXp(nbt.getInteger(TAGNAME_MAGIC_XP));
-        _opusCapability.setMana(nbt.getInteger(TAGNAME_MANA));
+        _opusCapability.setMagicXp(nbt.getFloat(TAGNAME_MAGIC_XP));
+        _opusCapability.setMana(nbt.getFloat(TAGNAME_MANA));
         //Don't call init(). That's done on the login event.
     }
 

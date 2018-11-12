@@ -64,7 +64,7 @@ public class OpusUpdatePacket implements IMessage {
                 EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
                 serverPlayer.getServerWorld().addScheduledTask(() -> {
                     IOpusCapability opusCapability = serverPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-                    opusCapability.cloneFrom(message.getCapability());
+                    opusCapability.cloneFrom(message.getCapability(), false);
                 });
             } else {
                 EntityPlayerSP clientPlayer = Minecraft.getMinecraft().player;
@@ -75,7 +75,7 @@ public class OpusUpdatePacket implements IMessage {
                 }
 
                 IOpusCapability opusCapability = clientPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-                opusCapability.cloneFrom(message.getCapability());
+                opusCapability.cloneFrom(message.getCapability(), true);
             }
 
             // No response packet

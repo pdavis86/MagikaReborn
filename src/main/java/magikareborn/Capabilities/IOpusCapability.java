@@ -1,6 +1,7 @@
 package magikareborn.Capabilities;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 public interface IOpusCapability {
 
@@ -10,11 +11,13 @@ public interface IOpusCapability {
 
     boolean isInitialised();
 
-    void cloneFrom(IOpusCapability oldCapability);
+    void cloneFrom(IOpusCapability oldCapability, boolean updateSecureProps);
 
     void requestFromServer();
 
     void sendToServer();
+
+    void sendToPlayer();
 
 
     //Selected Tab
@@ -49,5 +52,8 @@ public interface IOpusCapability {
     float getMagicXpMax();
 
     void addMagicXp(float xp);
+
+
+    boolean isSpellUnlocked();
 
 }

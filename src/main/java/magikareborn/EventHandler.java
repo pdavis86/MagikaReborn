@@ -43,7 +43,7 @@ public class EventHandler {
 
         IOpusCapability oldCapability = evt.getOriginal().getCapability(OpusCapabilityStorage.CAPABILITY, null);
         IOpusCapability newCapability = evt.getEntityPlayer().getCapability(OpusCapabilityStorage.CAPABILITY, null);
-        newCapability.cloneFrom(oldCapability);
+        newCapability.cloneFrom(oldCapability, true);
     }
 
     @SubscribeEvent
@@ -51,10 +51,12 @@ public class EventHandler {
         Entity entity = event.getEntity();
         World world = entity.getEntityWorld();
 
-        if (world.isRemote && entity instanceof EntityPlayer) {
+        if (entity instanceof EntityPlayer) {
             IOpusCapability capability = entity.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-            if (!capability.isInitialised()) {
-                capability.requestFromServer();
+            if (world.isRemote) {
+                if (!capability.isInitialised()) {
+                    capability.requestFromServer();
+                }
             } else {
                 capability.regenMana();
             }

@@ -1,11 +1,13 @@
 package magikareborn.Capabilities;
 
 import magikareborn.ModRoot;
+import magikareborn.helpers.SoundHelper;
 import magikareborn.network.OpusRequestPacket;
 import magikareborn.network.OpusUpdatePacket;
 import magikareborn.network.PacketHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import org.apache.logging.log4j.Level;
 
@@ -38,28 +40,35 @@ public class OpusCapability implements IOpusCapability {
     private float _magicXp;
     private float _mana;
 
-    @Override
     public void init(Entity entity) {
         _entity = entity;
+
+        //todo: set magic level to 1 at some event and show achievement
+        if (getMagicLevel() == 0)
+            setMagicLevel(1);
+
         _isInitialised = true;
     }
 
-    @Override
     public Entity getEntity() {
         return _entity;
     }
 
-    @Override
     public boolean isInitialised() {
         return _isInitialised;
     }
 
-    @Override
-    public void cloneFrom(IOpusCapability oldCapability) {
+    public void cloneFrom(IOpusCapability oldCapability, boolean updateSecureProps) {
+
         setSelectedTab(oldCapability.getSelectedTab());
-        setMana(oldCapability.getMana());
-        setMagicLevel(oldCapability.getMagicLevel());
-        setMagicXp(oldCapability.getMagicXp());
+
+        //Prevent cheating
+        if (updateSecureProps) {
+            setMana(oldCapability.getMana());
+            setMagicLevel(oldCapability.getMagicLevel());
+            setMagicXp(oldCapability.getMagicXp());
+        }
+
         init(oldCapability.getEntity());
     }
 
@@ -77,36 +86,44 @@ public class OpusCapability implements IOpusCapability {
         //}
     }
 
+    public void sendToPlayer() {
+        //Note: do not call on any getter or setter as they are used on both sides
+
+        if (!(_entity instanceof EntityPlayerMP)) {
+            return;
+        }
+
+        //if (!_entity.getEntityWorld().isRemote) {
+        //System.out.println("Sending Opus data to player");
+        PacketHandler.INSTANCE.sendTo(new OpusUpdatePacket(this), (EntityPlayerMP) _entity);
+        //}
+    }
+
 
     //Selected Tab
-    @Override
     public int getSelectedTab() {
         return _selectedTab;
     }
 
-    @Override
     public void setSelectedTab(int tabIndex) {
         _selectedTab = tabIndex;
     }
 
 
     //Mana
-    @Override
     public void setMana(float value) {
         _mana = value;
     }
 
-    @Override
     public float getMana() {
+        //System.out.println("getMana: " + _mana);
         return _mana;
     }
 
-    @Override
     public float getManaMax() {
         return _manaMax;
     }
 
-    @Override
     public void subtractMana(float cost) {
         if (_entity instanceof EntityPlayer && ((EntityPlayer) _entity).capabilities.isCreativeMode) {
             return;
@@ -116,10 +133,9 @@ public class OpusCapability implements IOpusCapability {
             ModRoot.logger.log(Level.WARN, "Entity " + _entity.getName() + " managed to spend more mana than they had!!!");
             _mana = 0;
         }
-        sendToServer();
+        sendToPlayer();
     }
 
-    @Override
     public void regenMana() {
 
         //todo: check for mana regen skill
@@ -129,7 +145,8 @@ public class OpusCapability implements IOpusCapability {
         } else if (_manaRegenCooldown > 0) {
             _manaRegenCooldown -= 1;
         } else {
-            //todo: is this a good cooldown amount?
+            //todo: is this a good default cooldown amount?
+            //todo: allow things to increase this speed temporarily
             _manaRegenCooldown = 40;
             //todo: is this a good amount to regen?
             _mana += _manaMax / 20;
@@ -137,13 +154,12 @@ public class OpusCapability implements IOpusCapability {
                 _mana = _manaMax;
             }
 
-            sendToServer();
+            sendToPlayer();
         }
     }
 
 
     //Magic level
-    @Override
     public void setMagicLevel(int level) {
 
         //System.out.println("Setting magic level to " + level);
@@ -155,29 +171,24 @@ public class OpusCapability implements IOpusCapability {
         _magicXpMax = (float) Math.pow(_magicLevel, 1.2f);
     }
 
-    @Override
     public int getMagicLevel() {
         return _magicLevel;
     }
 
 
     //Magic XP
-    @Override
     public void setMagicXp(float xp) {
         _magicXp = xp;
     }
 
-    @Override
     public float getMagicXp() {
         return _magicXp;
     }
 
-    @Override
     public float getMagicXpMax() {
         return _magicXpMax;
     }
 
-    @Override
     public void addMagicXp(float xp) {
         _magicXp += xp;
         if (_magicXp > _magicXpMax) {
@@ -185,11 +196,20 @@ public class OpusCapability implements IOpusCapability {
             setMagicLevel(_magicLevel + 1);
             setMana(_manaMax);
 
-            //todo: check this works
             //todo: replace sound event
-            _entity.getEntityWorld().playSound(_entity.posX, _entity.posY, _entity.posZ, SoundEvents.ENTITY_PLAYER_LEVELUP, null, 1, 1, false);
+            SoundHelper.playSoundForPlayer(_entity, SoundEvents.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+
+        } else {
+            //todo: replace sound event
+            SoundHelper.playSoundForPlayer(_entity, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
         }
-        sendToServer();
+
+        sendToPlayer();
+    }
+
+    public boolean isSpellUnlocked() {
+        //todo implement skill tree unlocking
+        return true;
     }
 
 
