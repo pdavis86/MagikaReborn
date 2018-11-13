@@ -149,7 +149,7 @@ public class OpusCapability implements IOpusCapability {
             //todo: allow things to increase this speed temporarily
             _manaRegenCooldown = 40;
             //todo: is this a good amount to regen?
-            _mana += _manaMax / 20;
+            _mana += _manaMax / 22;
             if (_mana > _manaMax) {
                 _mana = _manaMax;
             }

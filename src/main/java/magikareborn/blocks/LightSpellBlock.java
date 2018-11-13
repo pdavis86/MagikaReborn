@@ -16,7 +16,7 @@ public class LightSpellBlock extends BaseBlock {
     public LightSpellBlock() {
         super("LightSpellBlock", Material.CIRCUITS, ModItems.MAGIKA_REBORN_CREATIVE_TAB);
         //setTickRandomly(true);
-        setLightLevel(1f);
+        setLightLevel(16 / 16f);
         //todo: investigate how Blocks.REDSTONE_WIRE can be small
     }
 

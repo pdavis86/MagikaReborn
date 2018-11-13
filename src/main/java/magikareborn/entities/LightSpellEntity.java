@@ -1,0 +1,117 @@
+package magikareborn.entities;
+
+import magikareborn.Capabilities.IOpusCapability;
+import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.helpers.SoundHelper;
+import magikareborn.init.ModBlocks;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.World;
+
+public class LightSpellEntity extends ProjectileSpellEntity {
+
+    //Needed for registration
+    public LightSpellEntity(World worldIn) {
+        super(worldIn);
+    }
+
+    public LightSpellEntity(World worldIn, EntityLivingBase throwerIn) {
+        super(worldIn, throwerIn);
+
+        this.setNoGravity(true);
+        this.shoot(throwerIn, throwerIn.rotationPitch, throwerIn.rotationYaw, throwerIn.getEyeHeight(), 0.5f, 1f);
+    }
+
+    @Override
+    protected void onImpact(RayTraceResult result) {
+        if (!world.isRemote) {
+
+            this.setDead();
+
+            //System.out.println("result.typeOfHit: " + result.typeOfHit);
+
+            if (result.typeOfHit == RayTraceResult.Type.BLOCK && world.getBlockState(result.getBlockPos()).getBlock() != ModBlocks.LIGHT_SPELL_BLOCK) {
+
+                IBlockState oldBlockState = world.getBlockState(result.getBlockPos());
+
+                BlockPos newBlockPos;
+                if (oldBlockState.isFullCube()) {
+                    newBlockPos = new BlockPos(this.prevPosX, this.prevPosY, this.prevPosZ);
+                } else {
+                    world.destroyBlock(result.getBlockPos(), true);
+                    newBlockPos = result.getBlockPos();
+                }
+
+                /*
+                System.out.println("world.getLight old: " + world.getLight(result.getBlockPos()));
+                System.out.println("world.getLight new: " + world.getLight(newBlockPos));
+                System.out.println("world.getLightFor old: " + world.getLightFor(EnumSkyBlock.BLOCK, result.getBlockPos()));
+                System.out.println("world.getLightFor new: " + world.getLightFor(EnumSkyBlock.BLOCK, newBlockPos));
+                //System.out.println("getLightValue old: " + oldBlockState.getBlock().getLightValue(oldBlockState, world, newBlockPos));
+                System.out.println("getLightFromNeighbors old: " + world.getLightFromNeighbors(result.getBlockPos()));
+                System.out.println("getLightFromNeighbors new: " + world.getLightFromNeighbors(newBlockPos));
+                System.out.println("getLightBrightness old: " + world.getLightBrightness(result.getBlockPos()));
+                System.out.println("getLightBrightness new: " + world.getLightBrightness(newBlockPos));
+                //System.out.println("getCombinedLight old: " + world.getCombinedLight(result.getBlockPos(), 7));
+                //System.out.println("getCombinedLight new: " + world.getCombinedLight(newBlockPos, 7));
+                */
+
+                int oldLightValue = world.getLightFor(EnumSkyBlock.BLOCK, newBlockPos);
+                float xp = (float) Math.abs(oldLightValue - 16) / 100;
+                //System.out.println("XP is: " + xp);
+
+                world.setBlockState(newBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());
+
+                IOpusCapability opusCapability = thrower.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+                opusCapability.addMagicXp(xp);
+
+            } else {
+                //todo: replace sound
+                SoundHelper.playSoundForPlayer(thrower, SoundEvents.BLOCK_GLASS_BREAK, 1, 1);
+            }
+        }
+
+        /*IBlockState collisionBlockState = world.getBlockState(result.getBlockPos());
+        int blockX = result.getBlockPos().getX();
+        int blockY = result.getBlockPos().getY();
+        int blockZ = result.getBlockPos().getZ();
+
+        int blockFace = hmmmmmmmm;
+
+        //if (collisionBlockState.getBlock() == Blocks.AIR) blockFace = -1;
+        //if (blockFace != -1){
+        switch (blockFace) {
+            case 0:
+                blocky--;
+                break;
+            case 1:
+                blocky++;
+                break;
+            case 2:
+                blockz--;
+                break;
+            case 3:
+                blockz++;
+                break;
+            case 4:
+                blockx--;
+                break;
+            case 5:
+                blockx++;
+                break;
+        }
+        //}
+
+        BlockPos adjustedBlockPos = new BlockPos(blockX, blockY, blockZ);
+
+        if (world.getBlockState(adjustedBlockPos) != Blocks.AIR) {
+            return;
+        }
+
+        world.setBlockState(adjustedBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());*/
+    }
+}

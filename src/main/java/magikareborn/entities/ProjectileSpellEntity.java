@@ -1,109 +1,38 @@
 package magikareborn.entities;
 
-import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.OpusCapabilityStorage;
-import magikareborn.init.ModBlocks;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
 
-//todo: generalise this class
-public class ProjectileEntity extends EntityThrowable {
+public abstract class ProjectileSpellEntity extends EntityThrowable {
 
     private int _maxTicksToLive;
+    private int ignoreTime;
 
     //Needed for registration
-    public ProjectileEntity(World worldIn) {
+    public ProjectileSpellEntity(World worldIn) {
         super(worldIn);
     }
 
-    public ProjectileEntity(World worldIn, EntityLivingBase throwerIn) {
+    public ProjectileSpellEntity(World worldIn, EntityLivingBase throwerIn) {
         super(worldIn, throwerIn);
 
+        //todo: ?
+        this.setSize(0.25F, 0.25F);
+
         _maxTicksToLive = 20 * 30;
-        this.setNoGravity(true);
 
         //Don't collide with the caster!
         this.ignoreEntity = throwerIn;
-
-        this.shoot(throwerIn, throwerIn.rotationPitch, throwerIn.rotationYaw, throwerIn.getEyeHeight(), 0.5f, 1f);
-    }
-
-    /*@Override
-    public void setVelocity(double x, double y, double z) {
-        //super.setVelocity(x, y, z);
-    }*/
-
-    @Override
-    protected void onImpact(RayTraceResult result) {
-
-        if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
-            if (!world.isRemote) {
-
-                this.setDead();
-
-                IBlockState oldBlockState = world.getBlockState(result.getBlockPos());
-                if (oldBlockState.getBlock() != ModBlocks.LIGHT_SPELL_BLOCK) {
-                    IBlockState newBlockState = ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState();
-                    if (oldBlockState.isFullCube()) {
-                        world.setBlockState(new BlockPos(this.prevPosX, this.prevPosY, this.prevPosZ), newBlockState);
-                    } else {
-                        world.destroyBlock(result.getBlockPos(), true);
-                        world.setBlockState(result.getBlockPos(), newBlockState);
-                    }
-
-                    IOpusCapability opusCapability = thrower.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-                    //todo: where should this value comeFrom
-                    opusCapability.addMagicXp(0.1f);
-                }
-            }
-        }
-
-        /*IBlockState collisionBlockState = world.getBlockState(result.getBlockPos());
-        int blockX = result.getBlockPos().getX();
-        int blockY = result.getBlockPos().getY();
-        int blockZ = result.getBlockPos().getZ();
-
-        int blockFace = hmmmmmmmm;
-
-        //if (collisionBlockState.getBlock() == Blocks.AIR) blockFace = -1;
-        //if (blockFace != -1){
-        switch (blockFace) {
-            case 0:
-                blocky--;
-                break;
-            case 1:
-                blocky++;
-                break;
-            case 2:
-                blockz--;
-                break;
-            case 3:
-                blockz++;
-                break;
-            case 4:
-                blockx--;
-                break;
-            case 5:
-                blockx++;
-                break;
-        }
-        //}
-
-        BlockPos adjustedBlockPos = new BlockPos(blockX, blockY, blockZ);
-
-        if (world.getBlockState(adjustedBlockPos) != Blocks.AIR) {
-            return;
-        }
-
-        world.setBlockState(adjustedBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());*/
     }
 
     @Override
@@ -120,11 +49,19 @@ public class ProjectileEntity extends EntityThrowable {
         this.lastTickPosX = this.posX;
         this.lastTickPosY = this.posY;
         this.lastTickPosZ = this.posZ;
-        super.onUpdate();
+
+        //super.onUpdate();
+        //############################################
+        if (!this.world.isRemote)
+        {
+            this.setFlag(6, this.isGlowing());
+        }
+        this.onEntityUpdate();
 
         if (this.throwableShake > 0) {
             --this.throwableShake;
         }
+        //############################################
 
         /*if (this.inGround)
         {
@@ -193,7 +130,7 @@ public class ProjectileEntity extends EntityThrowable {
             }
         }
 
-        /*if (this.ignoreEntity != null)
+        if (this.ignoreEntity != null)
         {
             if (flag)
             {
@@ -203,7 +140,7 @@ public class ProjectileEntity extends EntityThrowable {
             {
                 this.ignoreEntity = null;
             }
-        }*/
+        }
 
         if (entity != null) {
             raytraceresult = new RayTraceResult(entity);

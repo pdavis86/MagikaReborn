@@ -28,6 +28,7 @@ public class OpusCapabilitySerializer implements ICapabilitySerializable<NBTTagC
 
     @Nullable
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == OpusCapabilityStorage.CAPABILITY) {
             return (T) _opusCapability;

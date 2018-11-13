@@ -1,7 +1,7 @@
 package magikareborn.items;
 
 import magikareborn.base.BaseSpell;
-import magikareborn.entities.ProjectileEntity;
+import magikareborn.entities.LightSpellEntity;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.helpers.SoundHelper;
 import magikareborn.init.ModItems;
@@ -42,15 +42,11 @@ public class LightSpellItem extends BaseSpell {
         if (!worldIn.isRemote) {
             if (canCast(playerIn)) {
                 //todo: what is a good cooldown time? Should it come from the spell?
-                playerIn.getCooldownTracker().setCooldown(this, 1);
+                playerIn.getCooldownTracker().setCooldown(this, 10);
 
-            //todo: change sound
-            /*if (worldIn.isRemote) {
-                worldIn.playSound(playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_ENDERPEARL_THROW, null, 1, 1, false);
-            } else {*/
-            SoundHelper.playSoundForPlayer(playerIn, SoundEvents.ENTITY_ENDERPEARL_THROW, 1, 1);
-            worldIn.spawnEntity(new ProjectileEntity(worldIn, playerIn));
-            //}
+                //todo: change sound
+                SoundHelper.playSoundForPlayer(playerIn, SoundEvents.ENTITY_ENDERPEARL_THROW, 1, 1);
+                worldIn.spawnEntity(new LightSpellEntity(worldIn, playerIn));
             }
         }
         //todo: move to teleport spell
