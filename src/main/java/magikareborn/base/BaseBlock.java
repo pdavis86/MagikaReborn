@@ -16,10 +16,6 @@ abstract public class BaseBlock extends Block {
         setCreativeTab(creativeTab);
     }
 
-    /*public ResourceLocation getResourceLocation(){
-        return this.getRegistryName();
-    }*/
-
     public Item getNewItem() {
         return new ItemBlock(this).setRegistryName(getRegistryName());
     }

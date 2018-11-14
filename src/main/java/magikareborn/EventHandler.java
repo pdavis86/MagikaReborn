@@ -25,7 +25,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public static void onRenderGui(RenderGameOverlayEvent.Post event) {
+    public static void onRenderGui(RenderGameOverlayEvent.Text event) {
         new UiOverlayGui(Minecraft.getMinecraft());
     }
 

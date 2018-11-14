@@ -58,7 +58,8 @@ public class CommonProxy {
         //System.out.println("Registering Blocks");
         event.getRegistry().registerAll(
                 ModBlocks.MANA_FLUID_BLOCK,
-                ModBlocks.LIGHT_SPELL_BLOCK
+                ModBlocks.LIGHT_SPELL_BLOCK,
+                ModBlocks.SPELL_ALTAR_BLOCK
         );
 
         //System.out.println("Registering Tile Entities");
@@ -78,6 +79,7 @@ public class CommonProxy {
         event.getRegistry().registerAll(
                 ModBlocks.MANA_FLUID_BLOCK.getNewItem(),
                 ModBlocks.LIGHT_SPELL_BLOCK.getNewItem(),
+                ModBlocks.SPELL_ALTAR_BLOCK.getNewItem(),
                 ModItems.MAGIKA_OPUS_ITEM,
                 ModItems.LIGHT_SPELL_ITEM
         );

@@ -2,6 +2,7 @@ package magikareborn.entities;
 
 import magikareborn.Capabilities.IOpusCapability;
 import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.helpers.LightHelper;
 import magikareborn.helpers.SoundHelper;
 import magikareborn.init.ModBlocks;
 import net.minecraft.block.state.IBlockState;
@@ -9,7 +10,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
 public class LightSpellEntity extends ProjectileSpellEntity {
@@ -46,23 +46,32 @@ public class LightSpellEntity extends ProjectileSpellEntity {
                     newBlockPos = result.getBlockPos();
                 }
 
-                /*
+                /*Chunk chunk = world.getChunkFromBlockCoords(newBlockPos);
+
+                System.out.println("sky: " + chunk.getLightFor(EnumSkyBlock.SKY, newBlockPos));
+                System.out.println("block: " + chunk.getLightFor(EnumSkyBlock.BLOCK, newBlockPos));
+                System.out.println("Light: " + chunk.getLightSubtracted(newBlockPos, 0) + " (" + chunk.getLightFor(EnumSkyBlock.SKY, newBlockPos) + " sky, " + chunk.getLightFor(EnumSkyBlock.BLOCK, newBlockPos) + " block)");
+
+                System.out.println("world.getSkylightSubtracted(): " + world.getSkylightSubtracted());
                 System.out.println("world.getLight old: " + world.getLight(result.getBlockPos()));
                 System.out.println("world.getLight new: " + world.getLight(newBlockPos));
                 System.out.println("world.getLightFor old: " + world.getLightFor(EnumSkyBlock.BLOCK, result.getBlockPos()));
                 System.out.println("world.getLightFor new: " + world.getLightFor(EnumSkyBlock.BLOCK, newBlockPos));
-                //System.out.println("getLightValue old: " + oldBlockState.getBlock().getLightValue(oldBlockState, world, newBlockPos));
+                System.out.println("world.getLightFor sky old: " + world.getLightFor(EnumSkyBlock.SKY, result.getBlockPos()));
+                System.out.println("world.getLightFor sky new: " + world.getLightFor(EnumSkyBlock.SKY, newBlockPos));
+                System.out.println("getLightValue old: " + oldBlockState.getBlock().getLightValue(oldBlockState, world, newBlockPos));
                 System.out.println("getLightFromNeighbors old: " + world.getLightFromNeighbors(result.getBlockPos()));
                 System.out.println("getLightFromNeighbors new: " + world.getLightFromNeighbors(newBlockPos));
                 System.out.println("getLightBrightness old: " + world.getLightBrightness(result.getBlockPos()));
                 System.out.println("getLightBrightness new: " + world.getLightBrightness(newBlockPos));
-                //System.out.println("getCombinedLight old: " + world.getCombinedLight(result.getBlockPos(), 7));
-                //System.out.println("getCombinedLight new: " + world.getCombinedLight(newBlockPos, 7));
+                System.out.println("getCombinedLight old: " + world.getCombinedLight(result.getBlockPos(), 0));
+                System.out.println("getCombinedLight new: " + world.getCombinedLight(newBlockPos, 0));
                 */
 
-                int oldLightValue = world.getLightFor(EnumSkyBlock.BLOCK, newBlockPos);
+                int oldLightValue = LightHelper.getLightLevelAtPos(world, newBlockPos);
                 float xp = (float) Math.abs(oldLightValue - 16) / 100;
-                //System.out.println("XP is: " + xp);
+
+                System.out.println("oldLightValue is: " + oldLightValue + ", XP is: " + xp);
 
                 world.setBlockState(newBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());
 
@@ -71,7 +80,7 @@ public class LightSpellEntity extends ProjectileSpellEntity {
 
             } else {
                 //todo: replace sound
-                SoundHelper.playSoundForPlayer(thrower, SoundEvents.BLOCK_GLASS_BREAK, 1, 1);
+                SoundHelper.playSoundForAll(thrower, SoundEvents.BLOCK_GLASS_BREAK, 1, 1);
             }
         }
 

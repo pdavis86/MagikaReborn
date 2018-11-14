@@ -40,9 +40,13 @@ public class SkillTreeGui extends GuiScreen {
         return (width - _xSize) / 2;
     }
 
+    //private int getUiRight() { return getUiLeft() + _xSize; }
+
     private int getUiTop() {
         return (height - _ySize - _buttonSize) / 2;
     }
+
+    //private int getUiBottom() { return getUiTop() + _ySize; }
 
     @Override
     public void initGui() {

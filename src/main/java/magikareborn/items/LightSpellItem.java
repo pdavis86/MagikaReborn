@@ -45,7 +45,7 @@ public class LightSpellItem extends BaseSpell {
                 playerIn.getCooldownTracker().setCooldown(this, 10);
 
                 //todo: change sound
-                SoundHelper.playSoundForPlayer(playerIn, SoundEvents.ENTITY_ENDERPEARL_THROW, 1, 1);
+                SoundHelper.playSoundForAll(playerIn, SoundEvents.ENTITY_ENDERPEARL_THROW, 1, 1);
                 worldIn.spawnEntity(new LightSpellEntity(worldIn, playerIn));
             }
         }
