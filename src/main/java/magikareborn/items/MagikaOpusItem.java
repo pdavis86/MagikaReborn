@@ -19,6 +19,7 @@ public class MagikaOpusItem extends BaseItem {
 
     public MagikaOpusItem() {
         super("MagikaOpusItem", ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        //todo: add creation instructions to JEI : https://github.com/mezz/JustEnoughItems/wiki/Getting-Started
     }
 
     @Override

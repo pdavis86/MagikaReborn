@@ -4,7 +4,6 @@ import magikareborn.base.BaseSpell;
 import magikareborn.entities.LightSpellEntity;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.helpers.SoundHelper;
-import magikareborn.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -18,7 +17,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class LightSpellItem extends BaseSpell {
 
     public LightSpellItem() {
-        super("LightSpellItem", ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        super("LightSpellItem");
+        //todo: hide from JEI using IItemRegistry.addItemToBlacklist(ItemStack itemStack);
     }
 
     @SideOnly(Side.CLIENT)

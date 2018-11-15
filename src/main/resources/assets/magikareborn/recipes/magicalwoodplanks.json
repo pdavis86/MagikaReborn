@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "magikareborn:magicalwoodplanksblock",
+    "count": 4
+  },
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "magikareborn:magicalwoodlogblock"
+    }
+  ]
+}

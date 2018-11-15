@@ -9,6 +9,8 @@ abstract public class BaseItem extends Item {
     public BaseItem(String name, CreativeTabs creativeTab) {
         setRegistryName(name.toLowerCase());
         setUnlocalizedName(ModRoot.MODID + "." + name.toLowerCase());
-        setCreativeTab(creativeTab);
+        if (creativeTab != null) {
+            setCreativeTab(creativeTab);
+        }
     }
 }

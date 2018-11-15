@@ -4,11 +4,13 @@ import magikareborn.Capabilities.OpusCapabilitySerializer;
 import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.Config;
 import magikareborn.ModRoot;
+import magikareborn.helpers.ResourceHelper;
 import magikareborn.init.ModBlocks;
 import magikareborn.init.ModEntities;
 import magikareborn.init.ModFluids;
 import magikareborn.init.ModItems;
 import magikareborn.network.PacketHandler;
+import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +27,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
 
@@ -49,6 +52,11 @@ public class CommonProxy {
         Config.saveChanges();
     }
 
+    private static void registerTileEntity(Class<? extends TileEntity> classType) {
+        //System.out.println("Registering TileEntity with name: " + classType.getSimpleName().toLowerCase());
+        GameRegistry.registerTileEntity(classType, new ResourceLocation(ModRoot.MODID.toLowerCase() + ":" + classType.getSimpleName().toLowerCase()));
+    }
+
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
 
@@ -59,17 +67,18 @@ public class CommonProxy {
         event.getRegistry().registerAll(
                 ModBlocks.MANA_FLUID_BLOCK,
                 ModBlocks.LIGHT_SPELL_BLOCK,
-                ModBlocks.SPELL_ALTAR_BLOCK
+                ModBlocks.SPELL_ALTAR_BLOCK,
+                ModBlocks.MAGICAL_LOG_BLOCK,
+                ModBlocks.MAGICAL_PLANKS_BLOCK
         );
 
-        //System.out.println("Registering Tile Entities");
-        //GameRegistry.registerTileEntity(????.class, ResourceHelper.getTileEntityResourceLocation(????.class));
-    }
+        //todo: these fail with error "Invalid registration attempt for an Ore Dictionary item with name logWood has occurred"
+        //OreDictionary.registerOre("logWood", ModBlocks.MAGICAL_LOG_BLOCK);
+        //OreDictionary.registerOre("plankWood", ModBlocks.MAGICAL_PLANKS_BLOCK);
 
-    /* private static void registerTileEntity(Class<? extends TileEntity> classType) {
-        //System.out.println("Registering TileEntity with name: " + classType.getSimpleName().toLowerCase());
-        GameRegistry.registerTileEntity(classType, new ResourceLocation(ModRoot.MODID.toLowerCase() + ":" + classType.getSimpleName().toLowerCase()));
-    }*/
+        //System.out.println("Registering Tile Entities");
+        GameRegistry.registerTileEntity(SpellAltarTileEntity.class, ResourceHelper.getTileEntityResourceLocation(SpellAltarTileEntity.class));
+    }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -80,6 +89,8 @@ public class CommonProxy {
                 ModBlocks.MANA_FLUID_BLOCK.getNewItem(),
                 ModBlocks.LIGHT_SPELL_BLOCK.getNewItem(),
                 ModBlocks.SPELL_ALTAR_BLOCK.getNewItem(),
+                ModBlocks.MAGICAL_LOG_BLOCK.getNewItem(),
+                ModBlocks.MAGICAL_PLANKS_BLOCK.getNewItem(),
                 ModItems.MAGIKA_OPUS_ITEM,
                 ModItems.LIGHT_SPELL_ITEM
         );

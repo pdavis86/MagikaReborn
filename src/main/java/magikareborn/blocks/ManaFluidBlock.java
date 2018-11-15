@@ -2,22 +2,34 @@ package magikareborn.blocks;
 
 import magikareborn.ModRoot;
 import magikareborn.helpers.ResourceHelper;
+import magikareborn.helpers.SoundHelper;
+import magikareborn.init.ModBlocks;
+import magikareborn.init.ModItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.stream.IntStream;
 
 public class ManaFluidBlock extends BlockFluidClassic {
 
@@ -45,38 +57,17 @@ public class ManaFluidBlock extends BlockFluidClassic {
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         super.onEntityCollidedWithBlock(worldIn, pos, state, entityIn);
 
-        if (entityIn.world.isRemote) {
+        if (worldIn.isRemote) {
             return;
         }
 
-        //or, in Itickable, List entities = worldObj.getEntitiesWithinAABB(EntityItem.class, scanAbove);
-
-        //todo: this is crap
-        /*EntityPlayer player = worldIn.playerEntities.get(0);
-
-        if(entityIn instanceof EntityPlayer) {
-
-            //ItemStack heldItemStack = player.getHeldItem(EnumHand.MAIN_HAND);
-            //TextComponentString component = new TextComponentString("You fell in the mana holding " + (heldItemStack != null ? heldItemStack.getDisplayName() : "nothing"));
-            //component.getStyle().setColor(TextFormatting.BLUE);
-            //player.sendStatusMessage(component, false);
-
-            return;
-        }*/
-
         if (entityIn instanceof EntityCreeper) {
 
-            entityIn.setDead();
+            droppedInMana(worldIn, pos, entityIn);
 
-            EntityLightningBolt bolt = new EntityLightningBolt(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, true);
-            bolt.setPosition(entityIn.posX, entityIn.posY, entityIn.posZ);
-            entityIn.world.addWeatherEffect(bolt);
-
-            worldIn.setBlockToAir(pos);
-
-            EntityVillager villager = new EntityVillager(entityIn.world);
+            EntityVillager villager = new EntityVillager(worldIn);
             villager.setPosition(entityIn.posX, entityIn.posY, entityIn.posZ);
-            entityIn.world.spawnEntity(villager);
+            worldIn.spawnEntity(villager);
 
             //villager.attackEntityFrom(new EntityDamageSource("creeper conversion", player), 18.0f); //todo: localise
             //villager.tasks.addTask(1, new EntityAIAvoidEntity<EntityPlayer>(villager, EntityPlayer.class, 6.0f, 1.0D, 1.2D));
@@ -94,32 +85,49 @@ public class ManaFluidBlock extends BlockFluidClassic {
                 }
             }, 6.0F, 1.0D, 1.2D));*/
 
-        }
-        /*else if(entityIn instanceof EntityItem) {
+        } else if (entityIn instanceof EntityItem) {
 
             ItemStack itemStack = ((EntityItem) entityIn).getItem();
+            Item item = itemStack.getItem();
 
-            //TextComponentString msg = new TextComponentString("Item stack is: " + itemStack.getDisplayName());
-            //player.sendStatusMessage(msg, false);
+            if (item == Items.BOOK) {
 
-            if(itemStack.getItem() == Item.getItemFromBlock(Blocks.DIRT)){
+                droppedInMana(worldIn, pos, entityIn);
 
-                EntityLightningBolt bolt = new EntityLightningBolt(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, true);
-                bolt.setPosition(entityIn.posX, entityIn.posY, entityIn.posZ);
-                entityIn.world.spawnEntity(bolt);
+                EntityItem opus = new EntityItem(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, new ItemStack(ModItems.MAGIKA_OPUS_ITEM));
+                worldIn.spawnEntity(opus);
 
-                entityIn.setDead();
+                //todo: replace sound event
+                SoundHelper.playSoundForAll(worldIn, entityIn.getPosition(), SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.MASTER, 1f, 1f);
 
-                //TextComponentString component = new TextComponentString("You dropped: " + entityIn.getName());
-                //component.getStyle().setColor(TextFormatting.GREEN);
-                //player.sendStatusMessage(component, false);
+            } else if (item != Item.getItemFromBlock(ModBlocks.MAGICAL_LOG_BLOCK) && item != Item.getItemFromBlock(ModBlocks.MAGICAL_PLANKS_BLOCK)) {
+                int[] oreIds = OreDictionary.getOreIDs(itemStack);
 
+                if (IntStream.of(oreIds).anyMatch(x -> x == OreDictionary.getOreID("logWood"))) {
+                    //worldIn.getMinecraftServer().sendMessage(new TextComponentString("You tossed in a log"));
+                    droppedInMana(worldIn, pos, entityIn);
+                    EntityItem log = new EntityItem(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, new ItemStack(Item.getItemFromBlock(ModBlocks.MAGICAL_LOG_BLOCK), itemStack.getCount()));
+                    worldIn.spawnEntity(log);
 
-
-                player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.MANA_FLUID_BLOCK));
+                }
+                else if (IntStream.of(oreIds).anyMatch(x -> x == OreDictionary.getOreID("plankWood"))) {
+                    //worldIn.getMinecraftServer().sendMessage(new TextComponentString("You tossed in planks"));
+                    droppedInMana(worldIn, pos, entityIn);
+                    EntityItem planks = new EntityItem(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, new ItemStack(Item.getItemFromBlock(ModBlocks.MAGICAL_PLANKS_BLOCK), itemStack.getCount()));
+                    worldIn.spawnEntity(planks);
+                }
             }
-        }*/
-
-
+        }
     }
+
+    private void droppedInMana(World worldIn, BlockPos pos, Entity entityIn) {
+        entityIn.setDead();
+
+        EntityLightningBolt bolt = new EntityLightningBolt(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, true);
+        bolt.setPosition(entityIn.posX, entityIn.posY, entityIn.posZ);
+        worldIn.addWeatherEffect(bolt);
+
+        worldIn.setBlockToAir(pos);
+    }
+
 }

@@ -23,7 +23,7 @@ public class LightSpellEntity extends ProjectileSpellEntity {
         super(worldIn, throwerIn);
 
         this.setNoGravity(true);
-        this.shoot(throwerIn, throwerIn.rotationPitch, throwerIn.rotationYaw, throwerIn.getEyeHeight(), 0.5f, 1f);
+        this.shoot(throwerIn, throwerIn.rotationPitch, throwerIn.rotationYaw, throwerIn.getEyeHeight(), 0.8f, 1f);
     }
 
     @Override

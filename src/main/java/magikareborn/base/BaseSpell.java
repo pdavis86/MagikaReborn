@@ -2,15 +2,15 @@ package magikareborn.base;
 
 import magikareborn.Capabilities.IOpusCapability;
 import magikareborn.Capabilities.OpusCapabilityStorage;
-import net.minecraft.creativetab.CreativeTabs;
+import magikareborn.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 public abstract class BaseSpell extends BaseItem {
 
-    public BaseSpell(String name, CreativeTabs creativeTab) {
-        super(name, creativeTab);
+    public BaseSpell(String name) {
+        super(name, ModItems.MAGIKA_REBORN_CREATIVE_TAB);
     }
 
     public abstract int getMinMagicLevel();

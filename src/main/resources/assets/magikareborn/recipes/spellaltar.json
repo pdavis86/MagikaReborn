@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "magikareborn:spellaltarblock"
+  },
+  "pattern": [
+    "ppp",
+    "plp",
+    "ppp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "magikareborn:magicalwoodplanksblock"
+    },
+    "l": {
+      "item": "magikareborn:magicalwoodlogblock"
+    }
+  }
+}
