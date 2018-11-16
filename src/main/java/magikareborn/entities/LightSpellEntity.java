@@ -71,7 +71,7 @@ public class LightSpellEntity extends ProjectileSpellEntity {
                 int oldLightValue = LightHelper.getLightLevelAtPos(world, newBlockPos);
                 float xp = (float) Math.abs(oldLightValue - 16) / 100;
 
-                System.out.println("oldLightValue is: " + oldLightValue + ", XP is: " + xp);
+                //System.out.println("oldLightValue is: " + oldLightValue + ", XP is: " + xp);
 
                 world.setBlockState(newBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());
 

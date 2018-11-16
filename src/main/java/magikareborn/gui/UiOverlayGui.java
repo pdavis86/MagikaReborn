@@ -9,18 +9,14 @@ import org.lwjgl.opengl.GL11;
 
 public class UiOverlayGui extends Gui {
 
-    private static IOpusCapability _opusCapability;
-
     public UiOverlayGui(Minecraft mc) {
         ScaledResolution scaled = new ScaledResolution(mc);
         int width = scaled.getScaledWidth();
         int height = scaled.getScaledHeight();
 
-        if (_opusCapability == null) {
-            _opusCapability = mc.player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-        }
+        IOpusCapability opusCapability = mc.player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
 
-        if (_opusCapability.getMagicLevel() > 0) {
+        if (opusCapability.getMagicLevel() > 0) {
             GL11.glPushMatrix();
 
             //todo: if spell book is held - ItemStack curItem = mc.player.getHeldItem(EnumHand.MAIN_HAND);
@@ -31,7 +27,7 @@ public class UiOverlayGui extends Gui {
             int manaBarWidth = 80;
             int manaBarHeight = 8;
             int manaBarTop = height - manaBarLeft - manaBarHeight;
-            int manaWidth = (int) Math.floor((_opusCapability.getMana() / _opusCapability.getManaMax()) * manaBarWidth);
+            int manaWidth = (int) Math.floor((opusCapability.getMana() / opusCapability.getManaMax()) * manaBarWidth);
             drawRect(manaBarLeft, manaBarTop, manaBarLeft + manaBarWidth, manaBarTop + manaBarHeight, 0xFF000000); //todo: remove this
             drawRect(manaBarLeft, manaBarTop, manaBarLeft + manaWidth, manaBarTop + manaBarHeight, 0xFF50A0C8);
             //todo: draw textured rectangle over the top
@@ -41,10 +37,10 @@ public class UiOverlayGui extends Gui {
             int xpBarWidth = width - 20;
             int xpBarHeight = 2;
             int xpBarTop = 15;
-            int xpWidth = (int) Math.floor((_opusCapability.getMagicXp() / _opusCapability.getMagicXpMax()) * xpBarWidth);
+            int xpWidth = (int) Math.floor((opusCapability.getMagicXp() / opusCapability.getMagicXpMax()) * xpBarWidth);
             drawRect(xpBarLeft, xpBarTop, xpBarLeft + xpBarWidth, xpBarTop + xpBarHeight, 0xFF000000); //todo: remove this
             drawRect(xpBarLeft, xpBarTop, xpBarLeft + xpWidth, xpBarTop + xpBarHeight, 0xFF50A0C8);
-            drawCenteredString(mc.fontRenderer, Integer.toString(_opusCapability.getMagicLevel()), width / 2, 4, 0xFF50A0C8);
+            drawCenteredString(mc.fontRenderer, Integer.toString(opusCapability.getMagicLevel()), width / 2, 4, 0xFF50A0C8);
 
             GL11.glPopMatrix();
         }

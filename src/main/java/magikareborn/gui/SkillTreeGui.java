@@ -70,9 +70,6 @@ public class SkillTreeGui extends GuiScreen {
         this.buttonList.add(_defensiveSpellsButton);
 
         _opusCapability = Minecraft.getMinecraft().player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-        /*if (!_opusCapability.isInitialised()) {
-            _opusCapability.requestFromServer();
-        }*/
     }
 
     @Override

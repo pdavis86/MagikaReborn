@@ -10,13 +10,12 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModItems {
 
-	//todo: why is this not working?
+    //todo: why is this not working?
     public static final CreativeTabs MAGIKA_REBORN_CREATIVE_TAB = (new CreativeTabs("tabMagikaReborn") {
         @Override
         public ItemStack getTabIconItem() {
@@ -27,18 +26,15 @@ public class ModItems {
         @Override
         public void displayAllRelevantItems(NonNullList<ItemStack> items) {
 
-            for (Item item : Item.REGISTRY)
-            {
-                if (isInCreativeTab(item,this))
-                {
+            for (Item item : Item.REGISTRY) {
+                if (isInCreativeTab(item, this)) {
                     items.add(new ItemStack(item));
                 }
             }
             items.add(FluidUtil.getFilledBucket(new FluidStack(ModFluids.MANA_FLUID, Fluid.BUCKET_VOLUME)));
         }
 
-        private boolean isInCreativeTab(Item item, CreativeTabs targetTab)
-        {
+        private boolean isInCreativeTab(Item item, CreativeTabs targetTab) {
             for (CreativeTabs tab : item.getCreativeTabs())
                 if (tab == targetTab)
                     return true;
@@ -55,7 +51,6 @@ public class ModItems {
         MAGIKA_OPUS_ITEM.initModel();
         LIGHT_SPELL_ITEM.initModel();
     }
-
 
 
 }

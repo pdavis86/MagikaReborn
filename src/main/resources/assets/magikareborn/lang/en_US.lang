@@ -1,4 +1,27 @@
-fluid.manafluid=Mana
 tile.magikareborn.manafluidblock.name=Liquid mana
+fluid.manafluid=Mana
 
 item.magikareborn.magikaopusitem.name=Magika Opus
+jei.magika_opus=Create a Magika Opus by tossing a book into a pool of mana
+
+tile.magikareborn.magicalwoodlogblock.name=Magical Wood
+jei.magical_log_block=Toss any wooden logs into a pool of mana
+
+tile.magikareborn.magicalwoodplanksblock.name=Magical Planks
+jei.magical_planks_block=Toss any wooden planks into a pool of mana
+
+tile.magikareborn.spellaltarblock.name=Spell Altar
+
+item.magikareborn.lightspellitem.name=Light Spell
+jei.light_spell_item=Crafted in a Spell Altar, this spell allows the caster to project delicate clusters of light
+
+
+
+message.spell_not_unlocked=You do not know how to cast this spell
+message.magic_level_too_low=You lack the experience to cast this spell
+
+
+commands.magikareborn.usage=/magikareborn reset [playername] OR magikareborn resetall
+commands.magikareborn.resetingyou=Resetting you
+commands.magikareborn.resetingplayer=Resetting %s
+commands.magikareborn.resetingall=Resetting all players

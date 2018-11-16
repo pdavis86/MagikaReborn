@@ -13,6 +13,12 @@ import org.apache.logging.log4j.Level;
 
 public class OpusCapability implements IOpusCapability {
 
+    public OpusCapability() {}
+
+    public OpusCapability(Entity entity) {
+        init(entity);
+    }
+
     //Flags
     //public static final int FLAG_UPDATE_MANA = 0x1;
     //public static final int FLAG_UPDATE_UTILITY = 0x2;
@@ -42,11 +48,6 @@ public class OpusCapability implements IOpusCapability {
 
     public void init(Entity entity) {
         _entity = entity;
-
-        //todo: set magic level to 1 at some event and show achievement
-        if (getMagicLevel() == 0)
-            setMagicLevel(1);
-
         _isInitialised = true;
     }
 
@@ -208,6 +209,11 @@ public class OpusCapability implements IOpusCapability {
     }
 
     public boolean isSpellUnlocked() {
+
+        if (_entity instanceof EntityPlayer && ((EntityPlayer) _entity).capabilities.isCreativeMode) {
+            return true;
+        }
+
         //todo implement skill tree unlocking
         return true;
     }

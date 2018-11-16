@@ -18,7 +18,6 @@ public class LightSpellItem extends BaseSpell {
 
     public LightSpellItem() {
         super("LightSpellItem");
-        //todo: hide from JEI using IItemRegistry.addItemToBlacklist(ItemStack itemStack);
     }
 
     @SideOnly(Side.CLIENT)

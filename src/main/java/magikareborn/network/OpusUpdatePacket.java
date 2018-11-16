@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import magikareborn.Capabilities.IOpusCapability;
 import magikareborn.Capabilities.OpusCapability;
 import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.ModRoot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
+import org.apache.logging.log4j.Level;
 
 public class OpusUpdatePacket implements IMessage {
 
@@ -25,7 +27,7 @@ public class OpusUpdatePacket implements IMessage {
     }
 
     public IOpusCapability getCapability() {
-        return  _capability;
+        return _capability;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class OpusUpdatePacket implements IMessage {
                 EntityPlayerSP clientPlayer = Minecraft.getMinecraft().player;
 
                 if (clientPlayer == null) {
-                    //System.out.println("OpusUpdatePacket: Client player was NULL");
+                    ModRoot.logger.log(Level.WARN, "OpusUpdatePacket: Client player was NULL");
                     return null;
                 }
 

@@ -1,5 +1,7 @@
 package magikareborn.items;
 
+import magikareborn.Capabilities.IOpusCapability;
+import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.base.BaseItem;
 import magikareborn.gui.SkillTreeGui;
 import magikareborn.helpers.ResourceHelper;
@@ -25,8 +27,20 @@ public class MagikaOpusItem extends BaseItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
+        IOpusCapability opusCapability = playerIn.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+
         if (worldIn.isRemote) {
+            if (opusCapability.getMagicLevel() == 0){
+                //todo: show achievement
+            }
             Minecraft.getMinecraft().displayGuiScreen(new SkillTreeGui());
+
+        } else {
+            if (opusCapability.getMagicLevel() == 0){
+                opusCapability.setMagicLevel(1);
+                System.out.println("Magic level is now: " + opusCapability.getMagicLevel() + " and manamax is: " + opusCapability.getManaMax());
+                opusCapability.sendToPlayer();
+            }
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);

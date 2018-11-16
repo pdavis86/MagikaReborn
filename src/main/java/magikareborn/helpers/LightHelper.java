@@ -13,7 +13,7 @@ public class LightHelper {
         int lightFromBlocks = world.getLightFor(EnumSkyBlock.BLOCK, blockPos);
         int max = Math.max(lightFromSky, lightFromBlocks);
 
-        System.out.println("sky: " + lightFromSky + ", blocks: " + lightFromBlocks);
+        //System.out.println("sky: " + lightFromSky + ", blocks: " + lightFromBlocks);
 
         return max;
     }
