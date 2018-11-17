@@ -10,7 +10,7 @@ public class ResourceHelper {
 
     public static final String VARIANT_INVENTORY = "inventory";
 
-    private static final String _resourceDomain = ModRoot.MODID; //.toLowerCase()
+    private static final String _resourceDomain = ModRoot.MODID.toLowerCase();
 
     private static final String _guisTexturePathStem = "textures/guis/";
     private static final String _entitiesTexturePathStem = "textures/entities/";
@@ -24,10 +24,10 @@ public class ResourceHelper {
     }
 
     public static ResourceLocation getEntityResourceLocation(String entityClassSimpleName) {
-        return new ResourceLocation(_resourceDomain, _entitiesTexturePathStem + entityClassSimpleName + ".png"); //.toLowerCase()
+        return new ResourceLocation(_resourceDomain, _entitiesTexturePathStem + entityClassSimpleName + ".png");
     }
 
     public static ResourceLocation getTileEntityResourceLocation(Class<? extends TileEntity> classType) {
-        return new ResourceLocation(_resourceDomain, classType.getSimpleName()); //.toLowerCase()
+        return new ResourceLocation(_resourceDomain, classType.getSimpleName());
     }
 }

@@ -11,8 +11,9 @@ abstract public class BaseBlock extends Block {
 
     public BaseBlock(String name, Material material, CreativeTabs creativeTab) {
         super(material);
-        setRegistryName(name.toLowerCase());
-        setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + name.toLowerCase());
+        String nameLower = name.toLowerCase();
+        setRegistryName(nameLower);
+        setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + nameLower);
         setCreativeTab(creativeTab);
     }
 
