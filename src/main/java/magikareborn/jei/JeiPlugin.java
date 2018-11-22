@@ -1,9 +1,10 @@
 package magikareborn.jei;
 
-import magikareborn.gui.SpellAltarGui;
+import magikareborn.gui.SpellAltarGuiContainer;
 import magikareborn.init.ModBlocks;
 import magikareborn.init.ModItems;
 import magikareborn.jei.spellaltar.SpellAltarCategory;
+import magikareborn.jei.spellaltar.SpellAltarRecipeTranfer;
 import magikareborn.recipes.SpellAltarRecipe;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModPlugin;
@@ -56,9 +57,12 @@ public class JeiPlugin implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.SPELL_ALTAR_BLOCK), SpellAltarCategory.UUID);
         registry.addRecipes(new ArrayList<>(SpellAltarRecipe.recipeList), SpellAltarCategory.UUID);
 
-        // Allow jumping to 'Show Recipes'
-        Rectangle r = SpellAltarGui.RecipesArea;
-        registry.addRecipeClickArea(SpellAltarGui.class, r.x, r.y, r.width, r.height, SpellAltarCategory.UUID);
+        //Allow 'Show Recipes'
+        Rectangle r = SpellAltarGuiContainer.RecipesArea;
+        registry.addRecipeClickArea(SpellAltarGuiContainer.class, r.x, r.y, r.width, r.height, SpellAltarCategory.UUID);
+
+        //Allow recipie transfer
+        registry.getRecipeTransferRegistry().addRecipeTransferHandler(new SpellAltarRecipeTranfer());
     }
 
 }

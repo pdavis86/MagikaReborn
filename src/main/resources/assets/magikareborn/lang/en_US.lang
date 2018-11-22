@@ -12,7 +12,7 @@ jei.magical_planks_block=Toss any wooden planks into a pool of mana
 
 tile.magikareborn.spellaltarblock.name=Spell Altar
 
-item.magikareborn.lightspellitem.name=Light Spell
+item.magikareborn.lightspellitem.name=Illuminate
 jei.light_spell_item=Crafted in a Spell Altar, this spell allows the caster to project delicate clusters of light
 
 jei.category.title.spellaltar=Spell Altar

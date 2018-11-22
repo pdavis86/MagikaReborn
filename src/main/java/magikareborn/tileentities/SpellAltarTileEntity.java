@@ -1,27 +1,27 @@
 package magikareborn.tileentities;
 
-import magikareborn.base.BaseTileEntityWithGui;
+import magikareborn.base.BaseWithGuiTileEntity;
 import magikareborn.containers.SpellAltarContainer;
-import magikareborn.gui.SpellAltarGui;
+import magikareborn.gui.SpellAltarGuiContainer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class SpellAltarTileEntity extends BaseTileEntityWithGui {
+public class SpellAltarTileEntity extends BaseWithGuiTileEntity {
 
     public static final int SIZE = 9;
+
+    private static final String _nbtKeyItems = "items";
 
     private ItemStackHandler itemStackHandler = new ItemStackHandler(SIZE) {
         @Override
         protected void onContentsChanged(int slot) {
-            // We need to tell the tile entity that something has changed so that the chest contents are persisted
             SpellAltarTileEntity.this.markDirty();
         }
     };
@@ -29,15 +29,15 @@ public class SpellAltarTileEntity extends BaseTileEntityWithGui {
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        if (compound.hasKey("items")) {
-            itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
+        if (compound.hasKey(_nbtKeyItems)) {
+            itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag(_nbtKeyItems));
         }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setTag("items", itemStackHandler.serializeNBT());
+        compound.setTag(_nbtKeyItems, itemStackHandler.serializeNBT());
         return compound;
     }
 
@@ -64,11 +64,11 @@ public class SpellAltarTileEntity extends BaseTileEntityWithGui {
 
     @Override
     public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return new SpellAltarContainer(player.inventory, this);
+        return new SpellAltarContainer(player, this);
     }
 
     @Override
     public GuiContainer getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return new SpellAltarGui(this, new SpellAltarContainer(player.inventory, this));
+        return new SpellAltarGuiContainer(this, new SpellAltarContainer(player, this));
     }
 }

@@ -12,7 +12,7 @@ public class ModEntities {
     public static void registerEntities() {
         int id = 0;
         EntityRegistry.registerModEntity(
-                ResourceHelper.getEntityResourceLocation(LightSpellEntity.class.getSimpleName()), LightSpellEntity.class, "Light Spell Entity",
+                ResourceHelper.getEntityResource(LightSpellEntity.class.getSimpleName()), LightSpellEntity.class, "Light Spell Entity",
                 id++, ModRoot.instance,
                 32, 5, true);
 

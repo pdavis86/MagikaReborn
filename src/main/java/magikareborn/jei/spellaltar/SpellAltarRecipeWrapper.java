@@ -31,19 +31,4 @@ public class SpellAltarRecipeWrapper implements IRecipeWrapper {
         ingredients.setInputs(FluidStack.class, _manaInput);
         ingredients.setInputs(ItemStack.class, _ingredients);
     }
-
-    /*@Override
-    public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-
-    }
-
-    @Override
-    public List<String> getTooltipStrings(int mouseX, int mouseY) {
-        return null;
-    }
-
-    @Override
-    public boolean handleClick(Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
-        return false;
-    }*/
 }

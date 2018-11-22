@@ -20,7 +20,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -49,7 +48,7 @@ public class ManaFluidBlock extends BlockFluidClassic {
     @SideOnly(Side.CLIENT)
     public void initModel() {
         Item item = Item.getItemFromBlock(this);
-        ModelLoader.setCustomModelResourceLocation(item, 0, ResourceHelper.getItemInventoryModelResourceLocation(item));
+        ModelLoader.setCustomModelResourceLocation(item, 0, ResourceHelper.getItemInventoryModelResource(item));
         ModelLoader.registerItemVariants(item);
     }
 

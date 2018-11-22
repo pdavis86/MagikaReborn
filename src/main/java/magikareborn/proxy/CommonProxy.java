@@ -81,7 +81,7 @@ public class CommonProxy {
         //OreDictionary.registerOre("plankWood", ModBlocks.MAGICAL_PLANKS_BLOCK);
 
         //System.out.println("Registering Tile Entities");
-        GameRegistry.registerTileEntity(SpellAltarTileEntity.class, ResourceHelper.getTileEntityResourceLocation(SpellAltarTileEntity.class));
+        GameRegistry.registerTileEntity(SpellAltarTileEntity.class, ResourceHelper.getTileEntityResource(SpellAltarTileEntity.class));
     }
 
     @SubscribeEvent
@@ -96,7 +96,8 @@ public class CommonProxy {
                 ModBlocks.MAGICAL_LOG_BLOCK.getNewItem(),
                 ModBlocks.MAGICAL_PLANKS_BLOCK.getNewItem(),
                 ModItems.MAGIKA_OPUS_ITEM,
-                ModItems.LIGHT_SPELL_ITEM
+                ModItems.LIGHT_SPELL_ITEM,
+                ModItems.MANA_TANK_ITEM
         );
     }
 

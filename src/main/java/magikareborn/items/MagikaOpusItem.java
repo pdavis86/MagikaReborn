@@ -3,11 +3,10 @@ package magikareborn.items;
 import magikareborn.Capabilities.IOpusCapability;
 import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.base.BaseItem;
-import magikareborn.gui.SkillTreeGui;
+import magikareborn.gui.OpusGuiScreen;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.init.ModItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -33,12 +32,12 @@ public class MagikaOpusItem extends BaseItem {
             if (opusCapability.getMagicLevel() == 0){
                 //todo: show achievement
             }
-            Minecraft.getMinecraft().displayGuiScreen(new SkillTreeGui());
+            Minecraft.getMinecraft().displayGuiScreen(new OpusGuiScreen());
 
         } else {
             if (opusCapability.getMagicLevel() == 0){
                 opusCapability.setMagicLevel(1);
-                System.out.println("Magic level is now: " + opusCapability.getMagicLevel() + " and manamax is: " + opusCapability.getManaMax());
+                //System.out.println("Magic level is now: " + opusCapability.getMagicLevel() + " and manamax is: " + opusCapability.getManaMax());
                 opusCapability.sendToPlayer();
             }
         }
@@ -48,7 +47,7 @@ public class MagikaOpusItem extends BaseItem {
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemInventoryModelResourceLocation(this));
+        ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemInventoryModelResource(this));
     }
 
 }

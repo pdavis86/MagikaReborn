@@ -22,7 +22,7 @@ public class LightSpellItem extends BaseSpell {
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemInventoryModelResourceLocation(this));
+        ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemInventoryModelResource(this));
     }
 
     @Override

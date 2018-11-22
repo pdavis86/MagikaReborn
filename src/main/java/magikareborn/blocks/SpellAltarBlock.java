@@ -2,7 +2,7 @@ package magikareborn.blocks;
 
 import magikareborn.ModRoot;
 import magikareborn.base.BaseBlock;
-import magikareborn.gui.SpellAltarGui;
+import magikareborn.gui.SpellAltarGuiContainer;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.init.ModItems;
 import magikareborn.tileentities.SpellAltarTileEntity;
@@ -36,7 +36,7 @@ public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceHelper.VARIANT_INVENTORY));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceHelper.INVENTORY_VARIANT));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
 
         //playerIn.sendMessage(new TextComponentString("You clicked me with " + hand));
 
-        playerIn.openGui(ModRoot.instance, SpellAltarGui.GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        playerIn.openGui(ModRoot.instance, SpellAltarGuiContainer.GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 

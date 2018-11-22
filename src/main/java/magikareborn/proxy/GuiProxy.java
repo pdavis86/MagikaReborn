@@ -1,6 +1,6 @@
 package magikareborn.proxy;
 
-import magikareborn.base.BaseTileEntityWithGui;
+import magikareborn.base.BaseWithGuiTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -13,8 +13,8 @@ public class GuiProxy implements IGuiHandler {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         BlockPos pos = new BlockPos(x, y, z);
         TileEntity te = world.getTileEntity(pos);
-        if (te instanceof BaseTileEntityWithGui) {
-            return ((BaseTileEntityWithGui) te).getServerGuiElement(ID, player, world, x, y, z);
+        if (te instanceof BaseWithGuiTileEntity) {
+            return ((BaseWithGuiTileEntity) te).getServerGuiElement(ID, player, world, x, y, z);
         }
         return null;
     }
@@ -23,8 +23,8 @@ public class GuiProxy implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         BlockPos pos = new BlockPos(x, y, z);
         TileEntity te = world.getTileEntity(pos);
-        if (te instanceof BaseTileEntityWithGui) {
-            return ((BaseTileEntityWithGui) te).getClientGuiElement(ID, player, world, x, y, z);
+        if (te instanceof BaseWithGuiTileEntity) {
+            return ((BaseWithGuiTileEntity) te).getClientGuiElement(ID, player, world, x, y, z);
         }
         return null;
     }

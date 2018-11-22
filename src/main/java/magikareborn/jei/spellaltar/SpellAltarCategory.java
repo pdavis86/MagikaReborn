@@ -21,31 +21,15 @@ public class SpellAltarCategory implements ICustomRecipeCategory<SpellAltarRecip
 
     public static String UUID = "magikareborn.spellaltar";
 
-    //private final int _workingAreaHeight = 262;
-    //private final int _workingAreaWidth = 378;
     private final IDrawable _background;
-    /*private final IDrawable slotDrawable;
-    private final String localizedName;
-    private final IDrawableAnimated arrow;
-    private final IDrawableAnimated bubbles;
-    private final IDrawableStatic blazeHeat;*/
+
+    //Search for "BrewingRecipeCategory implements IRecipeCategory<BrewingRecipeWrapper>" for an example
 
     public SpellAltarCategory(IGuiHelper guiHelper) {
-        ResourceLocation location = ResourceHelper.getGuiResourceLocation("recipebg_spellaltar");
+        ResourceLocation location = ResourceHelper.getGuiResource("recipebg_spellaltar");
 
         //------------------------------------resource, u, v, width, height, paddingTop, paddingBottom, paddingLeft, paddingRight
         _background = guiHelper.createDrawable(location, 0, 0, 120, 120, 0, 2, 0, 0);
-
-        /*IDrawableStatic brewArrowDrawable = guiHelper.createDrawable(location, 64, 0, 9, 28);
-        arrow = guiHelper.createAnimatedDrawable(brewArrowDrawable, 400, IDrawableAnimated.StartDirection.TOP, false);
-
-        IDrawableStatic brewBubblesDrawable = guiHelper.createDrawable(location, 73, 0, 12, 29);
-        ITickTimer bubblesTickTimer = new BrewingBubblesTickTimer(guiHelper);
-        bubbles = new DrawableAnimated(brewBubblesDrawable, bubblesTickTimer, IDrawableAnimated.StartDirection.BOTTOM);
-
-        blazeHeat = guiHelper.createDrawable(location, 64, 29, 18, 4);
-
-        slotDrawable = guiHelper.getSlotDrawable();*/
     }
 
     @Override
@@ -95,21 +79,6 @@ public class SpellAltarCategory implements ICustomRecipeCategory<SpellAltarRecip
     public String getRecipeCategoryUid() {
         return UUID;
     }
-
-    /*@Override
-    public IDrawable getIcon() {
-        return null;
-    }
-
-    @Override
-    public void drawExtras(Minecraft minecraft) {
-
-    }
-
-    @Override
-    public List<String> getTooltipStrings(int mouseX, int mouseY) {
-        return null;
-    }*/
 
     @Override
     public IRecipeWrapper getRecipeWrapper(SpellAltarRecipe recipe) {

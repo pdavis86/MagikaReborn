@@ -22,6 +22,6 @@ public class MagicalWoodPlanksBlock extends BaseBlock {
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceHelper.VARIANT_INVENTORY));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceHelper.INVENTORY_VARIANT));
     }
 }
