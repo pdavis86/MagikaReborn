@@ -1,4 +1,4 @@
-package magikareborn.jei.spellaltar;
+package magikareborn.compat.jei.spellaltar;
 
 import magikareborn.containers.SpellAltarContainer;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;

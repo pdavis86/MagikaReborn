@@ -17,6 +17,8 @@ public class SpellAltarGuiContainer extends GuiContainer {
 
     private static final ResourceLocation _background = ResourceHelper.getGuiResource("spellaltar");
 
+    //todo: add tooltips
+
     public SpellAltarGuiContainer(SpellAltarTileEntity tileEntity, SpellAltarContainer container) {
         super(container);
         xSize = WIDTH;

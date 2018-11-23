@@ -1,8 +1,8 @@
 package magikareborn.commands;
 
-import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.OpusCapability;
-import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.network.OpusUpdatePacket;
 import magikareborn.network.PacketHandler;
 import net.minecraft.command.CommandBase;

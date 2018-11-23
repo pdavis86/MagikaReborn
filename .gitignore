@@ -26,3 +26,4 @@ run
 # Project-specific ignores #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~#
 logs
+classes

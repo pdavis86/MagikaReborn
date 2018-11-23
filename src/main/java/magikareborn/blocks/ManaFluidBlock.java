@@ -102,6 +102,8 @@ public class ManaFluidBlock extends BlockFluidClassic {
             } else if (item != Item.getItemFromBlock(ModBlocks.MAGICAL_LOG_BLOCK) && item != Item.getItemFromBlock(ModBlocks.MAGICAL_PLANKS_BLOCK)) {
                 int[] oreIds = OreDictionary.getOreIDs(itemStack);
 
+                //todo: does OreDictionary.itemMatches() work better?
+
                 if (IntStream.of(oreIds).anyMatch(x -> x == OreDictionary.getOreID("logWood"))) {
                     //worldIn.getMinecraftServer().sendMessage(new TextComponentString("You tossed in a log"));
                     droppedInMana(worldIn, pos, entityIn);

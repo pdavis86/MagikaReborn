@@ -49,7 +49,7 @@ public class ManaTankItem extends BaseItem {
     }
 
     @Override
-    public void getSubItems(@Nullable final CreativeTabs tab, final NonNullList subItems) {
+    public void getSubItems(@Nullable final CreativeTabs tab, @Nonnull final NonNullList subItems) {
         if (!this.isInCreativeTab(tab)) return;
 
         //todo: add more subitems
@@ -68,8 +68,9 @@ public class ManaTankItem extends BaseItem {
         }
     }
 
+    @Nonnull
     @Override
-    public String getItemStackDisplayName(final ItemStack stack) {
+    public String getItemStackDisplayName(@Nonnull final ItemStack stack) {
         String unlocalizedName = this.getUnlocalizedNameInefficiently(stack);
         IFluidHandlerItem fluidHandler = FluidUtil.getFluidHandler(stack);
         FluidStack fluidStack = fluidHandler.getTankProperties()[0].getContents();

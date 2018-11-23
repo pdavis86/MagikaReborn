@@ -1,7 +1,7 @@
 package magikareborn.base;
 
-import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.helpers.SoundHelper;
 import magikareborn.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;

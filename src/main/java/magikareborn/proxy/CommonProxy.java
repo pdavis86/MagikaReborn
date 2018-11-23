@@ -1,15 +1,16 @@
 package magikareborn.proxy;
 
-import magikareborn.Capabilities.OpusCapabilitySerializer;
-import magikareborn.Capabilities.OpusCapabilityStorage;
 import magikareborn.Config;
 import magikareborn.ModRoot;
+import magikareborn.capabilities.OpusCapabilitySerializer;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.init.ModBlocks;
 import magikareborn.init.ModEntities;
 import magikareborn.init.ModFluids;
 import magikareborn.init.ModItems;
 import magikareborn.network.PacketHandler;
+import magikareborn.recipes.ManaPoolRecipe;
 import magikareborn.recipes.SpellAltarRecipe;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.block.Block;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -31,10 +33,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber
 public class CommonProxy {
 
@@ -112,10 +116,28 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
-        SpellAltarRecipe.addRecipe(ModItems.LIGHT_SPELL_ITEM, null, new ArrayList<Item>() {{
-            add(Items.SLIME_BALL);
-            add(Item.getItemFromBlock(Blocks.TORCH));
-        }});
+        ManaPoolRecipe.addRecipe(
+                new ItemStack(ModItems.MAGIKA_OPUS_ITEM),
+                new ItemStack(Items.BOOK)
+        );
+        ManaPoolRecipe.addRecipe(
+                new ItemStack(Item.getItemFromBlock(ModBlocks.MAGICAL_LOG_BLOCK)),
+                new ItemStack(Item.getItemFromBlock(Blocks.LOG), 1, OreDictionary.WILDCARD_VALUE)
+        );
+        ManaPoolRecipe.addRecipe(
+                new ItemStack(Item.getItemFromBlock(ModBlocks.MAGICAL_PLANKS_BLOCK)),
+                new ItemStack(Item.getItemFromBlock(Blocks.PLANKS), 1, OreDictionary.WILDCARD_VALUE)
+        );
+
+        //todo: Iterate over a list of recipes
+        SpellAltarRecipe.addRecipe(
+                new ItemStack(ModItems.LIGHT_SPELL_ITEM),
+                null,
+                new ArrayList<ItemStack>() {{
+                    add(new ItemStack(Items.SLIME_BALL, 1, OreDictionary.WILDCARD_VALUE));
+                    add(new ItemStack(Item.getItemFromBlock(Blocks.TORCH), 1, OreDictionary.WILDCARD_VALUE));
+                }}
+        );
     }
 
 

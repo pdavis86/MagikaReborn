@@ -1,6 +1,7 @@
 package magikareborn.containers;
 
 import magikareborn.base.PersistentInventoryCrafting;
+import magikareborn.recipes.SpellAltarRecipe;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -230,17 +231,30 @@ public class SpellAltarContainer extends Container {
 
 
         if (!_world.isRemote) {
-            IRecipe recipeMatch = CraftingManager.findMatchingRecipe(_craftingMatrix, _world);
 
             EntityPlayerMP entityPlayerMp = (EntityPlayerMP) _player;
             ItemStack craftedItemStack = ItemStack.EMPTY;
 
+            //Check for crafting table recipe first
+            IRecipe recipeMatch = CraftingManager.findMatchingRecipe(_craftingMatrix, _world);
             if (recipeMatch != null && (recipeMatch.isDynamic() || !_world.getGameRules().getBoolean("doLimitedCrafting") || entityPlayerMp.getRecipeBook().isUnlocked(recipeMatch))) {
-                //System.out.println("Found recipe for: " + recipeMatch.getRecipeOutput().getItem().getUnlocalizedName());
+                //System.out.println("Found crafting recipe for: " + recipeMatch.getRecipeOutput().getItem().getUnlocalizedName());
                 //System.out.println("recipeMatch type SimpleName is: " + recipeMatch.getRegistryType().getSimpleName());
 
-                _craftingResult.setRecipeUsed(recipeMatch);
+                //_craftingResult.setRecipeUsed(recipeMatch);
                 craftedItemStack = recipeMatch.getCraftingResult(_craftingMatrix);
+
+            } else {
+                SpellAltarRecipe spellRecipeMatch = SpellAltarRecipe.getMatch(_craftingMatrix);
+                if (spellRecipeMatch != null) {
+
+                    //todo: fix this
+                    for (int i = 0; i < _craftingMatrix.getSizeInventory(); i++) {
+                        _craftingMatrix.decrStackSize(i, 1);
+                    }
+
+                    craftedItemStack = spellRecipeMatch.getOutputCopy();
+                }
             }
 
             _craftingResult.setInventorySlotContents(-1, craftedItemStack);

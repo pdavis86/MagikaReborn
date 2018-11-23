@@ -1,6 +1,6 @@
 package magikareborn.opus;
 
-import magikareborn.Capabilities.IOpusCapability;
+import magikareborn.capabilities.IOpusCapability;
 import magikareborn.ModRoot;
 import magikareborn.helpers.ResourceHelper;
 import net.minecraft.util.ResourceLocation;

@@ -1,6 +1,6 @@
 package magikareborn.opus;
 
-import magikareborn.Capabilities.IOpusCapability;
+import magikareborn.capabilities.IOpusCapability;
 import magikareborn.helpers.ResourceHelper;
 
 public class LightSpellEntry extends BaseEntry {

@@ -1,4 +1,4 @@
-package magikareborn.jei;
+package magikareborn.compat.jei;
 
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;

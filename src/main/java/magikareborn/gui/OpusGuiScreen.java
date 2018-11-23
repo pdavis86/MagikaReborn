@@ -1,14 +1,13 @@
 package magikareborn.gui;
 
-import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.opus.BaseEntry;
 import magikareborn.opus.OpusBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;

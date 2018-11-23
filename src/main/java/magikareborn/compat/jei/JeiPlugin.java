@@ -1,20 +1,17 @@
-package magikareborn.jei;
+package magikareborn.compat.jei;
 
+import magikareborn.compat.jei.manapool.ManaPoolCategory;
+import magikareborn.compat.jei.spellaltar.SpellAltarCategory;
+import magikareborn.compat.jei.spellaltar.SpellAltarRecipeTranfer;
 import magikareborn.gui.SpellAltarGuiContainer;
 import magikareborn.init.ModBlocks;
-import magikareborn.init.ModItems;
-import magikareborn.jei.spellaltar.SpellAltarCategory;
-import magikareborn.jei.spellaltar.SpellAltarRecipeTranfer;
+import magikareborn.recipes.ManaPoolRecipe;
 import magikareborn.recipes.SpellAltarRecipe;
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentTranslation;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,9 +25,11 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
 
-        IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
+        IJeiHelpers jeiHelpers = registry.getJeiHelpers();
+        IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
         categories.add(new SpellAltarCategory(guiHelper));
+        categories.add(new ManaPoolCategory(guiHelper));
 
         registry.addRecipeCategories(categories.toArray(new IRecipeCategory[0]));
     }
@@ -42,27 +41,25 @@ public class JeiPlugin implements IModPlugin {
         IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.LIGHT_SPELL_BLOCK));
 
-        //Add info recipies
-        registry.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_LOG_BLOCK), ItemStack.class, new TextComponentTranslation("jei.magical_log_block").getUnformattedText());
-        registry.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_PLANKS_BLOCK), ItemStack.class, new TextComponentTranslation("jei.magical_planks_block").getUnformattedText());
+        //Add info recipes
+        /*registry.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_LOG_BLOCK), ItemStack.class, new TextComponentTranslation("jei.magical_log").getUnformattedText());
+        registry.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_PLANKS_BLOCK), ItemStack.class, new TextComponentTranslation("jei.magical_planks").getUnformattedText());
         registry.addIngredientInfo(new ItemStack(ModItems.MAGIKA_OPUS_ITEM), ItemStack.class, "jei.magika_opus");
-        registry.addIngredientInfo(new ItemStack(ModItems.LIGHT_SPELL_ITEM), ItemStack.class, new TextComponentTranslation("jei.light_spell_item").getUnformattedText());
+        registry.addIngredientInfo(new ItemStack(ModItems.LIGHT_SPELL_ITEM), ItemStack.class, new TextComponentTranslation("jei.light_spell").getUnformattedText());*/
 
         //Add recipe handlers
         for (ICustomRecipeCategory cat : categories) {
             registry.handleRecipes(cat.getRecipeClass(), cat, cat.getRecipeCategoryUid());
         }
 
-        //Add custom recipes
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.SPELL_ALTAR_BLOCK), SpellAltarCategory.UUID);
         registry.addRecipes(new ArrayList<>(SpellAltarRecipe.recipeList), SpellAltarCategory.UUID);
-
-        //Allow 'Show Recipes'
         Rectangle r = SpellAltarGuiContainer.RecipesArea;
         registry.addRecipeClickArea(SpellAltarGuiContainer.class, r.x, r.y, r.width, r.height, SpellAltarCategory.UUID);
-
-        //Allow recipie transfer
         registry.getRecipeTransferRegistry().addRecipeTransferHandler(new SpellAltarRecipeTranfer());
+
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.MANA_FLUID_BLOCK), ManaPoolCategory.UUID);
+        registry.addRecipes(new ArrayList<>(ManaPoolRecipe.recipeList), ManaPoolCategory.UUID);
     }
 
 }

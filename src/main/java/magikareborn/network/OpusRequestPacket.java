@@ -1,8 +1,8 @@
 package magikareborn.network;
 
 import io.netty.buffer.ByteBuf;
-import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;

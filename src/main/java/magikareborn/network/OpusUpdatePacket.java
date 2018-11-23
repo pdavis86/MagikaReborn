@@ -1,9 +1,9 @@
 package magikareborn.network;
 
 import io.netty.buffer.ByteBuf;
-import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.OpusCapability;
-import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.ModRoot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

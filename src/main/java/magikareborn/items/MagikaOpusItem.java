@@ -1,7 +1,7 @@
 package magikareborn.items;
 
-import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.base.BaseItem;
 import magikareborn.gui.OpusGuiScreen;
 import magikareborn.helpers.ResourceHelper;

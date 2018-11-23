@@ -1,6 +1,6 @@
 package magikareborn.opus;
 
-import magikareborn.Capabilities.IOpusCapability;
+import magikareborn.capabilities.IOpusCapability;
 
 public class Ether2Entry extends BaseEntry {
 

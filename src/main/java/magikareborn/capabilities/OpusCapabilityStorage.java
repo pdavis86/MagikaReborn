@@ -1,4 +1,4 @@
-package magikareborn.Capabilities;
+package magikareborn.capabilities;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;

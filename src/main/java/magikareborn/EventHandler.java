@@ -1,7 +1,7 @@
 package magikareborn;
 
-import magikareborn.Capabilities.IOpusCapability;
-import magikareborn.Capabilities.OpusCapabilityStorage;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.gui.UiOverlayGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

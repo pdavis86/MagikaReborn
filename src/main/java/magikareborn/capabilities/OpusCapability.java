@@ -1,4 +1,4 @@
-package magikareborn.Capabilities;
+package magikareborn.capabilities;
 
 import magikareborn.ModRoot;
 import magikareborn.helpers.SoundHelper;

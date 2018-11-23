@@ -1,7 +1,6 @@
-package magikareborn.Capabilities;
+package magikareborn.capabilities;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
 
 public interface IOpusCapability {
 
