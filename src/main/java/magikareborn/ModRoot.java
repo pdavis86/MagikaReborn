@@ -1,7 +1,9 @@
 package magikareborn;
 
 import magikareborn.commands.ResetCommand;
+import magikareborn.init.ModCreativeTab;
 import magikareborn.proxy.CommonProxy;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -17,6 +19,8 @@ public class ModRoot {
     public static final String MODID = "magikareborn";
     public static final String MODNAME = "Magika Reborn";
     public static final String MODVERSION = "0.0.1";
+
+    public static final CreativeTabs MAGIKA_REBORN_CREATIVE_TAB = new ModCreativeTab();
 
     @SidedProxy(clientSide = "magikareborn.proxy.ClientProxy", serverSide = "magikareborn.proxy.ServerProxy")
     public static CommonProxy proxy;

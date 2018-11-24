@@ -41,6 +41,7 @@ public class ManaFluidBlock extends BlockFluidClassic {
         setCreativeTab(creativeTab);
     }
 
+    @SuppressWarnings("ConstantConditions")
     public Item getNewItem() {
         return new ItemBlock(this).setRegistryName(getRegistryName());
     }
@@ -110,8 +111,7 @@ public class ManaFluidBlock extends BlockFluidClassic {
                     EntityItem log = new EntityItem(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, new ItemStack(Item.getItemFromBlock(ModBlocks.MAGICAL_LOG_BLOCK), itemStack.getCount()));
                     worldIn.spawnEntity(log);
 
-                }
-                else if (IntStream.of(oreIds).anyMatch(x -> x == OreDictionary.getOreID("plankWood"))) {
+                } else if (IntStream.of(oreIds).anyMatch(x -> x == OreDictionary.getOreID("plankWood"))) {
                     //worldIn.getMinecraftServer().sendMessage(new TextComponentString("You tossed in planks"));
                     droppedInMana(worldIn, pos, entityIn);
                     EntityItem planks = new EntityItem(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, new ItemStack(Item.getItemFromBlock(ModBlocks.MAGICAL_PLANKS_BLOCK), itemStack.getCount()));

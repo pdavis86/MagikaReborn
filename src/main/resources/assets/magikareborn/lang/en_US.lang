@@ -1,3 +1,5 @@
+itemGroup.tabMagikaReborn=Magika Reborn
+
 tile.magikareborn.manafluidblock.name=Liquid mana
 fluid.manafluid=Mana
 
@@ -19,6 +21,7 @@ jei.category.title.spellaltar=Spell Altar
 jei.category.title.manapool=Pool of Mana
 
 item.magikareborn.manatankitem.name=Mana Tank
+item.magikareborn.manatankitem.filled.name=Mana Tank (full)
 
 message.spell_not_unlocked=You do not know how to cast this spell
 message.magic_level_too_low=You lack the experience to cast this spell

@@ -4,7 +4,6 @@ import magikareborn.items.LightSpellItem;
 import magikareborn.items.MagikaOpusItem;
 import magikareborn.items.ManaTankItem;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -27,29 +26,4 @@ public class ModItems {
         MANA_TANK_ITEM.initModel();
     }
 
-    public static final CreativeTabs MAGIKA_REBORN_CREATIVE_TAB = (new CreativeTabs("tabMagikaReborn") {
-        @Override
-        public ItemStack getTabIconItem() {
-            return new ItemStack(MAGIKA_OPUS_ITEM);
-        }
-
-        @Override
-        public void displayAllRelevantItems(NonNullList<ItemStack> items) {
-
-            for (Item item : Item.REGISTRY) {
-                if (isInCreativeTab(item, this)) {
-                    items.add(new ItemStack(item));
-                }
-            }
-            items.add(FluidUtil.getFilledBucket(new FluidStack(ModFluids.MANA_FLUID, Fluid.BUCKET_VOLUME)));
-        }
-
-        private boolean isInCreativeTab(Item item, CreativeTabs targetTab) {
-            for (CreativeTabs tab : item.getCreativeTabs())
-                if (tab == targetTab)
-                    return true;
-            CreativeTabs creativetabs = item.getCreativeTab();
-            return creativetabs != null && (targetTab == CreativeTabs.SEARCH || targetTab == creativetabs);
-        }
-    });
 }

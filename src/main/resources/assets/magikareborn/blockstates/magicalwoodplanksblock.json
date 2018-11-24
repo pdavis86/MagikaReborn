@@ -5,6 +5,10 @@
   },
   "variants": {
     "normal": [{}],
-    "inventory": [{}]
+    "inventory": [{}],
+    "axis=none": [{}],
+    "axis=x": [{}],
+    "axis=y": [{}],
+    "axis=z": [{}]
   }
 }

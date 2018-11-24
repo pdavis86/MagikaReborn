@@ -1,8 +1,8 @@
 package magikareborn.blocks;
 
+import magikareborn.ModRoot;
 import magikareborn.base.BaseBlock;
 import magikareborn.helpers.ResourceHelper;
-import magikareborn.init.ModItems;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,11 +14,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-@SuppressWarnings("deprecation")
 public class LightSpellBlock extends BaseBlock {
 
     public LightSpellBlock() {
-        super("LightSpellBlock", Material.CIRCUITS, ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        super("LightSpellBlock", Material.CIRCUITS, ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
         //setTickRandomly(true);
         setLightLevel(16 / 16f);
         this.setSoundType(SoundType.GLASS);
@@ -27,9 +26,10 @@ public class LightSpellBlock extends BaseBlock {
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceHelper.INVENTORY_VARIANT));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getResourceLocation(), ResourceHelper.INVENTORY_VARIANT));
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return null;

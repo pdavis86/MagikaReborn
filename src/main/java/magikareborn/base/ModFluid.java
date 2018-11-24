@@ -7,12 +7,14 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+@SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "unused"})
 public class ModFluid extends Fluid {
-    protected static int mapColor = 0xFFFFFFFF;
-    protected static float overlayAlpha = 0.2F;
-    protected static SoundEvent emptySound = SoundEvents.ITEM_BUCKET_EMPTY;
-    protected static SoundEvent fillSound = SoundEvents.ITEM_BUCKET_FILL;
-    protected static Material material = Material.WATER;
+
+    private static int mapColor = 0xFFFFFFFF;
+    private static float overlayAlpha = 0.2F;
+    private static SoundEvent emptySound = SoundEvents.ITEM_BUCKET_EMPTY;
+    private static SoundEvent fillSound = SoundEvents.ITEM_BUCKET_FILL;
+    private static Material material = Material.WATER;
 
     public ModFluid(String fluidName, ResourceLocation still, ResourceLocation flowing) {
         super(fluidName, still, flowing);

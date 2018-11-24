@@ -1,5 +1,6 @@
 package magikareborn.items;
 
+import magikareborn.ModRoot;
 import magikareborn.base.BaseItem;
 import magikareborn.capabilities.IOpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
@@ -22,7 +23,12 @@ import javax.annotation.Nonnull;
 public class MagikaOpusItem extends BaseItem {
 
     public MagikaOpusItem() {
-        super("MagikaOpusItem", ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        super("MagikaOpusItem", ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemInventoryModelResource(this));
     }
 
     @Nonnull
@@ -50,9 +56,5 @@ public class MagikaOpusItem extends BaseItem {
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, ResourceHelper.getItemInventoryModelResource(this));
-    }
 
 }

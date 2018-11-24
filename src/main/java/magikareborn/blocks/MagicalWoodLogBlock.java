@@ -2,9 +2,7 @@ package magikareborn.blocks;
 
 import magikareborn.ModRoot;
 import magikareborn.helpers.ResourceHelper;
-import magikareborn.init.ModItems;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -15,6 +13,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 public class MagicalWoodLogBlock extends BlockLog {
 
     public MagicalWoodLogBlock() {
@@ -22,15 +22,17 @@ public class MagicalWoodLogBlock extends BlockLog {
         String name = "MagicalWoodLogBlock";
         setRegistryName(name.toLowerCase());
         setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + name.toLowerCase());
-        setCreativeTab(ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        setCreativeTab(ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
         setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
     }
 
+    @SuppressWarnings("ConstantConditions")
     @SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceHelper.INVENTORY_VARIANT));
     }
 
+    @SuppressWarnings("ConstantConditions")
     public Item getNewItem() {
         return new ItemBlock(this) {
             @Override
@@ -40,6 +42,7 @@ public class MagicalWoodLogBlock extends BlockLog {
         }.setRegistryName(getRegistryName());
     }
 
+    @Nonnull
     public IBlockState getStateFromMeta(int meta) {
         IBlockState state = this.getDefaultState();
 
@@ -65,7 +68,7 @@ public class MagicalWoodLogBlock extends BlockLog {
     }
 
     public int getMetaFromState(IBlockState state) {
-        switch ((BlockLog.EnumAxis) state.getValue(LOG_AXIS)) {
+        switch (state.getValue(LOG_AXIS)) {
             case X:
                 return 0b0100;
             case Y:
@@ -78,8 +81,9 @@ public class MagicalWoodLogBlock extends BlockLog {
         }
     }
 
+    @Nonnull
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{LOG_AXIS});
+        return new BlockStateContainer(this, LOG_AXIS);
     }
 
 }

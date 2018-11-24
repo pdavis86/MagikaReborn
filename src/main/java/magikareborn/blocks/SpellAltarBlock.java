@@ -4,7 +4,6 @@ import magikareborn.ModRoot;
 import magikareborn.base.BaseBlock;
 import magikareborn.gui.SpellAltarGuiContainer;
 import magikareborn.helpers.ResourceHelper;
-import magikareborn.init.ModItems;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -23,12 +22,13 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
 
     public SpellAltarBlock() {
-        super("SpellAltarBlock", Material.WOOD, ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        super("SpellAltarBlock", Material.WOOD, ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
         this.setSoundType(SoundType.WOOD);
         setLightLevel(16 / 16f);
         setHardness(1.5f);
@@ -37,13 +37,13 @@ public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), ResourceHelper.INVENTORY_VARIANT));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getResourceLocation(), ResourceHelper.INVENTORY_VARIANT));
     }
 
-    @Override
+    /*@Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
         playerIn.sendMessage(new TextComponentString("You left clicked me!"));
-    }
+    }*/
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -83,7 +83,7 @@ public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
         return new SpellAltarTileEntity();
     }
 }

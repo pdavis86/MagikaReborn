@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 
 abstract public class BaseBlock extends Block {
 
@@ -18,6 +19,11 @@ abstract public class BaseBlock extends Block {
     }
 
     public Item getNewItem() {
-        return new ItemBlock(this).setRegistryName(getRegistryName());
+        return new ItemBlock(this).setRegistryName(getResourceLocation());
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    protected ResourceLocation getResourceLocation() {
+        return getRegistryName();
     }
 }

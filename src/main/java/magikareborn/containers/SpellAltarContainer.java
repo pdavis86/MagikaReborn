@@ -1,7 +1,7 @@
 package magikareborn.containers;
 
-import magikareborn.base.MySlot;
 import magikareborn.base.PersistentInventoryCrafting;
+import magikareborn.gui.SpellAltarOutputSlot;
 import magikareborn.recipes.SpellAltarRecipe;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,7 +41,7 @@ public class SpellAltarContainer extends Container {
         _world = player.getEntityWorld();
 
         ItemStackHandler _itemStackHandler = (ItemStackHandler) te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        assert (_itemStackHandler != null);
+		//todo: Replace - assert (_itemStackHandler != null);
 
         _craftingMatrix = new PersistentInventoryCrafting(this, 3, 3, _itemStackHandler);
         _craftingResult = new InventoryCraftResult();
@@ -128,7 +128,7 @@ public class SpellAltarContainer extends Container {
             }
         }
 
-        this.addSlotToContainer(new MySlot(player, _craftingMatrix, _craftingResult, _outputSlot, 100, 27));
+        this.addSlotToContainer(new SpellAltarOutputSlot(player, _craftingMatrix, _craftingResult, _outputSlot, 100, 27));
     }
 
     private void addPlayerSlots(IInventory playerInventory) {

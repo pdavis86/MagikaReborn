@@ -1,5 +1,6 @@
 package magikareborn.base;
 
+import magikareborn.ModRoot;
 import magikareborn.capabilities.IOpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.helpers.SoundHelper;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
 public abstract class BaseSpell extends BaseItem {
 
     public BaseSpell(String name) {
-        super(name, ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        super(name, ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
         setMaxStackSize(1);
     }
 
@@ -43,7 +44,7 @@ public abstract class BaseSpell extends BaseItem {
             if (!world.isRemote) {
                 //todo: replace sound event
                 SoundHelper.playSoundForPlayer(playerIn, SoundEvents.BLOCK_GLASS_STEP, 1f, 1f);
-                playerIn.sendMessage(new TextComponentTranslation("message.magic_level_too_low")); //new TextComponentString("You lack the experience to cast this spell"));
+                playerIn.sendMessage(new TextComponentTranslation("message.magic_level_too_low"));
             }
 
         } else if (opusCapability.getMana() < getManaCost()) {

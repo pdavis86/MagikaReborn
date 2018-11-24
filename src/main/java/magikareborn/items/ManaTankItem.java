@@ -1,10 +1,10 @@
 package magikareborn.items;
 
+import magikareborn.ModRoot;
 import magikareborn.base.BaseItem;
 import magikareborn.fluids.ManaTankFluidHandler;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.init.ModFluids;
-import magikareborn.init.ModItems;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -30,10 +30,8 @@ public class ManaTankItem extends BaseItem {
     private final int CAPACITY = Fluid.BUCKET_VOLUME * 4;
     private final ItemStack EMPTY_STACK = new ItemStack(this);
 
-    //todo: this is not appearing in the creative menu!
-
     public ManaTankItem() {
-        super("ManaTankItem", ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        super("ManaTankItem", ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
         setMaxStackSize(1);
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DispenseFluidContainer.getInstance());
     }

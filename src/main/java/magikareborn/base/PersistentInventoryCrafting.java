@@ -14,8 +14,7 @@ public class PersistentInventoryCrafting extends InventoryCrafting {
 
     public PersistentInventoryCrafting(Container container, int width, int height, ItemStackHandler itemStackHandler) {
         super(container, width, height);
-
-        assert (itemStackHandler.getSlots() == width * height);
+		//todo: Replace - assert (itemStackHandler.getSlots() == width * height);
         _itemStackHandler = itemStackHandler;
         _container = container;
     }
@@ -44,18 +43,11 @@ public class PersistentInventoryCrafting extends InventoryCrafting {
     @Override
     public ItemStack decrStackSize(int index, int count) {
 
-        //System.out.println("decrStackSize index " + index + " by " + count);
-
         ItemStack stackInSlot = getStackInSlot(index);
 
         if (stackInSlot.isEmpty()) {
             return ItemStack.EMPTY;
         }
-
-        //System.out.println("requested " + count + " from " + stackInSlot.getCount());
-
-        //todo: does this fix it?
-        //this.markDirty();
 
         ItemStack returnItemStack;
         if (stackInSlot.getCount() <= count) {
@@ -76,19 +68,9 @@ public class PersistentInventoryCrafting extends InventoryCrafting {
 
     @Override
     public void setInventorySlotContents(int index, @Nonnull ItemStack stack) {
-
-        //System.out.println("setInventorySlotContents index " + index);
-
         _itemStackHandler.setStackInSlot(index, stack);
         updateContainer();
     }
-
-    /*@Override
-    public void clear() {
-        System.out.println("Clear() was called on PersistentInventoryCrafting");
-        // Don't clear!
-    }*/
-
 
 
 }
