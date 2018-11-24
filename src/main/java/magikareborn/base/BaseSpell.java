@@ -14,6 +14,7 @@ public abstract class BaseSpell extends BaseItem {
 
     public BaseSpell(String name) {
         super(name, ModItems.MAGIKA_REBORN_CREATIVE_TAB);
+        setMaxStackSize(1);
     }
 
     public abstract int getMinMagicLevel();

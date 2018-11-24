@@ -7,12 +7,16 @@ import magikareborn.helpers.SoundHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class LightSpellItem extends BaseSpell {
 
@@ -26,6 +30,17 @@ public class LightSpellItem extends BaseSpell {
     }
 
     @Override
+    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+        /*ThreadLocalRandom rnd = ThreadLocalRandom.current();
+        System.out.println("New light spell");
+        System.out.println("Setting rnd value of " + rnd.nextInt(1, 15 + 1));
+        System.out.println("Setting rnd value of " + rnd.nextInt(1, 15 + 1));
+        System.out.println("Setting rnd value of " + rnd.nextInt(1, 15 + 1));
+        System.out.println("Setting rnd value of " + rnd.nextInt(1, 15 + 1));
+        System.out.println("Setting rnd value of " + rnd.nextInt(1, 15 + 1));*/
+    }
+
+    @Override
     public int getMinMagicLevel() {
         return 1;
     }
@@ -35,8 +50,9 @@ public class LightSpellItem extends BaseSpell {
         return 0.2f;
     }
 
+    @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand handIn) {
 
         if (!worldIn.isRemote) {
             if (canCast(playerIn)) {
@@ -46,6 +62,8 @@ public class LightSpellItem extends BaseSpell {
                 //todo: change sound
                 SoundHelper.playSoundForAll(playerIn, SoundEvents.ENTITY_ENDERPEARL_THROW, 1, 1);
                 worldIn.spawnEntity(new LightSpellEntity(worldIn, playerIn));
+
+                playerIn.addStat(StatList.getObjectUseStats(this), 1);
             }
         }
         //todo: move to teleport spell

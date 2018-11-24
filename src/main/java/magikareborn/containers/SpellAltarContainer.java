@@ -1,11 +1,15 @@
 package magikareborn.containers;
 
+import magikareborn.base.MySlot;
 import magikareborn.base.PersistentInventoryCrafting;
 import magikareborn.recipes.SpellAltarRecipe;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCraftResult;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -22,7 +26,7 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber
 public class SpellAltarContainer extends Container {
 
-    private static final int _ouputSlot = 9;
+    private static final int _outputSlot = 9;
 
     private final EntityPlayer _player;
     private final SpellAltarTileEntity _te;
@@ -63,97 +67,57 @@ public class SpellAltarContainer extends Container {
     @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-        /*ItemStack returnItemStack = ItemStack.EMPTY;
 
         Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack slotItemStack = slot.getStack();
-            returnItemStack = slotItemStack.copy();
-
-            if (index < SpellAltarTileEntity.SIZE) {
-                if (!this.mergeItemStack(slotItemStack, SpellAltarTileEntity.SIZE, this.inventorySlots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (!this.mergeItemStack(slotItemStack, 0, SpellAltarTileEntity.SIZE, false)) {
-                return ItemStack.EMPTY;
-            }
-
-            if (slotItemStack.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
-            } else {
-                slot.onSlotChanged();
-            }
+        if (slot == null || !slot.getHasStack()) {
+            return ItemStack.EMPTY;
         }
 
-        return returnItemStack;*/
+        ItemStack slotItemStack = slot.getStack();
+        ItemStack copyItemStack = slotItemStack.copy();
+        ItemStack copyForTakeItemStack = slotItemStack.copy();
 
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+        //todo: set these as instance variables with values set from adding of the slots
+        int firstCraftingAreaSlotIndex = 0;
+        int lastCraftingAreaSlotIndex = 8;
+        int firstInventorySlotIndex = _outputSlot + 1;
+        int lastInventorySlotIndex = this.inventorySlots.size() - 1;
 
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+        if (index == _outputSlot) {
 
-            if (index == 0) {
-                itemstack1.getItem().onCreated(itemstack1, _world, playerIn);
+            //todo: does the stat counter work?
 
-                if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
-                    return ItemStack.EMPTY;
-                }
+            //ItemStack slotTakenItemStack = slot.onTake(playerIn, slotItemStack);
+            //slotItemStack.getItem().onCreated(slotItemStack, _world, playerIn);
+            if (!this.mergeItemStack(slotItemStack, firstInventorySlotIndex, lastInventorySlotIndex + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+            slot.onSlotChange(slotItemStack, copyItemStack);
 
-                slot.onSlotChange(itemstack1, itemstack);
-            } else if (index >= 10 && index < 37) {
-                if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (index >= 37 && index < 46) {
-                if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
+        } else if (index <= lastCraftingAreaSlotIndex) {
+            if (!this.mergeItemStack(slotItemStack, firstInventorySlotIndex, lastInventorySlotIndex + 1, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
-            } else {
-                slot.onSlotChanged();
-            }
-
-            if (itemstack1.getCount() == itemstack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
-
-            if (index == 0) {
-                playerIn.dropItem(itemstack2, false);
-            }
+        } else if (!this.mergeItemStack(slotItemStack, firstCraftingAreaSlotIndex, lastCraftingAreaSlotIndex + 1, false)) {
+            return ItemStack.EMPTY;
         }
 
-        return itemstack;
+        if (slotItemStack.isEmpty()) {
+            slot.putStack(ItemStack.EMPTY);
+        } else {
+            slot.onSlotChanged();
+        }
+
+        slot.onTake(playerIn, copyForTakeItemStack);
+
+        return copyItemStack;
     }
 
     @Override
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         checkForValidRecipe();
     }
-
-    /*@Override
-    public void onContainerClosed(EntityPlayer playerIn) {
-        //super.onContainerClosed(playerIn);
-
-        if (!_world.isRemote) {
-            for (int i = 0; i < 9; ++i) {
-                ItemStack itemstack = _craftingMatrix.getStackInSlot(i);
-                if (itemstack != null) {
-                    playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
-                }
-            }
-        }
-
-        //playerIn.inventory.markDirty();
-    }*/
 
     private void addOwnSlots(EntityPlayer player) {
 
@@ -164,31 +128,7 @@ public class SpellAltarContainer extends Container {
             }
         }
 
-        this.addSlotToContainer(new SlotCrafting(player, _craftingMatrix, _craftingResult, _ouputSlot, 100, 27));
-
-
-        /*IItemHandler itemHandler = _te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-
-        final int slotSize = 16;
-        final int space = 2;
-        int leftStart = 64;  //(SpellAltarGuiContainer.WIDTH - (3 * slotSize) - (2 * space)) /2;
-        int x = leftStart;
-        int y = space * 3;
-
-        int slotIndex = 0;
-        int c = 0;
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex, x, y));
-            slotIndex++;
-            if (c < 2) {
-                c++;
-                x += slotSize + space;
-            } else {
-                c = 0;
-                x = leftStart;
-                y += slotSize + space;
-            }
-        }*/
+        this.addSlotToContainer(new MySlot(player, _craftingMatrix, _craftingResult, _outputSlot, 100, 27));
     }
 
     private void addPlayerSlots(IInventory playerInventory) {
@@ -197,7 +137,7 @@ public class SpellAltarContainer extends Container {
             for (int col = 0; col < 9; ++col) {
                 int x = 10 + col * 18;
                 int y = row * 18 + 70;
-                this.addSlotToContainer(new Slot(playerInventory, col + row * 9 + 10, x, y));
+                this.addSlotToContainer(new Slot(playerInventory, col + row * 9 + 9, x, y));
             }
         }
 
@@ -207,29 +147,9 @@ public class SpellAltarContainer extends Container {
             int y = 58 + 70;
             this.addSlotToContainer(new Slot(playerInventory, row, x, y));
         }
-
-        //onCraftMatrixChanged(_craftingMatrix);
     }
 
     private void checkForValidRecipe() {
-            /*System.out.println("Stack 0 name: " + _craftingMatrix.getStackInSlot(0).getDisplayName());
-
-        IRecipe recipeMatch = CraftingManager.findMatchingRecipe(_craftingMatrix, _world);
-
-        if (!_world.isRemote) {
-            if (recipeMatch != null) {
-                ItemStack matchItemStack = recipeMatch.getRecipeOutput();
-                System.out.println("Found recipe for: " + recipeMatch.getRecipeOutput().getItem().getUnlocalizedName());
-                System.out.println("recipeMatch type SimpleName is: " + recipeMatch.getRegistryType().getSimpleName());
-                _craftingResult.setInventorySlotContents(0, matchItemStack);
-
-            } else {
-                System.out.println("No recipeMatch found");
-                _craftingResult.setInventorySlotContents(0, ItemStack.EMPTY);
-            }
-        }*/
-
-
         if (!_world.isRemote) {
 
             EntityPlayerMP entityPlayerMp = (EntityPlayerMP) _player;
@@ -238,27 +158,18 @@ public class SpellAltarContainer extends Container {
             //Check for crafting table recipe first
             IRecipe recipeMatch = CraftingManager.findMatchingRecipe(_craftingMatrix, _world);
             if (recipeMatch != null && (recipeMatch.isDynamic() || !_world.getGameRules().getBoolean("doLimitedCrafting") || entityPlayerMp.getRecipeBook().isUnlocked(recipeMatch))) {
-                //System.out.println("Found crafting recipe for: " + recipeMatch.getRecipeOutput().getItem().getUnlocalizedName());
-                //System.out.println("recipeMatch type SimpleName is: " + recipeMatch.getRegistryType().getSimpleName());
-
-                //_craftingResult.setRecipeUsed(recipeMatch);
+                _craftingResult.setRecipeUsed(recipeMatch);
                 craftedItemStack = recipeMatch.getCraftingResult(_craftingMatrix);
 
             } else {
                 SpellAltarRecipe spellRecipeMatch = SpellAltarRecipe.getMatch(_craftingMatrix);
                 if (spellRecipeMatch != null) {
-
-                    //todo: fix this
-                    for (int i = 0; i < _craftingMatrix.getSizeInventory(); i++) {
-                        _craftingMatrix.decrStackSize(i, 1);
-                    }
-
                     craftedItemStack = spellRecipeMatch.getOutputCopy();
                 }
             }
 
             _craftingResult.setInventorySlotContents(-1, craftedItemStack);
-            entityPlayerMp.connection.sendPacket(new SPacketSetSlot(this.windowId, _ouputSlot, craftedItemStack));
+            entityPlayerMp.connection.sendPacket(new SPacketSetSlot(this.windowId, _outputSlot, craftedItemStack));
         }
     }
 
