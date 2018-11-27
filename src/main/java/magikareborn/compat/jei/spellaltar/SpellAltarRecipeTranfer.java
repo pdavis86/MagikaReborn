@@ -23,15 +23,14 @@ public class SpellAltarRecipeTranfer implements IRecipeTransferInfo<SpellAltarCo
         return VanillaRecipeCategoryUid.CRAFTING;
     }
 
-    @Nonnull
     @Override
-    public boolean canHandle(SpellAltarContainer spellAltarContainer) {
+    public boolean canHandle(@Nonnull SpellAltarContainer spellAltarContainer) {
         return true;
     }
 
     @Nonnull
     @Override
-    public List<Slot> getRecipeSlots(SpellAltarContainer spellAltarContainer) {
+    public List<Slot> getRecipeSlots(@Nonnull SpellAltarContainer spellAltarContainer) {
         List<Slot> slots = new ArrayList<>();
         for (int i = 0; i <= 9; i++) {
             slots.add(spellAltarContainer.getSlot(i));
@@ -41,7 +40,7 @@ public class SpellAltarRecipeTranfer implements IRecipeTransferInfo<SpellAltarCo
 
     @Nonnull
     @Override
-    public List<Slot> getInventorySlots(SpellAltarContainer spellAltarContainer) {
+    public List<Slot> getInventorySlots(@Nonnull SpellAltarContainer spellAltarContainer) {
         List<Slot> slots = new ArrayList<>();
         for (int i = 10; i < spellAltarContainer.inventorySlots.size(); i++) {
             slots.add(spellAltarContainer.getSlot(i));

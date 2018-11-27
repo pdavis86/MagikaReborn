@@ -6,10 +6,10 @@ public class Ether1Entry extends BaseEntry {
 
     private boolean _isUnlocked;
     private boolean _canBeUnlocked;
-    float _progressToNext;
+    private float _progressToNext;
 
     //todo: Ether + Impulse + Temper + Reward + Headway
-    public Ether1Entry() {
+    Ether1Entry() {
         super("Ether1");
     }
 

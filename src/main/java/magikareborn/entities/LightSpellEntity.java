@@ -1,20 +1,27 @@
 package magikareborn.entities;
 
+import magikareborn.ModRoot;
 import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.helpers.LightHelper;
 import magikareborn.helpers.SoundHelper;
 import magikareborn.init.ModBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
+
+import javax.annotation.Nonnull;
 
 public class LightSpellEntity extends ProjectileSpellEntity {
 
     //Needed for registration
+    @SuppressWarnings("unused")
     public LightSpellEntity(World worldIn) {
         super(worldIn);
     }
@@ -27,7 +34,7 @@ public class LightSpellEntity extends ProjectileSpellEntity {
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
+    protected void onImpact(@Nonnull RayTraceResult result) {
         if (!world.isRemote) {
 
             this.setDead();
@@ -76,6 +83,10 @@ public class LightSpellEntity extends ProjectileSpellEntity {
                 world.setBlockState(newBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());
 
                 IOpusCapability opusCapability = thrower.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+                if (opusCapability == null) {
+                    OpusCapability.logNullWarning(thrower.getName());
+                    return;
+                }
                 opusCapability.addMagicXp(xp);
 
             } else {

@@ -6,8 +6,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 
-import java.util.concurrent.Callable;
-
 public class OpusCapabilityStorage implements Capability.IStorage<IOpusCapability> {
 
     //Unique instance of the capability
@@ -21,12 +19,7 @@ public class OpusCapabilityStorage implements Capability.IStorage<IOpusCapabilit
     }
 
     public static void register() {
-        CapabilityManager.INSTANCE.register(IOpusCapability.class, _storage, new Callable<IOpusCapability>() {
-            @Override
-            public IOpusCapability call() throws Exception {
-                return new OpusCapability();
-            }
-        });
+        CapabilityManager.INSTANCE.register(IOpusCapability.class, _storage, OpusCapability::new);
     }
 
     @Override

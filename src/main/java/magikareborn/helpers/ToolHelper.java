@@ -1,5 +1,6 @@
 package magikareborn.helpers;
 
+@SuppressWarnings("unused")
 public class ToolHelper {
 
     public static String TOOLCLASS_SHOVEL = "shovel";

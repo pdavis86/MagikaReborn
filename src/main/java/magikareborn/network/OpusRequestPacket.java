@@ -26,8 +26,7 @@ public class OpusRequestPacket implements IMessage {
             if (ctx.side == Side.SERVER) {
                 EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
                 IOpusCapability opusCapability = serverPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-                OpusUpdatePacket replyMessage = new OpusUpdatePacket(opusCapability);
-                return replyMessage;
+                return new OpusUpdatePacket(opusCapability);
             }
 
             // No response packet

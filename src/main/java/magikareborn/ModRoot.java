@@ -13,17 +13,18 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("unused")
 @Mod(modid = ModRoot.MODID, name = ModRoot.MODNAME, version = ModRoot.MODVERSION, useMetadata = true)
 public class ModRoot {
 
     public static final String MODID = "magikareborn";
     public static final String MODNAME = "Magika Reborn";
-    public static final String MODVERSION = "0.0.1";
+    static final String MODVERSION = "0.0.1";
 
     public static final CreativeTabs MAGIKA_REBORN_CREATIVE_TAB = new ModCreativeTab();
 
     @SidedProxy(clientSide = "magikareborn.proxy.ClientProxy", serverSide = "magikareborn.proxy.ServerProxy")
-    public static CommonProxy proxy;
+    private static CommonProxy proxy;
 
     @Mod.Instance
     public static ModRoot instance;

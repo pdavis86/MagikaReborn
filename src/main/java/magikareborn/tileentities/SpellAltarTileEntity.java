@@ -13,9 +13,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
+
 public class SpellAltarTileEntity extends BaseWithGuiTileEntity {
 
-    public static final int SIZE = 9;
+    private static final int SIZE = 9;
 
     private static final String _nbtKeyItems = "items";
 
@@ -34,6 +36,7 @@ public class SpellAltarTileEntity extends BaseWithGuiTileEntity {
         }
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
@@ -42,7 +45,7 @@ public class SpellAltarTileEntity extends BaseWithGuiTileEntity {
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return true;
         }
@@ -50,7 +53,7 @@ public class SpellAltarTileEntity extends BaseWithGuiTileEntity {
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
         }
@@ -69,6 +72,6 @@ public class SpellAltarTileEntity extends BaseWithGuiTileEntity {
 
     @Override
     public GuiContainer getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return new SpellAltarGuiContainer(this, new SpellAltarContainer(player, this));
+        return new SpellAltarGuiContainer(new SpellAltarContainer(player, this));
     }
 }

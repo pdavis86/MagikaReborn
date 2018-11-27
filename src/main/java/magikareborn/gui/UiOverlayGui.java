@@ -1,6 +1,7 @@
 package magikareborn.gui;
 
 import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -15,6 +16,10 @@ public class UiOverlayGui extends Gui {
         int height = scaled.getScaledHeight();
 
         IOpusCapability opusCapability = mc.player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+        if (opusCapability == null) {
+            OpusCapability.logNullWarning(mc.player.getName());
+            return;
+        }
 
         if (opusCapability.getMagicLevel() > 0) {
             GL11.glPushMatrix();

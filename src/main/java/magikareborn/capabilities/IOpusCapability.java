@@ -8,6 +8,7 @@ public interface IOpusCapability {
 
     Entity getEntity();
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     boolean isInitialised();
 
     void cloneFrom(IOpusCapability oldCapability, boolean updateSecureProps);

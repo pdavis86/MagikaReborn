@@ -13,8 +13,8 @@ public class Config {
     private static Configuration _config;
 
     //todo: replace these
-    public static boolean isThisAGoodTutorial = true;
-    public static String yourRealName = "Steve";
+    private static boolean isThisAGoodTutorial = true;
+    private static String yourRealName = "Steve";
 
     public static void readConfig(File modConfigurationDirectory) {
         _config = new Configuration(new File(modConfigurationDirectory.getPath(), "MagikaReborn.cfg"));

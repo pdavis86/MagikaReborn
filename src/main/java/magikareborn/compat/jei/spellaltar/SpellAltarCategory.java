@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 
-public class SpellAltarCategory implements ICustomRecipeCategory<SpellAltarRecipeWrapper, SpellAltarRecipe>, IRecipeWrapperFactory<SpellAltarRecipe> {
+public class SpellAltarCategory implements ICustomRecipeCategory<SpellAltarRecipe>, IRecipeWrapperFactory<SpellAltarRecipe> {
 
     public static String UUID = "magikareborn.spellaltar";
 

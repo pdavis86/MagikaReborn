@@ -19,11 +19,12 @@ public abstract class ProjectileSpellEntity extends EntityThrowable {
     private int ignoreTime;
 
     //Needed for registration
+    @SuppressWarnings("WeakerAccess")
     public ProjectileSpellEntity(World worldIn) {
         super(worldIn);
     }
 
-    public ProjectileSpellEntity(World worldIn, EntityLivingBase throwerIn) {
+    ProjectileSpellEntity(World worldIn, EntityLivingBase throwerIn) {
         super(worldIn, throwerIn);
 
         //todo: ?
@@ -52,8 +53,7 @@ public abstract class ProjectileSpellEntity extends EntityThrowable {
 
         //super.onUpdate();
         //############################################
-        if (!this.world.isRemote)
-        {
+        if (!this.world.isRemote) {
             this.setFlag(6, this.isGlowing());
         }
         this.onEntityUpdate();
@@ -104,6 +104,7 @@ public abstract class ProjectileSpellEntity extends EntityThrowable {
         double d0 = 0.0D;
         boolean flag = false;
 
+        //noinspection ForLoopReplaceableByForEach
         for (int i = 0; i < list.size(); ++i) {
             Entity entity1 = list.get(i);
 
@@ -130,14 +131,10 @@ public abstract class ProjectileSpellEntity extends EntityThrowable {
             }
         }
 
-        if (this.ignoreEntity != null)
-        {
-            if (flag)
-            {
+        if (this.ignoreEntity != null) {
+            if (flag) {
                 this.ignoreTime = 2;
-            }
-            else if (this.ignoreTime-- <= 0)
-            {
+            } else if (this.ignoreTime-- <= 0) {
                 this.ignoreEntity = null;
             }
         }
@@ -160,8 +157,9 @@ public abstract class ProjectileSpellEntity extends EntityThrowable {
         float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float) (MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
 
+        //noinspection StatementWithEmptyBody
         for (this.rotationPitch = (float) (MathHelper.atan2(this.motionY, (double) f) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-            ;
+            //Just loop
         }
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -183,7 +181,7 @@ public abstract class ProjectileSpellEntity extends EntityThrowable {
 
         if (this.isInWater()) {
             for (int j = 0; j < 4; ++j) {
-                float f3 = 0.25F;
+                //float f3 = 0.25F;
                 this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY, this.motionZ);
             }
 

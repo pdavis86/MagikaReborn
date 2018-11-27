@@ -131,7 +131,7 @@ public class OpusGuiScreen extends GuiScreen {
         //System.out.println("Entry " + entry.getName() + "... unlocked: " + entry.isUnlocked() + ", canbeunlocked: " + entry.canBeUnlocked());
 
         if (!entry.isUnlocked()) {
-            drawRect(left, top, left+_entrySize, top+_entrySize, 0xAF000000);
+            drawRect(left, top, left + _entrySize, top + _entrySize, 0xAF000000);
             if (entry.canBeUnlocked()) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(_canBeUnlockedResourceLocation);
                 drawTexturedModalRect(left, top, 0, 0, _entrySize, _entrySize);
@@ -142,21 +142,22 @@ public class OpusGuiScreen extends GuiScreen {
         }
     }
 
-    private void drawXpLine(int prevX, int prevY, int currX, int currY, float progressToNext) {
+    private void drawXpLine(int prevX, int prevY, int currX, float progressToNext) {
         int radius = 1;
         int yValue = prevY + (_entrySize / 2);
+        int xLeft = prevX + _entrySize;
 
         //System.out.println("progressToNext: " + progressToNext);
 
         if (progressToNext < 1) {
-            //System.out.println("Drawing line from " + (prevX + _entrySize) + " to " + currX);
-            drawRect(prevX + _entrySize, yValue - radius, currX, yValue + radius, 0xFF000000);
+            //System.out.println("Drawing line from " + (xLeft) + " to " + currX);
+            drawRect(xLeft, yValue - radius, currX, yValue + radius, 0xFF000000);
         }
 
         if (progressToNext > 0) {
-            int xpProgress = (int) ((currX - (prevX + _entrySize)) * progressToNext);
-            //System.out.println("Drawing xpProgress of " + xpProgress + " from " + (prevX + _entrySize) + " to " + (prevX + _entrySize + xpProgress));
-            drawRect(prevX + _entrySize, yValue - radius, prevX + _entrySize + xpProgress, yValue + radius, 0xFFFFFFFF);
+            int xpProgress = (int) ((currX - (xLeft)) * progressToNext);
+            //System.out.println("Drawing xpProgress of " + xpProgress + " from " + (xLeft) + " to " + (xLeft + xpProgress));
+            drawRect(xLeft, yValue - radius, xLeft + xpProgress, yValue + radius, 0xFFFFFFFF);
         }
 
         //GlStateManager.resetColor();
@@ -175,7 +176,7 @@ public class OpusGuiScreen extends GuiScreen {
         //Background
         Minecraft.getMinecraft().renderEngine.bindTexture(resource);
         //drawTexturedModalRect(left, top, 0, 0, _xSize, _ySize);
-        drawModalRectWithCustomSizedTexture(left, top, 0,0,_xSize, _ySize, _xSize, _ySize);
+        drawModalRectWithCustomSizedTexture(left, top, 0, 0, _xSize, _ySize, _xSize, _ySize);
 
         final int initialPadding = 16;
         final int paddingX = 16;
@@ -187,7 +188,7 @@ public class OpusGuiScreen extends GuiScreen {
         BaseEntry currentChild;
 
         for (BaseEntry entry : _opusEntries) {
-            if (entry.getCategory() == category) {
+            if (entry.getCategory().equals(category)) {
 
                 currX = left + offsetX;
                 currY = top + offsetY;
@@ -205,7 +206,7 @@ public class OpusGuiScreen extends GuiScreen {
 
                     //System.out.println("parent of currentChild " + currentChild.getName() + " reported progressToNext: " + progressToNext);
 
-                    drawXpLine(prevX, prevY, currX, currY, progressToNext);
+                    drawXpLine(prevX, prevY, currX, progressToNext);
                     drawEntry(currentChild, currX, currY);
 
                     progressToNext = currentChild.getProgressToNext();

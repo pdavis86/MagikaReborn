@@ -17,7 +17,7 @@ public class LightSpellEntityRenderer extends RenderSnowball<LightSpellEntity> {
 
     public static final IRenderFactory<LightSpellEntity> FACTORY = new Factory();
 
-    public LightSpellEntityRenderer(RenderManager renderManagerIn, Item itemIn, RenderItem itemRendererIn) {
+    private LightSpellEntityRenderer(RenderManager renderManagerIn, Item itemIn, RenderItem itemRendererIn) {
         super(renderManagerIn, itemIn, itemRendererIn);
     }
 

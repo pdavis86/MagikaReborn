@@ -7,19 +7,22 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 
+import javax.annotation.Nonnull;
+
 public class ModCreativeTab extends CreativeTabs {
 
     public ModCreativeTab() {
         super("tabMagikaReborn");
     }
 
+    @Nonnull
     @Override
     public ItemStack getTabIconItem() {
         return new ItemStack(ModItems.MAGIKA_OPUS_ITEM);
     }
 
     @Override
-    public void displayAllRelevantItems(NonNullList<ItemStack> items) {
+    public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> items) {
         super.displayAllRelevantItems(items);
         items.add(FluidUtil.getFilledBucket(new FluidStack(ModFluids.MANA_FLUID, Fluid.BUCKET_VOLUME)));
     }

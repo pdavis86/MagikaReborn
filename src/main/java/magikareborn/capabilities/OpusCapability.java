@@ -13,7 +13,8 @@ import org.apache.logging.log4j.Level;
 
 public class OpusCapability implements IOpusCapability {
 
-    public OpusCapability() {}
+    public OpusCapability() {
+    }
 
     public OpusCapability(Entity entity) {
         init(entity);
@@ -137,6 +138,7 @@ public class OpusCapability implements IOpusCapability {
         sendToPlayer();
     }
 
+    @SuppressWarnings("UnnecessaryReturnStatement")
     public void regenMana() {
 
         //todo: check for mana regen skill
@@ -216,6 +218,13 @@ public class OpusCapability implements IOpusCapability {
 
         //todo implement skill tree unlocking
         return true;
+    }
+
+    public static void logNullWarning(String entityName) {
+        System.out.println("Opuc capability was null");
+        //todo: if these are the same then just use the second one throughout the codebase
+        ModRoot.logger.log(Level.WARN, "Could not find Capability for entity " + entityName);
+        ModRoot.logger.warn("Could not find Capability for entity " + entityName);
     }
 
 

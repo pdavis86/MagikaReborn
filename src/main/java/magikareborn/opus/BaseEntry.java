@@ -1,7 +1,6 @@
 package magikareborn.opus;
 
 import magikareborn.capabilities.IOpusCapability;
-import magikareborn.ModRoot;
 import magikareborn.helpers.ResourceHelper;
 import net.minecraft.util.ResourceLocation;
 
@@ -12,15 +11,15 @@ public abstract class BaseEntry {
     public static final String CATEGORY_OFFENSIVE = "offensive";
     public static final String CATEGORY_DEFENSIVE = "defensive";
 
-    public ResourceLocation Resource;
+    ResourceLocation Resource;
 
-    private final static String _namePrefix = ModRoot.MODID + ".opus.";
+    //private final static String _namePrefix = ModRoot.MODID + ".opus.";
 
     private final String _name;
 
     private BaseEntry _next;
 
-    public BaseEntry(String name) {
+    BaseEntry(String name) {
         _name = name.toLowerCase();
     }
 
@@ -28,7 +27,7 @@ public abstract class BaseEntry {
         return _name;
     }
 
-    public BaseEntry setNext(BaseEntry next) {
+    BaseEntry setNext(BaseEntry next) {
         _next = next;
         return this;
     }
@@ -44,7 +43,7 @@ public abstract class BaseEntry {
         return Resource;
     }
 
-    protected void loadNextFromCapability(IOpusCapability opusCapability) {
+    void loadNextFromCapability(IOpusCapability opusCapability) {
         BaseEntry next = getNext();
         if (next != null) {
             next.loadFromCapability(opusCapability);

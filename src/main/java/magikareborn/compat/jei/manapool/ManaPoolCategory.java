@@ -19,7 +19,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
-public class ManaPoolCategory implements ICustomRecipeCategory<ManaPoolRecipeWrapper, ManaPoolRecipe>, IRecipeWrapperFactory<ManaPoolRecipe> {
+public class ManaPoolCategory implements ICustomRecipeCategory<ManaPoolRecipe>, IRecipeWrapperFactory<ManaPoolRecipe> {
 
     public static String UUID = "magikareborn.manapool";
 

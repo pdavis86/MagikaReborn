@@ -3,10 +3,10 @@ package magikareborn.items;
 import magikareborn.ModRoot;
 import magikareborn.base.BaseItem;
 import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.gui.OpusGuiScreen;
 import magikareborn.helpers.ResourceHelper;
-import magikareborn.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -36,13 +36,13 @@ public class MagikaOpusItem extends BaseItem {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand handIn) {
 
         IOpusCapability opusCapability = playerIn.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+        if (opusCapability == null) {
+            OpusCapability.logNullWarning(playerIn.getName());
+            return super.onItemRightClick(worldIn, playerIn, handIn);
+        }
 
         if (worldIn.isRemote) {
-            if (opusCapability.getMagicLevel() == 0) {
-                //todo: show achievement
-            }
             Minecraft.getMinecraft().displayGuiScreen(new OpusGuiScreen());
-
             playerIn.addStat(StatList.getObjectUseStats(this), 1);
 
         } else {

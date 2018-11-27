@@ -16,7 +16,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class LightSpellItem extends BaseSpell {
 

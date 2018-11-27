@@ -11,11 +11,10 @@ public class LightHelper {
     public static int getLightLevelAtPos(World world, BlockPos blockPos) {
         int lightFromSky = world.getLightFor(EnumSkyBlock.SKY, blockPos) - world.getSkylightSubtracted();
         int lightFromBlocks = world.getLightFor(EnumSkyBlock.BLOCK, blockPos);
-        int max = Math.max(lightFromSky, lightFromBlocks);
 
         //System.out.println("sky: " + lightFromSky + ", blocks: " + lightFromBlocks);
 
-        return max;
+        return Math.max(lightFromSky, lightFromBlocks);
     }
 
 }

@@ -6,9 +6,9 @@ public class Ether3Entry extends BaseEntry {
 
     private boolean _isUnlocked;
     private boolean _canBeUnlocked;
-    float _progressToNext;
+    private float _progressToNext;
 
-    public Ether3Entry() {
+    Ether3Entry() {
         super("Ether3");
     }
 

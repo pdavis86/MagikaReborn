@@ -1,10 +1,10 @@
 package magikareborn.network;
 
 import io.netty.buffer.ByteBuf;
+import magikareborn.ModRoot;
 import magikareborn.capabilities.IOpusCapability;
 import magikareborn.capabilities.OpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
-import magikareborn.ModRoot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -19,6 +19,7 @@ public class OpusUpdatePacket implements IMessage {
     private IOpusCapability _capability;
 
     //Required
+    @SuppressWarnings("unused")
     public OpusUpdatePacket() {
     }
 
@@ -66,6 +67,10 @@ public class OpusUpdatePacket implements IMessage {
                 EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
                 serverPlayer.getServerWorld().addScheduledTask(() -> {
                     IOpusCapability opusCapability = serverPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+                    if (opusCapability == null) {
+                        OpusCapability.logNullWarning(serverPlayer.getName());
+                        return;
+                    }
                     opusCapability.cloneFrom(message.getCapability(), false);
                 });
             } else {
@@ -77,6 +82,10 @@ public class OpusUpdatePacket implements IMessage {
                 }
 
                 IOpusCapability opusCapability = clientPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+                if (opusCapability == null) {
+                    OpusCapability.logNullWarning(clientPlayer.getName());
+                    return null;
+                }
                 opusCapability.cloneFrom(message.getCapability(), true);
             }
 

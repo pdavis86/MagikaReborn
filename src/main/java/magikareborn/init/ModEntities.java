@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class ModEntities {
 
+    @SuppressWarnings("UnusedAssignment")
     public static void registerEntities() {
         int id = 0;
         EntityRegistry.registerModEntity(

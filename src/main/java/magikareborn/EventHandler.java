@@ -1,6 +1,7 @@
 package magikareborn;
 
 import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.gui.UiOverlayGui;
 import net.minecraft.client.Minecraft;
@@ -21,7 +22,14 @@ public class EventHandler {
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
-        player.getCapability(OpusCapabilityStorage.CAPABILITY, null).init(player);
+        IOpusCapability opusCapability = player.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+
+        if (opusCapability == null) {
+            OpusCapability.logNullWarning(player.getName());
+            return;
+        }
+
+        opusCapability.init(player);
     }
 
     @SubscribeEvent
@@ -43,6 +51,12 @@ public class EventHandler {
 
         IOpusCapability oldCapability = evt.getOriginal().getCapability(OpusCapabilityStorage.CAPABILITY, null);
         IOpusCapability newCapability = evt.getEntityPlayer().getCapability(OpusCapabilityStorage.CAPABILITY, null);
+
+        if (oldCapability == null || newCapability == null) {
+            OpusCapability.logNullWarning(evt.getOriginal().getName());
+            return;
+        }
+
         newCapability.cloneFrom(oldCapability, true);
     }
 
@@ -53,6 +67,12 @@ public class EventHandler {
 
         if (entity instanceof EntityPlayer) {
             IOpusCapability capability = entity.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+
+            if (capability == null) {
+                OpusCapability.logNullWarning(entity.getName());
+                return;
+            }
+
             if (world.isRemote) {
                 if (!capability.isInitialised()) {
                     capability.requestFromServer();

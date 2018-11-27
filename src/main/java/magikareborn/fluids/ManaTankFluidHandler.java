@@ -1,13 +1,9 @@
 package magikareborn.fluids;
 
-import magikareborn.init.ModFluids;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ManaTankFluidHandler extends FluidHandlerItemStackSimple {
 

@@ -6,9 +6,9 @@ public class Ether2Entry extends BaseEntry {
 
     private boolean _isUnlocked;
     private boolean _canBeUnlocked;
-    float _progressToNext;
+    private float _progressToNext;
 
-    public Ether2Entry(){
+    Ether2Entry(){
         super("Ether2");
     }
 
