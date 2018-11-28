@@ -20,8 +20,8 @@ jei.light_spell=Crafted in a Spell Altar, this spell allows the caster to projec
 jei.category.title.spellaltar=Spell Altar
 jei.category.title.manapool=Pool of Mana
 
+item.magikareborn.manatankitem.empty.name=Mana Tank (Empty)
 item.magikareborn.manatankitem.name=Mana Tank
-item.magikareborn.manatankitem.filled.name=Mana Tank (full)
 
 message.spell_not_unlocked=You do not know how to cast this spell
 message.magic_level_too_low=You lack the experience to cast this spell
