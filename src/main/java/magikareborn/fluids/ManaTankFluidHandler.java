@@ -43,24 +43,28 @@ public class ManaTankFluidHandler extends FluidHandlerItemStackSimple {
     }
 
     // rename getFluid() method since it is confusing as it returns a fluid stack
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    @Deprecated
     @Nullable
     @Override
     public FluidStack getFluid() {
         return super.getFluid();
     }
 
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"WeakerAccess", "deprecation"})
     public FluidStack getFluidStack() {
         return getFluid();
     }
 
     // rename setFluid() method since it is confusing as it take a fluid stack
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    @Deprecated
     @Override
     protected void setFluid(FluidStack fluid) {
         super.setFluid(fluid);
     }
 
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"WeakerAccess", "deprecation"})
     public void setFluidStack(FluidStack parFluidStack) {
         setFluid(parFluidStack);
     }

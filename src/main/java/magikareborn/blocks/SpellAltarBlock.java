@@ -29,7 +29,7 @@ public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
 
     public SpellAltarBlock() {
         super("SpellAltarBlock", Material.WOOD, ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
-        this.setSoundType(SoundType.WOOD);
+        //todo: needed? - this.setSoundType(SoundType.WOOD);
         setLightLevel(16 / 16f);
         setHardness(1.5f);
         //todo: does this do anything? - setHarvestLevel(ToolHelper.TOOLCLASS_AXE, 1);
@@ -52,10 +52,10 @@ public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
             return true;
         }
 
-        TileEntity te = worldIn.getTileEntity(pos);
+        /*TileEntity te = worldIn.getTileEntity(pos);
         if (!(te instanceof SpellAltarTileEntity)) {
             return false;
-        }
+        }*/
 
         /*TileEntity tileentity = worldIn.getTileEntity(pos);
 

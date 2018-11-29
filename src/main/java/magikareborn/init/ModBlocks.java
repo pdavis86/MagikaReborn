@@ -20,6 +20,7 @@ public class ModBlocks {
     public static final SpellAltarBlock SPELL_ALTAR_BLOCK = new SpellAltarBlock();
     public static final MagicalWoodLogBlock MAGICAL_LOG_BLOCK = new MagicalWoodLogBlock();
     public static final MagicalWoodPlanksBlock MAGICAL_PLANKS_BLOCK = new MagicalWoodPlanksBlock();
+    public static final ManaTankBlock MANA_TANK_BLOCK = new ManaTankBlock();
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
@@ -28,5 +29,6 @@ public class ModBlocks {
         SPELL_ALTAR_BLOCK.initModel();
         MAGICAL_LOG_BLOCK.initModel();
         MAGICAL_PLANKS_BLOCK.initModel();
+        MANA_TANK_BLOCK.initModel();
     }
 }

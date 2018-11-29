@@ -12,6 +12,7 @@ import magikareborn.init.ModItems;
 import magikareborn.network.PacketHandler;
 import magikareborn.recipes.ManaPoolRecipe;
 import magikareborn.recipes.SpellAltarRecipe;
+import magikareborn.tileentities.ManaTankTileEntity;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -77,7 +78,8 @@ public class CommonProxy {
                 ModBlocks.LIGHT_SPELL_BLOCK,
                 ModBlocks.SPELL_ALTAR_BLOCK,
                 ModBlocks.MAGICAL_LOG_BLOCK,
-                ModBlocks.MAGICAL_PLANKS_BLOCK
+                ModBlocks.MAGICAL_PLANKS_BLOCK,
+                ModBlocks.MANA_TANK_BLOCK
         );
 
         //todo: these fail with error "Invalid registration attempt for an Ore Dictionary item with name logWood has occurred"
@@ -86,6 +88,7 @@ public class CommonProxy {
 
         //System.out.println("Registering Tile Entities");
         GameRegistry.registerTileEntity(SpellAltarTileEntity.class, ResourceHelper.getTileEntityResource(SpellAltarTileEntity.class));
+        GameRegistry.registerTileEntity(ManaTankTileEntity.class, ResourceHelper.getTileEntityResource(ManaTankTileEntity.class));
     }
 
     @SubscribeEvent
@@ -99,6 +102,7 @@ public class CommonProxy {
                 ModBlocks.SPELL_ALTAR_BLOCK.getNewItem(),
                 ModBlocks.MAGICAL_LOG_BLOCK.getNewItem(),
                 ModBlocks.MAGICAL_PLANKS_BLOCK.getNewItem(),
+                ModBlocks.MANA_TANK_BLOCK.getNewItem(),
                 ModItems.MAGIKA_OPUS_ITEM,
                 ModItems.LIGHT_SPELL_ITEM,
                 ModItems.MANA_TANK_ITEM

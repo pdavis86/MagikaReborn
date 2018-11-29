@@ -111,7 +111,7 @@ public class ManaTankItem extends BaseItem {
         return new TextComponentTranslation(unlocalizedName).getUnformattedText().trim();
     }
 
-    @Nonnull
+    /*@Nonnull
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand handIn) {
 
@@ -160,6 +160,6 @@ public class ManaTankItem extends BaseItem {
         }
 
         return returnResult;
-    }
+    }*/
 
 }
