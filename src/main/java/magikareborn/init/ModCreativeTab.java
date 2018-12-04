@@ -23,8 +23,8 @@ public class ModCreativeTab extends CreativeTabs {
 
     @Override
     public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> items) {
-        super.displayAllRelevantItems(items);
         items.add(FluidUtil.getFilledBucket(new FluidStack(ModFluids.MANA_FLUID, Fluid.BUCKET_VOLUME)));
+        super.displayAllRelevantItems(items);
     }
 
         /*

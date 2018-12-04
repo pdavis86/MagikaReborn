@@ -1,14 +1,10 @@
 {
   "forge_marker": 1,
-  "defaults": {
-    "model": "magikareborn:magicalwoodlogblock"
-  },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}],
-    "axis=none": [{}],
-    "axis=x": [{}],
-    "axis=y": [{}],
-    "axis=z": [{}]
+    "inventory": [{ "model": "magikareborn:magicalwoodlogblock" }],
+    "axis=x": [{ "model": "magikareborn:magicalwoodlogblock", "x": 90, "y": 90 }],
+    "axis=y": [{ "model": "magikareborn:magicalwoodlogblock" }],
+    "axis=z": [{ "model": "magikareborn:magicalwoodlogblock", "x": 90 }],
+    "axis=none": [{ "model": "magikareborn:magicalwoodlogblock" }]
   }
 }

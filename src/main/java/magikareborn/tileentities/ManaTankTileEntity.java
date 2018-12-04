@@ -19,7 +19,7 @@ public class ManaTankTileEntity extends TileEntity {
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        System.out.println("readFromNBT");
+        //System.out.println("readFromNBT");
         super.readFromNBT(compound);
         readTankFromNBT(compound);
     }
@@ -31,7 +31,7 @@ public class ManaTankTileEntity extends TileEntity {
     @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        System.out.println("writeToNBT");
+        //System.out.println("writeToNBT");
         NBTTagCompound tags = super.writeToNBT(compound);
         writeTankToNBT(compound);
         return tags;
@@ -93,4 +93,7 @@ public class ManaTankTileEntity extends TileEntity {
         return fluidTank.getFluid() != null;
     }
 
+    public FluidTank getFluidTank() {
+        return fluidTank;
+    }
 }

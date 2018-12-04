@@ -13,7 +13,7 @@ public class ModBlocks {
             "ManaFluidBlock",
             ModFluids.MANA_FLUID,
             new MaterialLiquid(MapColor.ICE),
-            ModRoot.MAGIKA_REBORN_CREATIVE_TAB
+            null //ModRoot.MAGIKA_REBORN_CREATIVE_TAB
     );
 
     public static final LightSpellBlock LIGHT_SPELL_BLOCK = new LightSpellBlock();

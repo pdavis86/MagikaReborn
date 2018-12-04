@@ -82,10 +82,6 @@ public class CommonProxy {
                 ModBlocks.MANA_TANK_BLOCK
         );
 
-        //todo: these fail with error "Invalid registration attempt for an Ore Dictionary item with name logWood has occurred"
-        //OreDictionary.registerOre("logWood", ModBlocks.MAGICAL_LOG_BLOCK);
-        //OreDictionary.registerOre("plankWood", ModBlocks.MAGICAL_PLANKS_BLOCK);
-
         //System.out.println("Registering Tile Entities");
         GameRegistry.registerTileEntity(SpellAltarTileEntity.class, ResourceHelper.getTileEntityResource(SpellAltarTileEntity.class));
         GameRegistry.registerTileEntity(ManaTankTileEntity.class, ResourceHelper.getTileEntityResource(ManaTankTileEntity.class));
@@ -96,17 +92,21 @@ public class CommonProxy {
 
         //System.out.println("Registering Items");
 
+        //NOTE: This order determines the order in the creative tab
         event.getRegistry().registerAll(
                 ModBlocks.MANA_FLUID_BLOCK.getNewItem(),
-                ModBlocks.LIGHT_SPELL_BLOCK.getNewItem(),
-                ModBlocks.SPELL_ALTAR_BLOCK.getNewItem(),
+                ModItems.MAGIKA_OPUS_ITEM,
                 ModBlocks.MAGICAL_LOG_BLOCK.getNewItem(),
                 ModBlocks.MAGICAL_PLANKS_BLOCK.getNewItem(),
+                ModBlocks.SPELL_ALTAR_BLOCK.getNewItem(),
                 ModBlocks.MANA_TANK_BLOCK.getNewItem(),
-                ModItems.MAGIKA_OPUS_ITEM,
-                ModItems.LIGHT_SPELL_ITEM,
-                ModItems.MANA_TANK_ITEM
+                ModItems.MANA_TANK_ITEM,
+                ModBlocks.LIGHT_SPELL_BLOCK.getNewItem(),
+                ModItems.LIGHT_SPELL_ITEM
         );
+
+        OreDictionary.registerOre("logWood", ModBlocks.MAGICAL_LOG_BLOCK);
+        OreDictionary.registerOre("plankWood", ModBlocks.MAGICAL_PLANKS_BLOCK);
     }
 
     @SubscribeEvent

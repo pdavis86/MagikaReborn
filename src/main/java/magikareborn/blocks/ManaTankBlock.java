@@ -49,7 +49,7 @@ public class ManaTankBlock extends BaseBlock implements ITileEntityProvider {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        System.out.println("Creating new ManaTankTileEntity");
+        //System.out.println("Creating new ManaTankTileEntity");
         return new ManaTankTileEntity();
     }
 
@@ -79,23 +79,35 @@ public class ManaTankBlock extends BaseBlock implements ITileEntityProvider {
 
     @Override
     public void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-        // standard drop logic
+
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
         Item item = this.getItemDropped(state, rand, fortune);
-        ItemStack stack = ItemStack.EMPTY;
-        if (item != Items.AIR) {
-            stack = new ItemStack(item, 1, this.damageDropped(state));
-            drops.add(stack);
-        }
 
-        // save liquid data on the stack
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof ManaTankTileEntity && !stack.isEmpty()) {
-            if (((ManaTankTileEntity) te).containsFluid()) {
-                NBTTagCompound tag = new NBTTagCompound();
-                ((ManaTankTileEntity) te).writeTankToNBT(tag);
-                stack.setTagCompound(tag);
+        System.out.println("Drop item: " + item.getUnlocalizedName());
+
+        if (item != Items.AIR) {
+            ItemStack stack = new ItemStack(item, 1, this.damageDropped(state));
+
+            // save liquid data on the stack
+            TileEntity te = world.getTileEntity(pos);
+
+            //todo: fix bug where tank does not retain its liquid when broken
+            System.out.println("Tile entity is null: " + (te == null));
+            System.out.println("pos: " + pos.getX() + " " + pos.getY() + " " + pos.getZ() );
+
+            if (te instanceof ManaTankTileEntity && !stack.isEmpty()) {
+
+                //System.out.println("Tile entity: " + te.getDisplayName());
+                //System.out.println("Fluid amount: " + ((ManaTankTileEntity) te).getFluidTank().getFluid().amount);
+
+                if (((ManaTankTileEntity) te).containsFluid()) {
+                    NBTTagCompound tag = new NBTTagCompound();
+                    ((ManaTankTileEntity) te).writeTankToNBT(tag);
+                    stack.setTagCompound(tag);
+                }
             }
+
+            drops.add(stack);
         }
     }
 

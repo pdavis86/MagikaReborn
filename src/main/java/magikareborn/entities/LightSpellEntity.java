@@ -1,6 +1,5 @@
 package magikareborn.entities;
 
-import magikareborn.ModRoot;
 import magikareborn.capabilities.IOpusCapability;
 import magikareborn.capabilities.OpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
@@ -9,12 +8,10 @@ import magikareborn.helpers.SoundHelper;
 import magikareborn.init.ModBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.Level;
 
 import javax.annotation.Nonnull;
 

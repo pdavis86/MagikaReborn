@@ -32,6 +32,12 @@ public class SpellAltarGuiContainer extends GuiContainer {
 
         mc.getTextureManager().bindTexture(_background);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
+        //Show bar filled of required xp
+        drawString(mc.fontRenderer, "XP:", guiLeft + 120, guiTop + 10, 0x0000FF00);
+
+        //Show bar filled of required mana by checking inventorySlots.hghghggh
+        drawString(mc.fontRenderer, "Mana:", guiLeft + 120, guiTop + 20, 0x000000FF);
     }
 
 }

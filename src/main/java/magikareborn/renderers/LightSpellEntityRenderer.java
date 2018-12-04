@@ -1,6 +1,7 @@
 package magikareborn.renderers;
 
 import magikareborn.entities.LightSpellEntity;
+import magikareborn.init.ModBlocks;
 import magikareborn.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
@@ -31,7 +32,7 @@ public class LightSpellEntityRenderer extends RenderSnowball<LightSpellEntity> {
 
         @Override
         public Render<? super LightSpellEntity> createRenderFor(RenderManager manager) {
-            return new LightSpellEntityRenderer(manager, ModItems.LIGHT_SPELL_ITEM, Minecraft.getMinecraft().getRenderItem());
+            return new LightSpellEntityRenderer(manager, Item.getItemFromBlock(ModBlocks.LIGHT_SPELL_BLOCK), Minecraft.getMinecraft().getRenderItem());
         }
     }
 

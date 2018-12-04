@@ -1,26 +1,15 @@
 package magikareborn.items;
 
-import magikareborn.ModRoot;
 import magikareborn.base.BaseItem;
 import magikareborn.fluids.ManaTankFluidHandler;
-import magikareborn.helpers.FluidHelper;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.init.ModFluids;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.StatBase;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.DispenseFluidContainer;
@@ -42,7 +31,7 @@ public class ManaTankItem extends BaseItem {
     private final ItemStack EMPTY_STACK = new ItemStack(this);
 
     public ManaTankItem() {
-        super("ManaTankItem", ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
+        super("ManaTankItem", null); //ModRoot.MAGIKA_REBORN_CREATIVE_TAB
         setMaxStackSize(1);
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DispenseFluidContainer.getInstance());
     }

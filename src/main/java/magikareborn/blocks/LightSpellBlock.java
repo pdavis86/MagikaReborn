@@ -1,6 +1,5 @@
 package magikareborn.blocks;
 
-import magikareborn.ModRoot;
 import magikareborn.base.BaseBlock;
 import magikareborn.helpers.ResourceHelper;
 import net.minecraft.block.SoundType;
@@ -8,20 +7,30 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
+//Inspiration from BlockFlowerPot
+
+@SuppressWarnings("deprecation")
 public class LightSpellBlock extends BaseBlock {
 
+    private static final AxisAlignedBB _boundingBox = new AxisAlignedBB(0.375D, 0.375D, 0.375D, 0.625D, 0.625D, 0.625D);
+
     public LightSpellBlock() {
-        super("LightSpellBlock", Material.CIRCUITS, ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
+        super("LightSpellBlock", Material.CIRCUITS, null); //ModRoot.MAGIKA_REBORN_CREATIVE_TAB
         //setTickRandomly(true);
         setLightLevel(16 / 16f);
         this.setSoundType(SoundType.GLASS);
-        //todo: investigate how Blocks.REDSTONE_WIRE can be small
     }
 
     @SideOnly(Side.CLIENT)
@@ -35,10 +44,41 @@ public class LightSpellBlock extends BaseBlock {
         return null;
     }
 
+    @Nonnull
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return _boundingBox;
+    }
+
+    // used by the renderer to control lighting and visibility of other blocks.
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    // used by the renderer to control lighting and visibility of other blocks
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
     /*@Override
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-        SoundHelper.playSoundForAll(worldIn, pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1f, 1f);
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
     }*/
+
+    @Nonnull
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
+
+    @Nullable
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos) {
+        return null;
+    }
 
     /*@Override
     public int tickRate(World par1World) {

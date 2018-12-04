@@ -9,6 +9,7 @@ Inspired by Ars Magica 2, Skyrim, Borderlands and Final Fantasy 12, this magic-b
 ## Credit
 - I learnt from the tutorials on http://jabelarminecraft.blogspot.com and https://wiki.mcjty.eu/modding/index.php
 - I looked at the source code for Ars Magika 2, Immersive Engineering and Tinkers Construct for coding guidance.
+- Some of the spell artwork from J. W. Bjerk (eleazzaar) -- www.jwbjerk.com/art  -- find this and other open art at: http://opengameart.org
 
 
 ## Things to add

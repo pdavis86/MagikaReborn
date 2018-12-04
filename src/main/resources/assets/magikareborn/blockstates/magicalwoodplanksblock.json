@@ -1,14 +1,16 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "magikareborn:magicalwoodplanksblock"
+    "model": "cube_all",
+    "textures": {
+      "all": "magikareborn:blocks/magicalwoodplanksblock"
+    }
   },
   "variants": {
-    "normal": [{}],
     "inventory": [{}],
-    "axis=none": [{}],
     "axis=x": [{}],
     "axis=y": [{}],
-    "axis=z": [{}]
+    "axis=z": [{ "y": 90 }],
+    "axis=none": [{}]
   }
 }
