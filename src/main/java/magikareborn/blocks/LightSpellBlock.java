@@ -57,6 +57,7 @@ public class LightSpellBlock extends BaseBlock {
     }
 
     // used by the renderer to control lighting and visibility of other blocks
+    // also by (eg) wall or fence to control whether the fence joins itself to this block
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;

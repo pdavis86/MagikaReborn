@@ -1,17 +1,7 @@
 {
   "forge_marker": 1,
-  "defaults": {
-    "model": "cube_all",
-    "textures": {
-      "all": "magikareborn:blocks/manatankblock"
-    }
-  },
   "variants": {
-    "normal": [
-      {}
-    ],
-    "inventory": [
-      {}
-    ]
+    "normal": [{ "model": "magikareborn:manatankblock" }],
+    "inventory": [{ "model": "magikareborn:manatankblock" }]
   }
 }

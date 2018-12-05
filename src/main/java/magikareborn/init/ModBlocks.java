@@ -24,6 +24,7 @@ public class ModBlocks {
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
+        //todo: do we need these calls for blocks without models?
         MANA_FLUID_BLOCK.initModel();
         LIGHT_SPELL_BLOCK.initModel();
         SPELL_ALTAR_BLOCK.initModel();

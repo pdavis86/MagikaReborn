@@ -22,8 +22,8 @@ public class ManaPoolRecipeWrapper implements IRecipeWrapper {
 
         ingredients.setOutput(ItemStack.class, _output);
 
-        /*if(fluid!=null&&ForgeModContainer.getInstance().universalBucket!=null)
-            return Collections.singletonList(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid.getFluid()));*/
+        /*if(fluidStack!=null&&ForgeModContainer.getInstance().universalBucket!=null)
+            return Collections.singletonList(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluidStack.getFluid()));*/
 
         /*System.out.println("Stack item: " + _input.getItem().getUnlocalizedName());
         System.out.println("Stack meta: " + _input.getMetadata());

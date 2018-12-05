@@ -100,7 +100,6 @@ public class CommonProxy {
                 ModBlocks.MAGICAL_PLANKS_BLOCK.getNewItem(),
                 ModBlocks.SPELL_ALTAR_BLOCK.getNewItem(),
                 ModBlocks.MANA_TANK_BLOCK.getNewItem(),
-                ModItems.MANA_TANK_ITEM,
                 ModBlocks.LIGHT_SPELL_BLOCK.getNewItem(),
                 ModItems.LIGHT_SPELL_ITEM
         );

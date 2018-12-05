@@ -34,7 +34,7 @@ public class FluidHelper {
 
     @Nullable
     private static FluidStack getMatchingFluidStack(IFluidHandler fluidHandler, Fluid fluid) {
-        // Theoretically a tank may contain multiple fluid stacks so grab first one that matches fluid type
+        // Theoretically a tank may contain multiple fluidStack stacks so grab first one that matches fluidStack type
         IFluidTankProperties[] tankProperties = fluidHandler.getTankProperties();
         FluidStack result = null;
         for (IFluidTankProperties tankProperty : tankProperties) {
@@ -63,21 +63,21 @@ public class FluidHelper {
         IFluidHandlerItem containerFluidHandler = FluidUtil.getFluidHandler(itemStack);
 
         if (containerFluidHandler == null) {
-            System.out.println("Item stack not really a fluid handling container");
+            System.out.println("Item stack not really a fluidStack handling container");
             return new ActionResult<>(EnumActionResult.FAIL, itemStack);
         }
 
         FluidStack containerFluidStack = getFluidStack(itemStack);
 
         if (containerFluidStack == null || containerFluidStack.amount <= 0) {
-            System.out.println("No actual fluid in container");
+            System.out.println("No actual fluidStack in container");
             return new ActionResult<>(EnumActionResult.FAIL, itemStack);
         }
 
         Fluid fluid = containerFluidStack.getFluid();
 
         if (fluid == null) {
-            System.out.println("Malformed fluid stack has null fluid");
+            System.out.println("Malformed fluidStack stack has null fluidStack");
             return new ActionResult<>(EnumActionResult.FAIL, itemStack);
         }
 
@@ -116,7 +116,7 @@ public class FluidHelper {
 
         FluidStack blockFluidStack = blockFluidHandler.getTankProperties()[0].getContents();
         if (blockFluidStack == null) {
-            System.out.println("Block fluid stack is null");
+            System.out.println("Block fluidStack stack is null");
             return new ActionResult<>(EnumActionResult.FAIL, itemStack);
         }
 
@@ -139,7 +139,7 @@ public class FluidHelper {
         if (player.capabilities.isCreativeMode) {
             containerFluidStack.amount = amountInContainer;
             world.setBlockState(blockPos, blockToPlace.getDefaultState());
-            System.out.println("Placing fluid was a success");
+            System.out.println("Placing fluidStack was a success");
             return new ActionResult<>(EnumActionResult.PASS, itemStack);
         }
 
@@ -152,12 +152,12 @@ public class FluidHelper {
 
         sendUpdatePacketToClient(player);
 
-        System.out.println("After transfer block fluid stack = " + blockFluidStack.getFluid().getName() + " " + blockFluidStack.amount +
-                " and container fluid stack now = " + containerFluidStack.getFluid().getName() + " " + containerFluidStack.amount);
+        System.out.println("After transfer block fluidStack stack = " + blockFluidStack.getFluid().getName() + " " + blockFluidStack.amount +
+                " and container fluidStack stack now = " + containerFluidStack.getFluid().getName() + " " + containerFluidStack.amount);
 
         world.setBlockState(blockPos, blockToPlace.getDefaultState());
 
-        System.out.println("Placing fluid was a success");
+        System.out.println("Placing fluidStack was a success");
 
         return ActionResult.newResult(EnumActionResult.SUCCESS, containerFluidHandler.getContainer());
     }
@@ -183,7 +183,7 @@ public class FluidHelper {
         }
 
         tc.setTag(FluidHandlerItemStack.FLUID_NBT_KEY, fluidTag);
-        System.out.println("Wrote fluid tag to container item stack = " + fluidTag);
+        System.out.println("Wrote fluidStack tag to container item stack = " + fluidTag);
     }
 
     public static ActionResult<ItemStack> tryFillAt(World world, EntityPlayer player, RayTraceResult mop, ItemStack itemStack, int capacity) {
@@ -197,25 +197,25 @@ public class FluidHelper {
         Block block = world.getBlockState(blockPos).getBlock();
 
         if (!(block instanceof IFluidBlock || block instanceof BlockLiquid)) {
-            System.out.println("Not a fluid block in that location");
+            System.out.println("Not a fluidStack block in that location");
             return new ActionResult<>(EnumActionResult.PASS, itemStack);
         }
 
         IFluidHandler sourceFluidHandler = FluidUtil.getFluidHandler(world, blockPos, mop.sideHit);
         if (sourceFluidHandler == null) {
-            System.out.println("Malformed fluid block at position = " + blockPos);
+            System.out.println("Malformed fluidStack block at position = " + blockPos);
             return new ActionResult<>(EnumActionResult.FAIL, itemStack);
         }
 
         IFluidHandlerItem containerFluidHandler = FluidUtil.getFluidHandler(itemStack);
         if (containerFluidHandler == null) {
-            System.out.println("Malformed fluid item at position " + itemStack);
+            System.out.println("Malformed fluidStack item at position " + itemStack);
             return new ActionResult<>(EnumActionResult.FAIL, itemStack);
         }
 
         FluidStack containerFluidStack = getFluidStack(itemStack);
 
-        // convert null fluid stack to empty amount = 0
+        // convert null fluidStack stack to empty amount = 0
         if (containerFluidStack == null) {
             containerFluidStack = new FluidStack(ModFluids.MANA_FLUID, 0);
         }
@@ -230,17 +230,17 @@ public class FluidHelper {
         FluidStack sourceFluidStack = getMatchingFluidStack(sourceFluidHandler, ModFluids.MANA_FLUID);
 
         if (sourceFluidStack == null) {
-            System.out.println("No matching fluid in block");
+            System.out.println("No matching fluidStack in block");
             return new ActionResult<>(EnumActionResult.PASS, itemStack);
         }
 
         if (sourceFluidStack.amount <= 0) {
-            System.out.println("Not enough fluid in source");
+            System.out.println("Not enough fluidStack in source");
             return new ActionResult<>(EnumActionResult.PASS, itemStack);
         }
 
-        System.out.println("Before transfer source fluid stack = " + sourceFluidStack.getFluid().getName() + " " + sourceFluidStack.amount +
-                " and container fluid stack now = " + containerFluidStack.getFluid().getName() + " " + containerFluidStack.amount);
+        System.out.println("Before transfer source fluidStack stack = " + sourceFluidStack.getFluid().getName() + " " + sourceFluidStack.amount +
+                " and container fluidStack stack now = " + containerFluidStack.getFluid().getName() + " " + containerFluidStack.amount);
 
         if (sourceFluidStack.amount > amountRoomInContainer) // some to spare
         {
@@ -253,8 +253,8 @@ public class FluidHelper {
             world.setBlockToAir(blockPos);
         }
 
-        System.out.println("After transfer source fluid stack = " + sourceFluidStack.getFluid().getName() + " " + sourceFluidStack.amount +
-                " and container fluid stack now = " + containerFluidStack.getFluid().getName() + " " + containerFluidStack.amount);
+        System.out.println("After transfer source fluidStack stack = " + sourceFluidStack.getFluid().getName() + " " + sourceFluidStack.amount +
+                " and container fluidStack stack now = " + containerFluidStack.getFluid().getName() + " " + containerFluidStack.amount);
 
         SoundEvent soundevent = containerFluidStack.getFluid().getFillSound(containerFluidStack);
         player.playSound(soundevent, 1f, 1f);

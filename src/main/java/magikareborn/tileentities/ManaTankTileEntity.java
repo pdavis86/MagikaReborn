@@ -1,5 +1,6 @@
 package magikareborn.tileentities;
 
+import magikareborn.fluids.AnimatedFluidTank;
 import magikareborn.init.ModFluids;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +16,7 @@ public class ManaTankTileEntity extends TileEntity {
 
     private static final int CAPACITY = Fluid.BUCKET_VOLUME * 4;
 
-    private FluidTank fluidTank = new FluidTank(ModFluids.MANA_FLUID, 0, CAPACITY);
+    private FluidTank fluidTank = new AnimatedFluidTank(this, ModFluids.MANA_FLUID, 0,CAPACITY);
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
@@ -66,7 +67,7 @@ public class ManaTankTileEntity extends TileEntity {
 
         //System.out.println("getCapability changed facing to " + facing);
 
-        //System.out.println("fluidTank fluid: " + fluidTank.getFluid().getFluid().getName());
+        //System.out.println("fluidTank fluidStack: " + fluidTank.getFluid().getFluid().getName());
 
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null) {
             return (T) fluidTank;

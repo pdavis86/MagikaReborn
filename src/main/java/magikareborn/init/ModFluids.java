@@ -17,19 +17,19 @@ public class ModFluids {
     /*@SideOnly(Side.CLIENT)
     public static void initModels() {
 
-        //System.out.println("Registering fluid models");
+        //System.out.println("Registering fluidStack models");
         //registerFluidModels(MANA_FLUID);
     }*/
 
-    /*public static void registerFluidModels(Fluid fluid) {
-        if(fluid == null) {
+    /*public static void registerFluidModels(Fluid fluidStack) {
+        if(fluidStack == null) {
             return;
         }
 
-        Block block = fluid.getBlock();
+        Block block = fluidStack.getBlock();
         if(block != null) {
             Item item = Item.getItemFromBlock(block);
-            FluidStateMapper mapper = new FluidStateMapper(fluid);
+            FluidStateMapper mapper = new FluidStateMapper(fluidStack);
 
             // item-model
             if(item != Items.AIR) {
@@ -43,12 +43,12 @@ public class ModFluids {
 
     public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition {
 
-        public final Fluid fluid;
+        public final Fluid fluidStack;
         public final ModelResourceLocation location;
 
-        public FluidStateMapper(Fluid fluid) {
-            this.fluid = fluid;
-            this.location = new ModelResourceLocation(new ResourceLocation(ModRoot.MODID.toLowerCase(), "fluid_block"), fluid.getName().toLowerCase());
+        public FluidStateMapper(Fluid fluidStack) {
+            this.fluidStack = fluidStack;
+            this.location = new ModelResourceLocation(new ResourceLocation(ModRoot.MODID.toLowerCase(), "fluid_block"), fluidStack.getName().toLowerCase());
         }
 
         @Nonnull

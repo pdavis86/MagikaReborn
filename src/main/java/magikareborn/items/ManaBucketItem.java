@@ -25,13 +25,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ManaTankItem extends BaseItem {
+public class ManaBucketItem extends BaseItem {
+
+    //NOTE: Not in use
 
     private final int CAPACITY = Fluid.BUCKET_VOLUME * 4;
     private final ItemStack EMPTY_STACK = new ItemStack(this);
 
-    public ManaTankItem() {
-        super("ManaTankItem", null); //ModRoot.MAGIKA_REBORN_CREATIVE_TAB
+    public ManaBucketItem() {
+        super("ManaBucketItem", null); //ModRoot.MAGIKA_REBORN_CREATIVE_TAB
         setMaxStackSize(1);
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DispenseFluidContainer.getInstance());
     }
@@ -123,7 +125,7 @@ public class ManaTankItem extends BaseItem {
 
         ActionResult<ItemStack> returnResult;
         if (!worldIn.isBlockModifiable(playerIn, clickPos)) {
-            //System.out.println("Failed to place fluid because location not modifiable");
+            //System.out.println("Failed to place fluidStack because location not modifiable");
             returnResult = ActionResult.newResult(EnumActionResult.FAIL, heldItemStack);
 
         } else {
@@ -133,7 +135,7 @@ public class ManaTankItem extends BaseItem {
             //System.out.println("Target pos: " + targetPos.getX() + " " + targetPos.getY() + " " + targetPos.getZ());
 
             if (!playerIn.canPlayerEdit(targetPos, rayTraceResult.sideHit, heldItemStack)) {
-                //System.out.println("Failed to place fluid because player cannot edit");
+                //System.out.println("Failed to place fluidStack because player cannot edit");
                 return ActionResult.newResult(EnumActionResult.FAIL, heldItemStack);
             }
 

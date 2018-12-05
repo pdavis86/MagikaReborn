@@ -21,7 +21,7 @@ public class ManaTankFluidHandler extends FluidHandlerItemStackSimple {
         super(container, capacity);
 
         // the reading of the NBT and conversion to capability data happens before the constructor
-        //Without this, it will lose the fluid level after saving and loading the game
+        //Without this, it will lose the fluidStack level after saving and loading the game
         if (getFluidStack() == null) {
             setContainerToEmpty();
         }
@@ -42,7 +42,7 @@ public class ManaTankFluidHandler extends FluidHandlerItemStackSimple {
         return (fluidStack.getFluid() == ModFluids.MANA_FLUID);
     }
 
-    // rename getFluid() method since it is confusing as it returns a fluid stack
+    // rename getFluid() method since it is confusing as it returns a fluidStack stack
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     @Nullable
@@ -56,7 +56,7 @@ public class ManaTankFluidHandler extends FluidHandlerItemStackSimple {
         return getFluid();
     }
 
-    // rename setFluid() method since it is confusing as it take a fluid stack
+    // rename setFluid() method since it is confusing as it take a fluidStack stack
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     @Override

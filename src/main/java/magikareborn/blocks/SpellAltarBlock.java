@@ -5,6 +5,7 @@ import magikareborn.base.BaseBlock;
 import magikareborn.gui.SpellAltarGuiContainer;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.tileentities.SpellAltarTileEntity;
+import net.minecraft.block.BlockWorkbench;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -25,6 +26,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+//Got inspiration from BlockWorkbench
+
 public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
 
     public SpellAltarBlock() {
@@ -33,6 +36,7 @@ public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
         setLightLevel(16 / 16f);
         setHardness(1.5f);
         //todo: does this do anything? - setHarvestLevel(ToolHelper.TOOLCLASS_AXE, 1);
+
     }
 
     @SideOnly(Side.CLIENT)
