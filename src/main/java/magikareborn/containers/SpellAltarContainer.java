@@ -2,7 +2,10 @@ package magikareborn.containers;
 
 import magikareborn.base.PersistentInventoryCrafting;
 import magikareborn.gui.SpellAltarOutputSlot;
+import magikareborn.helpers.FluidHelper;
+import magikareborn.init.ModFluids;
 import magikareborn.recipes.SpellAltarRecipe;
+import magikareborn.tileentities.ManaTankTileEntity;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,8 +17,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.play.server.SPacketSetSlot;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -41,7 +49,7 @@ public class SpellAltarContainer extends Container {
         _world = player.getEntityWorld();
 
         ItemStackHandler _itemStackHandler = (ItemStackHandler) te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		//todo: Replace - assert (_itemStackHandler != null);
+        //todo: Replace - assert (_itemStackHandler != null);
 
         _craftingMatrix = new PersistentInventoryCrafting(this, 3, 3, _itemStackHandler);
         _craftingResult = new InventoryCraftResult();
@@ -168,9 +176,49 @@ public class SpellAltarContainer extends Container {
                 }
             }
 
-            _craftingResult.setInventorySlotContents(-1, craftedItemStack);
-            entityPlayerMp.connection.sendPacket(new SPacketSetSlot(this.windowId, _outputSlot, craftedItemStack));
+            if (craftedItemStack != null) {
+                BlockPos posCenter = _te.getPos();
+                BlockPos posBotLeft = posCenter.add(-3, 1, -3);
+                BlockPos posTopLeft = posCenter.add(-3, 1, +3);
+                BlockPos posBotRight = posCenter.add(+3, 1, -3);
+                BlockPos posTopRight = posCenter.add(+3, 1, +3);
+                int totalMana = getAvailableMana(posBotLeft);
+                totalMana += getAvailableMana(posTopLeft);
+                totalMana += getAvailableMana(posBotRight);
+                totalMana += getAvailableMana(posTopRight);
+
+                System.out.println("Total mana: " + totalMana);
+
+                _craftingResult.setInventorySlotContents(-1, craftedItemStack);
+                entityPlayerMp.connection.sendPacket(new SPacketSetSlot(this.windowId, _outputSlot, craftedItemStack));
+            }
         }
+    }
+
+    private int getAvailableMana(BlockPos blockPos) {
+
+        TileEntity te = _world.getTileEntity(blockPos);
+
+        System.out.println("Block position: " + blockPos);
+        System.out.println("Tile entity: " + te);
+
+        if (te == null || !te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
+            return 0;
+        }
+
+        ManaTankTileEntity mtte = (ManaTankTileEntity)te;
+
+        System.out.println("ManaTankTileEntity: " + mtte);
+
+        if (mtte == null) {
+            return 0;
+        }
+
+        int amount = mtte.getFluidTank().getFluidAmount();
+
+        System.out.println("Tile entity fluid amount: " + amount);
+
+        return amount;
     }
 
 

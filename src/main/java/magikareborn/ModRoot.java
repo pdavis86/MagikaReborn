@@ -30,6 +30,12 @@ public class ModRoot {
     public static ModRoot instance;
 
     public static Logger logger;
+	
+	//todo: Charge time
+	//todo: Target self
+	//todo: Recycler block
+	//todo: Tooltips
+	//todo: Cooldown is one of the stats
 
     static {
         FluidRegistry.enableUniversalBucket();

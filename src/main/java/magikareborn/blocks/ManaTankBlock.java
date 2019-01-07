@@ -39,12 +39,11 @@ import java.util.Random;
 @SuppressWarnings("deprecation")
 public class ManaTankBlock extends BaseBlock implements ITileEntityProvider {
 
-    //todo: set lightlevel based on mana mb
+    //todo: set lightlevel based on mana mb   tank.getFluid().getFluid().getLuminosity() / capacity
 
     public ManaTankBlock() {
         super("ManaTankBlock", Material.GLASS, ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
         setHardness(0.1f);
-        //this.setSoundType(SoundType.WOOD);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -74,16 +73,9 @@ public class ManaTankBlock extends BaseBlock implements ITileEntityProvider {
         return BlockRenderLayer.CUTOUT;
     }
 
-    /*@Override
-    public boolean hasTileEntity(IBlockState state) {
-        System.out.println("hasTileEntity: " + super.hasTileEntity(state));
-        return super.hasTileEntity(state);
-    }*/
-
     @Nullable
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        //System.out.println("Creating new ManaTankTileEntity");
         return new ManaTankTileEntity();
     }
 
@@ -137,7 +129,6 @@ public class ManaTankBlock extends BaseBlock implements ITileEntityProvider {
         }
 
         // save liquid data on the stack
-
         TileEntity te = world.getTileEntity(pos);
         ItemStack stack = new ItemStack(item, 1, this.damageDropped(state));
         if (te instanceof ManaTankTileEntity && !stack.isEmpty()) {

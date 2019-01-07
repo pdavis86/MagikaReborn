@@ -30,10 +30,11 @@ import net.minecraftforge.fluids.capability.wrappers.FluidBlockWrapper;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("unused")
 public class FluidHelper {
 
     @Nullable
-    private static FluidStack getMatchingFluidStack(IFluidHandler fluidHandler, Fluid fluid) {
+    public static FluidStack getMatchingFluidStack(IFluidHandler fluidHandler, Fluid fluid) {
         // Theoretically a tank may contain multiple fluidStack stacks so grab first one that matches fluidStack type
         IFluidTankProperties[] tankProperties = fluidHandler.getTankProperties();
         FluidStack result = null;
@@ -46,7 +47,7 @@ public class FluidHelper {
     }
 
     @Nullable
-    public static FluidStack getFluidStack(ItemStack itemStack) {
+    private static FluidStack getFluidStack(ItemStack itemStack) {
         if (itemStack.hasTagCompound() && itemStack.getTagCompound() != null && itemStack.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
             return FluidStack.loadFluidStackFromNBT(itemStack.getTagCompound().getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY));
         }

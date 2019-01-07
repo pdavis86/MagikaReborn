@@ -17,9 +17,6 @@ public class AnimatedFluidTank extends FluidTank {
     public AnimatedFluidTank(TileEntity te, Fluid fluid, int amount, int capacity) {
         super(fluid, amount, capacity);
         _te = te;
-
-        //todo: Fix buf where renderer does not start rendering until an update is made
-        //sendUpdate(this.getFluidAmount());
     }
 
     private void sendUpdate(int changeAmount) {
@@ -27,7 +24,7 @@ public class AnimatedFluidTank extends FluidTank {
             World world = _te.getWorld();
             if (!world.isRemote) {
                 BlockPos pos = _te.getPos();
-                System.out.println("Sending update to amount: " + this.getFluidAmount());
+                //System.out.println("Sending update to amount: " + this.getFluidAmount());
                 //PacketHandler.INSTANCE.sendToAllAround(new FluidUpdatePacket(pos, this.getFluid()), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getY(), 32));
                 PacketHandler.sendToClients((WorldServer) world, pos, new FluidUpdatePacket(pos, this.getFluid()));
             }
@@ -36,6 +33,7 @@ public class AnimatedFluidTank extends FluidTank {
 
     @Override
     public int fillInternal(FluidStack resource, boolean doFill) {
+        //System.out.println("doFill: " + doFill);
         int amount = super.fillInternal(resource, doFill);
         if (amount > 0 && doFill) {
             sendUpdate(amount);
@@ -45,6 +43,7 @@ public class AnimatedFluidTank extends FluidTank {
 
     @Override
     public FluidStack drainInternal(int maxDrain, boolean doDrain) {
+        //System.out.println("doDrain: " + doDrain);
         FluidStack fluid = super.drainInternal(maxDrain, doDrain);
         if (fluid != null && doDrain) {
             sendUpdate(-fluid.amount);
