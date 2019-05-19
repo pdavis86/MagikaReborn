@@ -14,13 +14,15 @@ public class OpusBuilder {
                 // - Dispel
                 // - Beckon (merchant)
                 // - Rift (gravity grenade)
+                // - Silence
+                // - Immobilise
 
                 //Support
                 add(new Ether1Entry().setNext(new Ether2Entry().setNext(new Ether3Entry())));
                 // - Heal 1
                 // - Summon (mob army)
-                // - Leap + Levitate + Fly)
-                // - Jump + Blink + Warp
+                // - Jump + Levitate + Fly
+                // - Lunge + Blink + Warp
 
                 //Offensive (plus healing if attuned)
                 // - Fire 1

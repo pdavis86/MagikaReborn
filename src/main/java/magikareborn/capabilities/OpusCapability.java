@@ -138,13 +138,12 @@ public class OpusCapability implements IOpusCapability {
         sendToPlayer();
     }
 
-    @SuppressWarnings("UnnecessaryReturnStatement")
     public void regenMana() {
 
         //todo: check for mana regen skill
 
         if (_mana == _manaMax) {
-            return;
+            //return;
         } else if (_manaRegenCooldown > 0) {
             _manaRegenCooldown -= 1;
         } else {
@@ -216,7 +215,7 @@ public class OpusCapability implements IOpusCapability {
             return true;
         }
 
-        //todo implement skill tree unlocking
+        //todo: implement skill tree unlocking
         return true;
     }
 

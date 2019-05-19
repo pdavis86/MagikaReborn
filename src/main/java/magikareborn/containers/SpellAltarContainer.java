@@ -2,7 +2,6 @@ package magikareborn.containers;
 
 import magikareborn.base.PersistentInventoryCrafting;
 import magikareborn.gui.SpellAltarOutputSlot;
-import magikareborn.helpers.FluidHelper;
 import magikareborn.init.ModFluids;
 import magikareborn.recipes.SpellAltarRecipe;
 import magikareborn.tileentities.ManaTankTileEntity;
@@ -22,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -176,49 +176,64 @@ public class SpellAltarContainer extends Container {
                 }
             }
 
+            int totalMana = getAvailableMana();
+
+            System.out.println("Total mana: " + totalMana);
+
+            _te.getTileData().setInteger("manaAvailable", totalMana);
+            //_te.getUpdateTag().setInteger("manaAvailable", totalMana);
+
             if (craftedItemStack != null) {
-                BlockPos posCenter = _te.getPos();
-                BlockPos posBotLeft = posCenter.add(-3, 1, -3);
-                BlockPos posTopLeft = posCenter.add(-3, 1, +3);
-                BlockPos posBotRight = posCenter.add(+3, 1, -3);
-                BlockPos posTopRight = posCenter.add(+3, 1, +3);
-                int totalMana = getAvailableMana(posBotLeft);
-                totalMana += getAvailableMana(posTopLeft);
-                totalMana += getAvailableMana(posBotRight);
-                totalMana += getAvailableMana(posTopRight);
-
-                System.out.println("Total mana: " + totalMana);
-
                 _craftingResult.setInventorySlotContents(-1, craftedItemStack);
                 entityPlayerMp.connection.sendPacket(new SPacketSetSlot(this.windowId, _outputSlot, craftedItemStack));
             }
         }
     }
 
-    private int getAvailableMana(BlockPos blockPos) {
+    public int getAvailableMana() {
+        BlockPos posCenter = _te.getPos();
+        BlockPos posBotLeft = posCenter.add(-3, 1, -3);
+        BlockPos posTopLeft = posCenter.add(-3, 1, +3);
+        BlockPos posBotRight = posCenter.add(+3, 1, -3);
+        BlockPos posTopRight = posCenter.add(+3, 1, +3);
+        int totalMana = getAvailableManaAt(posBotLeft);
+        totalMana += getAvailableManaAt(posTopLeft);
+        totalMana += getAvailableManaAt(posBotRight);
+        totalMana += getAvailableManaAt(posTopRight);
+        return totalMana;
+    }
+
+    private int getAvailableManaAt(BlockPos blockPos) {
 
         TileEntity te = _world.getTileEntity(blockPos);
 
-        System.out.println("Block position: " + blockPos);
-        System.out.println("Tile entity: " + te);
+        //System.out.println("Block position: " + blockPos);
+        //System.out.println("Tile entity: " + te);
 
         if (te == null || !te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
             return 0;
         }
 
-        ManaTankTileEntity mtte = (ManaTankTileEntity)te;
-
-        System.out.println("ManaTankTileEntity: " + mtte);
-
-        if (mtte == null) {
+        IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+        if (fluidHandler == null) {
             return 0;
         }
 
-        int amount = mtte.getFluidTank().getFluidAmount();
+        if (!(fluidHandler instanceof FluidTank)) {
+            return 0;
+        }
 
-        System.out.println("Tile entity fluid amount: " + amount);
+        FluidTank fluidTank = (FluidTank)fluidHandler;
 
-        return amount;
+        return fluidTank.getFluidAmount();
+
+        //ManaTankTileEntity mtte = (ManaTankTileEntity) te;
+
+        //int amount = mtte.getFluidTank().getFluidAmount();
+        //System.out.println("Tile entity fluid amount: " + amount);
+        //System.out.println("-");
+
+        //return mtte.getFluidTank().getFluidAmount();
     }
 
 

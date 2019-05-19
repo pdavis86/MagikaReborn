@@ -15,14 +15,15 @@ public class SpellAltarGuiContainer extends GuiContainer {
     private static final int WIDTH = 180;
     private static final int HEIGHT = 152;
 
-    private static final ResourceLocation _background = ResourceHelper.getGuiResource("spellaltar");
+    //private SpellAltarContainer _container;
 
-    //todo: add tooltips
+    private static final ResourceLocation _background = ResourceHelper.getGuiResource("spellaltar");
 
     public SpellAltarGuiContainer(SpellAltarContainer container) {
         super(container);
         xSize = WIDTH;
         ySize = HEIGHT;
+        //_container = container;
     }
 
     @Override
@@ -33,11 +34,14 @@ public class SpellAltarGuiContainer extends GuiContainer {
         mc.getTextureManager().bindTexture(_background);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
+        int totalMana = ((SpellAltarContainer)this.inventorySlots).getAvailableMana();
+
         //Show bar filled of required xp
         drawString(mc.fontRenderer, "XP:", guiLeft + 120, guiTop + 10, 0x0000FF00);
 
-        //Show bar filled of required mana by checking inventorySlots.hghghggh
-        drawString(mc.fontRenderer, "Mana:", guiLeft + 120, guiTop + 20, 0x000000FF);
+        //Show bar filled of required mana
+        int requiredMana = 9000;
+        drawString(mc.fontRenderer, "Mana: " + totalMana + "/" + requiredMana, guiLeft + 120, guiTop + 20, 0x000000FF);
     }
 
     @Override

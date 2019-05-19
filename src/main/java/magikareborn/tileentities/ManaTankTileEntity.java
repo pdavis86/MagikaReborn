@@ -35,8 +35,8 @@ public class ManaTankTileEntity extends TileEntity {
     public void readTankFromNBT(NBTTagCompound compound) {
         fluidTank.readFromNBT(compound);
 
-        //todo: Fix buf where renderer does not start rendering until an update is made
-        System.out.println("readTankFromNBT getFluidAmount: " + fluidTank.getFluidAmount());
+        //todo: Fix bug where renderer does not start rendering until an update is made (client shows no fluid but sever does)
+        //System.out.println("readTankFromNBT getFluidAmount: " + fluidTank.getFluidAmount());
         //fluidTank.sendUpdate(fluidTank.getFluidAmount());
         //PacketHandler.sendToClients((WorldServer) world, pos, new FluidUpdatePacket(pos, fluidTank.getFluid()));
     }
