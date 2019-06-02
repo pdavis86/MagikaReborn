@@ -1,10 +1,12 @@
 package magikareborn.containers;
 
+import magikareborn.base.BaseSpell;
 import magikareborn.base.PersistentInventoryCrafting;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.gui.SpellAltarOutputSlot;
-import magikareborn.init.ModFluids;
 import magikareborn.recipes.SpellAltarRecipe;
-import magikareborn.tileentities.ManaTankTileEntity;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -20,7 +22,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -40,7 +41,7 @@ public class SpellAltarContainer extends Container {
     private final SpellAltarTileEntity _te;
     private final World _world;
     private final PersistentInventoryCrafting _craftingMatrix;
-    private final InventoryCraftResult _craftingResult;
+    private InventoryCraftResult _craftingResult;
 
     public SpellAltarContainer(EntityPlayer player, SpellAltarTileEntity te) {
 
@@ -49,7 +50,6 @@ public class SpellAltarContainer extends Container {
         _world = player.getEntityWorld();
 
         ItemStackHandler _itemStackHandler = (ItemStackHandler) te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        //todo: Replace - assert (_itemStackHandler != null);
 
         _craftingMatrix = new PersistentInventoryCrafting(this, 3, 3, _itemStackHandler);
         _craftingResult = new InventoryCraftResult();
@@ -61,10 +61,7 @@ public class SpellAltarContainer extends Container {
     @SuppressWarnings("unused")
     @SubscribeEvent
     public static void onCraftingStationGuiOpened(PlayerContainerEvent.Open event) {
-        // Check for a recipe
-        //if (event.getContainer() instanceof SpellAltarContainer) {
         ((SpellAltarContainer) event.getContainer()).checkForValidRecipe();
-        //}
     }
 
     @Override
@@ -173,15 +170,29 @@ public class SpellAltarContainer extends Container {
                 SpellAltarRecipe spellRecipeMatch = SpellAltarRecipe.getMatch(_craftingMatrix);
                 if (spellRecipeMatch != null) {
                     craftedItemStack = spellRecipeMatch.getOutputCopy();
+
+//                    BaseSpell craftableSpell = (BaseSpell) craftedItemStack.getItem();
+
+//                    if (entityPlayerMp.experienceLevel < craftableSpell.getCraftingXpCost()) {
+//                        //System.out.println("Not enough XP levels"); //todo: remove
+//                        //sendCratingResultToClient = false;
+//
+//                    } else {
+//                        IOpusCapability opusCapability = entityPlayerMp.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+//                        if (opusCapability == null) {
+//                            OpusCapability.logNullWarning(entityPlayerMp.getName());
+//
+//                        } else {
+//                            int availableMana = (int) opusCapability.getMana() + getAvailableMana();
+//                            int requiredMana = (int) craftableSpell.getCraftingManaCost();
+//                            if (availableMana < requiredMana) {
+//                                //System.out.println("Not enough mana"); //todo: remove
+//                                //sendCratingResultToClient = false;
+//                            }
+//                        }
+//                    }
                 }
             }
-
-            int totalMana = getAvailableMana();
-
-            System.out.println("Total mana: " + totalMana);
-
-            _te.getTileData().setInteger("manaAvailable", totalMana);
-            //_te.getUpdateTag().setInteger("manaAvailable", totalMana);
 
             if (craftedItemStack != null) {
                 _craftingResult.setInventorySlotContents(-1, craftedItemStack);
@@ -192,23 +203,25 @@ public class SpellAltarContainer extends Container {
 
     public int getAvailableMana() {
         BlockPos posCenter = _te.getPos();
-        BlockPos posBotLeft = posCenter.add(-3, 1, -3);
-        BlockPos posTopLeft = posCenter.add(-3, 1, +3);
-        BlockPos posBotRight = posCenter.add(+3, 1, -3);
-        BlockPos posTopRight = posCenter.add(+3, 1, +3);
-        int totalMana = getAvailableManaAt(posBotLeft);
-        totalMana += getAvailableManaAt(posTopLeft);
-        totalMana += getAvailableManaAt(posBotRight);
-        totalMana += getAvailableManaAt(posTopRight);
+
+        //BlockPos posBotLeft = posCenter.add(-3, 1, -3);
+        int totalMana = getAvailableManaAt(posCenter.add(-3, 1, -3));
+
+        //BlockPos posTopLeft = posCenter.add(-3, 1, +3);
+        totalMana += getAvailableManaAt(posCenter.add(-3, 1, +3));
+
+        //BlockPos posBotRight = posCenter.add(+3, 1, -3);
+        totalMana += getAvailableManaAt(posCenter.add(+3, 1, -3));
+
+        //BlockPos posTopRight = posCenter.add(+3, 1, +3);
+        totalMana += getAvailableManaAt(posCenter.add(+3, 1, +3));
+
         return totalMana;
     }
 
     private int getAvailableManaAt(BlockPos blockPos) {
 
         TileEntity te = _world.getTileEntity(blockPos);
-
-        //System.out.println("Block position: " + blockPos);
-        //System.out.println("Tile entity: " + te);
 
         if (te == null || !te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
             return 0;
@@ -223,18 +236,13 @@ public class SpellAltarContainer extends Container {
             return 0;
         }
 
-        FluidTank fluidTank = (FluidTank)fluidHandler;
+        FluidTank fluidTank = (FluidTank) fluidHandler;
 
         return fluidTank.getFluidAmount();
-
-        //ManaTankTileEntity mtte = (ManaTankTileEntity) te;
-
-        //int amount = mtte.getFluidTank().getFluidAmount();
-        //System.out.println("Tile entity fluid amount: " + amount);
-        //System.out.println("-");
-
-        //return mtte.getFluidTank().getFluidAmount();
     }
 
+    public ItemStack getCraftableItem() {
+        return _craftingResult.getStackInSlot(-1);
+    }
 
 }

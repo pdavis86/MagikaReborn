@@ -2,9 +2,9 @@ package magikareborn.base;
 
 import magikareborn.ModRoot;
 import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.helpers.SoundHelper;
-import magikareborn.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.text.TextComponentString;
@@ -20,9 +20,13 @@ public abstract class BaseSpell extends BaseItem {
 
     public abstract int getMinMagicLevel();
 
-    public abstract float getManaCost();
+    public abstract int getCraftingXpCost();
 
-    public boolean canCast(EntityPlayer playerIn) {
+    public abstract float getCraftingManaCost();
+
+    public abstract float getCastingManaCost();
+
+    protected boolean canCast(EntityPlayer playerIn) {
 
         if (playerIn.capabilities.isCreativeMode) {
             return true;
@@ -31,6 +35,11 @@ public abstract class BaseSpell extends BaseItem {
         boolean okToCast = false;
 
         IOpusCapability opusCapability = playerIn.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+        if (opusCapability == null) {
+            OpusCapability.logNullWarning(playerIn.getName());
+            return false;
+        }
+
         World world = playerIn.getEntityWorld();
 
         if (!opusCapability.isSpellUnlocked()) {
@@ -47,7 +56,7 @@ public abstract class BaseSpell extends BaseItem {
                 playerIn.sendMessage(new TextComponentTranslation("message.magic_level_too_low"));
             }
 
-        } else if (opusCapability.getMana() < getManaCost()) {
+        } else if (opusCapability.getMana() < getCastingManaCost()) {
             if (!world.isRemote) {
                 //todo: replace sound event
                 SoundHelper.playSoundForPlayer(playerIn, SoundEvents.BLOCK_GLASS_STEP, 1f, 1f);
@@ -60,7 +69,7 @@ public abstract class BaseSpell extends BaseItem {
         }
 
         if (okToCast && !world.isRemote) {
-            opusCapability.subtractMana(getManaCost());
+            opusCapability.subtractMana(getCastingManaCost());
         }
 
         return okToCast;

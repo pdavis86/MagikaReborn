@@ -36,60 +36,57 @@ public class LightSpellEntity extends ProjectileSpellEntity {
 
             this.setDead();
 
-            //System.out.println("result.typeOfHit: " + result.typeOfHit);
-
-            if (result.typeOfHit == RayTraceResult.Type.BLOCK && world.getBlockState(result.getBlockPos()).getBlock() != ModBlocks.LIGHT_SPELL_BLOCK) {
-
-                IBlockState oldBlockState = world.getBlockState(result.getBlockPos());
-
-                BlockPos newBlockPos;
-                if (oldBlockState.isFullCube()) {
-                    newBlockPos = new BlockPos(this.prevPosX, this.prevPosY, this.prevPosZ);
-                } else {
-                    world.destroyBlock(result.getBlockPos(), true);
-                    newBlockPos = result.getBlockPos();
-                }
-
-                /*Chunk chunk = world.getChunkFromBlockCoords(newBlockPos);
-
-                System.out.println("sky: " + chunk.getLightFor(EnumSkyBlock.SKY, newBlockPos));
-                System.out.println("block: " + chunk.getLightFor(EnumSkyBlock.BLOCK, newBlockPos));
-                System.out.println("Light: " + chunk.getLightSubtracted(newBlockPos, 0) + " (" + chunk.getLightFor(EnumSkyBlock.SKY, newBlockPos) + " sky, " + chunk.getLightFor(EnumSkyBlock.BLOCK, newBlockPos) + " block)");
-
-                System.out.println("world.getSkylightSubtracted(): " + world.getSkylightSubtracted());
-                System.out.println("world.getLight old: " + world.getLight(result.getBlockPos()));
-                System.out.println("world.getLight new: " + world.getLight(newBlockPos));
-                System.out.println("world.getLightFor old: " + world.getLightFor(EnumSkyBlock.BLOCK, result.getBlockPos()));
-                System.out.println("world.getLightFor new: " + world.getLightFor(EnumSkyBlock.BLOCK, newBlockPos));
-                System.out.println("world.getLightFor sky old: " + world.getLightFor(EnumSkyBlock.SKY, result.getBlockPos()));
-                System.out.println("world.getLightFor sky new: " + world.getLightFor(EnumSkyBlock.SKY, newBlockPos));
-                System.out.println("getLightValue old: " + oldBlockState.getBlock().getLightValue(oldBlockState, world, newBlockPos));
-                System.out.println("getLightFromNeighbors old: " + world.getLightFromNeighbors(result.getBlockPos()));
-                System.out.println("getLightFromNeighbors new: " + world.getLightFromNeighbors(newBlockPos));
-                System.out.println("getLightBrightness old: " + world.getLightBrightness(result.getBlockPos()));
-                System.out.println("getLightBrightness new: " + world.getLightBrightness(newBlockPos));
-                System.out.println("getCombinedLight old: " + world.getCombinedLight(result.getBlockPos(), 0));
-                System.out.println("getCombinedLight new: " + world.getCombinedLight(newBlockPos, 0));
-                */
-
-                int oldLightValue = LightHelper.getLightLevelAtPos(world, newBlockPos);
-                float xp = (float) Math.abs(oldLightValue - 16) / 100;
-
-                //System.out.println("oldLightValue is: " + oldLightValue + ", XP is: " + xp);
-
-                world.setBlockState(newBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());
-
-                IOpusCapability opusCapability = thrower.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-                if (opusCapability == null) {
-                    OpusCapability.logNullWarning(thrower.getName());
-                    return;
-                }
-                opusCapability.addMagicXp(xp);
-
-            } else {
+            if (result.typeOfHit != RayTraceResult.Type.BLOCK || world.getBlockState(result.getBlockPos()).getBlock() == ModBlocks.LIGHT_SPELL_BLOCK) {
                 //todo: replace sound
                 SoundHelper.playSoundForAll(thrower, SoundEvents.BLOCK_GLASS_BREAK, 1, 1);
             }
+
+            IBlockState oldBlockState = world.getBlockState(result.getBlockPos());
+
+            BlockPos newBlockPos;
+            if (oldBlockState.isFullCube()) {
+                newBlockPos = new BlockPos(this.prevPosX, this.prevPosY, this.prevPosZ);
+            } else {
+                world.destroyBlock(result.getBlockPos(), true);
+                newBlockPos = result.getBlockPos();
+            }
+
+            /*Chunk chunk = world.getChunkFromBlockCoords(newBlockPos);
+
+            System.out.println("sky: " + chunk.getLightFor(EnumSkyBlock.SKY, newBlockPos));
+            System.out.println("block: " + chunk.getLightFor(EnumSkyBlock.BLOCK, newBlockPos));
+            System.out.println("Light: " + chunk.getLightSubtracted(newBlockPos, 0) + " (" + chunk.getLightFor(EnumSkyBlock.SKY, newBlockPos) + " sky, " + chunk.getLightFor(EnumSkyBlock.BLOCK, newBlockPos) + " block)");
+
+            System.out.println("world.getSkylightSubtracted(): " + world.getSkylightSubtracted());
+            System.out.println("world.getLight old: " + world.getLight(result.getBlockPos()));
+            System.out.println("world.getLight new: " + world.getLight(newBlockPos));
+            System.out.println("world.getLightFor old: " + world.getLightFor(EnumSkyBlock.BLOCK, result.getBlockPos()));
+            System.out.println("world.getLightFor new: " + world.getLightFor(EnumSkyBlock.BLOCK, newBlockPos));
+            System.out.println("world.getLightFor sky old: " + world.getLightFor(EnumSkyBlock.SKY, result.getBlockPos()));
+            System.out.println("world.getLightFor sky new: " + world.getLightFor(EnumSkyBlock.SKY, newBlockPos));
+            System.out.println("getLightValue old: " + oldBlockState.getBlock().getLightValue(oldBlockState, world, newBlockPos));
+            System.out.println("getLightFromNeighbors old: " + world.getLightFromNeighbors(result.getBlockPos()));
+            System.out.println("getLightFromNeighbors new: " + world.getLightFromNeighbors(newBlockPos));
+            System.out.println("getLightBrightness old: " + world.getLightBrightness(result.getBlockPos()));
+            System.out.println("getLightBrightness new: " + world.getLightBrightness(newBlockPos));
+            System.out.println("getCombinedLight old: " + world.getCombinedLight(result.getBlockPos(), 0));
+            System.out.println("getCombinedLight new: " + world.getCombinedLight(newBlockPos, 0));
+            */
+
+            world.setBlockState(newBlockPos, ModBlocks.LIGHT_SPELL_BLOCK.getDefaultState());
+
+            IOpusCapability opusCapability = thrower.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+            if (opusCapability == null) {
+                OpusCapability.logNullWarning(thrower.getName());
+                return;
+            }
+
+            int oldLightValue = LightHelper.getLightLevelAtPos(world, newBlockPos);
+            float xp = (float) Math.abs(oldLightValue - 16) / 100;
+
+            //System.out.println("oldLightValue is: " + oldLightValue + ", XP is: " + xp);
+
+            opusCapability.addXp(xp);
         }
 
         /*IBlockState collisionBlockState = world.getBlockState(result.getBlockPos());

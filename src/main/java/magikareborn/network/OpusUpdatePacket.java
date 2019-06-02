@@ -37,7 +37,7 @@ public class OpusUpdatePacket implements IMessage {
 
         buf.writeInt(_capability.getSelectedTab());
         buf.writeInt(_capability.getMagicLevel());
-        buf.writeFloat(_capability.getMagicXp());
+        buf.writeFloat(_capability.getXp());
         buf.writeFloat(_capability.getMana());
 
         /*if ((_updateFlags & FLAG_UPDATE_MANA) == FLAG_UPDATE_MANA) {
@@ -54,7 +54,7 @@ public class OpusUpdatePacket implements IMessage {
         _capability = new OpusCapability();
         _capability.setSelectedTab(buf.readInt());
         _capability.setMagicLevel(buf.readInt());
-        _capability.setMagicXp(buf.readFloat());
+        _capability.setXp(buf.readFloat());
         _capability.setMana(buf.readFloat());
     }
 

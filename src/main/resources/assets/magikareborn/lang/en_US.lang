@@ -24,6 +24,9 @@ item.magikareborn.manatankitem.empty.name=Mana Tank (Empty)
 item.magikareborn.manatankitem.name=Mana Tank
 tile.magikareborn.manatankblock.name=Mana Tank
 
+message.title.magic=Magic Level
+message.title.mana=Mana
+message.title.xp=XP Level
 message.spell_not_unlocked=You do not know how to cast this spell
 message.magic_level_too_low=You lack the experience to cast this spell
 

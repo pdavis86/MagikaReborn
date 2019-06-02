@@ -37,14 +37,14 @@ public class OpusCapability implements IOpusCapability {
     //Things passed in or calculated
     private Entity _entity;
     private boolean _isInitialised;
-    private float _manaMax;
-    private float _magicXpMax;
+    private int _manaMax;
+    private int _xpMax;
     private int _manaRegenCooldown;
 
     //Things to store
     private int _selectedTab;
     private int _magicLevel;
-    private float _magicXp;
+    private float _xp;
     private float _mana;
 
     public void init(Entity entity) {
@@ -68,7 +68,7 @@ public class OpusCapability implements IOpusCapability {
         if (updateSecureProps) {
             setMana(oldCapability.getMana());
             setMagicLevel(oldCapability.getMagicLevel());
-            setMagicXp(oldCapability.getMagicXp());
+            setXp(oldCapability.getXp());
         }
 
         init(oldCapability.getEntity());
@@ -122,7 +122,7 @@ public class OpusCapability implements IOpusCapability {
         return _mana;
     }
 
-    public float getManaMax() {
+    public int getManaMax() {
         return _manaMax;
     }
 
@@ -143,15 +143,17 @@ public class OpusCapability implements IOpusCapability {
         //todo: check for mana regen skill
 
         if (_mana == _manaMax) {
-            //return;
-        } else if (_manaRegenCooldown > 0) {
+            return;
+        }
+
+        if (_manaRegenCooldown > 0) {
             _manaRegenCooldown -= 1;
         } else {
             //todo: is this a good default cooldown amount?
             //todo: allow things to increase this speed temporarily
             _manaRegenCooldown = 40;
             //todo: is this a good amount to regen?
-            _mana += _manaMax / 22;
+            _mana += (float)_manaMax / 22;
             if (_mana > _manaMax) {
                 _mana = _manaMax;
             }
@@ -169,8 +171,8 @@ public class OpusCapability implements IOpusCapability {
         _magicLevel = level;
 
         //todo: are these values OK?
-        _manaMax = (float) Math.pow(_magicLevel, 1.2f);
-        _magicXpMax = (float) Math.pow(_magicLevel, 1.2f);
+        _manaMax = _magicLevel * 20;
+        _xpMax = (int)Math.pow((float)_magicLevel, 1.2f);
     }
 
     public int getMagicLevel() {
@@ -179,22 +181,22 @@ public class OpusCapability implements IOpusCapability {
 
 
     //Magic XP
-    public void setMagicXp(float xp) {
-        _magicXp = xp;
+    public void setXp(float xp) {
+        _xp = xp;
     }
 
-    public float getMagicXp() {
-        return _magicXp;
+    public float getXp() {
+        return _xp;
     }
 
-    public float getMagicXpMax() {
-        return _magicXpMax;
+    public int getXpMax() {
+        return _xpMax;
     }
 
-    public void addMagicXp(float xp) {
-        _magicXp += xp;
-        if (_magicXp > _magicXpMax) {
-            _magicXp -= _magicXpMax;
+    public void addXp(float xp) {
+        _xp += xp;
+        if (_xp > _xpMax) {
+            _xp -= _xpMax;
             setMagicLevel(_magicLevel + 1);
             setMana(_manaMax);
 
@@ -220,7 +222,7 @@ public class OpusCapability implements IOpusCapability {
     }
 
     public static void logNullWarning(String entityName) {
-        System.out.println("Opuc capability was null");
+        System.out.println("Opus capability was null");
         //todo: if these are the same then just use the second one throughout the codebase
         ModRoot.logger.log(Level.WARN, "Could not find Capability for entity " + entityName);
         ModRoot.logger.warn("Could not find Capability for entity " + entityName);

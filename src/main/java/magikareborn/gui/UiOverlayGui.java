@@ -42,7 +42,7 @@ public class UiOverlayGui extends Gui {
             int xpBarWidth = width - 20;
             int xpBarHeight = 2;
             int xpBarTop = 15;
-            int xpWidth = (int) Math.floor((opusCapability.getMagicXp() / opusCapability.getMagicXpMax()) * xpBarWidth);
+            int xpWidth = (int) Math.floor((opusCapability.getXp() / opusCapability.getXpMax()) * xpBarWidth);
             drawRect(xpBarLeft, xpBarTop, xpBarLeft + xpBarWidth, xpBarTop + xpBarHeight, 0xFF000000); //todo: remove this
             drawRect(xpBarLeft, xpBarTop, xpBarLeft + xpWidth, xpBarTop + xpBarHeight, 0xFF50A0C8);
             drawCenteredString(mc.fontRenderer, Integer.toString(opusCapability.getMagicLevel()), width / 2, 4, 0xFF50A0C8);

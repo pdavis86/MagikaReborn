@@ -41,12 +41,22 @@ public class LightSpellItem extends BaseSpell {
 
     @Override
     public int getMinMagicLevel() {
-        return 1;
+        return 10; //todo: 1
     }
 
     @Override
-    public float getManaCost() {
-        return 0.2f;
+    public int getCraftingXpCost() {
+        return 2; //todo: 0
+    }
+
+    @Override
+    public float getCraftingManaCost() {
+        return 20f;
+    }
+
+    @Override
+    public float getCastingManaCost() {
+        return 5f;
     }
 
     @Nonnull
@@ -65,11 +75,6 @@ public class LightSpellItem extends BaseSpell {
                 playerIn.addStat(StatList.getObjectUseStats(this), 1);
             }
         }
-        //todo: move to teleport spell
-        /*EntityEnderPearl pearl = new EntityEnderPearl(worldIn, playerIn);
-        //pearl.setPosition(playerIn.posX, playerIn.posY, playerIn.posZ);
-        pearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-        worldIn.spawnEntity(pearl);*/
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

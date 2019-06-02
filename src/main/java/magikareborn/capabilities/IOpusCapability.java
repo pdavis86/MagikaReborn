@@ -31,7 +31,7 @@ public interface IOpusCapability {
 
     float getMana();
 
-    float getManaMax();
+    int getManaMax();
 
     void subtractMana(float cost);
 
@@ -45,13 +45,13 @@ public interface IOpusCapability {
 
 
     //Magic XP
-    void setMagicXp(float xp);
+    void setXp(float xp);
 
-    float getMagicXp();
+    float getXp();
 
-    float getMagicXpMax();
+    int getXpMax();
 
-    void addMagicXp(float xp);
+    void addXp(float xp);
 
 
     boolean isSpellUnlocked();
