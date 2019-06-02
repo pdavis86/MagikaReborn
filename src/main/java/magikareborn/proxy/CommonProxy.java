@@ -101,7 +101,8 @@ public class CommonProxy {
                 ModBlocks.SPELL_ALTAR_BLOCK.getNewItem(),
                 ModBlocks.MANA_TANK_BLOCK.getNewItem(),
                 ModBlocks.LIGHT_SPELL_BLOCK.getNewItem(),
-                ModItems.LIGHT_SPELL_ITEM
+                ModItems.LIGHT_SPELL_ITEM,
+                ModItems.DIG_SPELL_ITEM
         );
 
         OreDictionary.registerOre("logWood", ModBlocks.MAGICAL_LOG_BLOCK);
@@ -132,13 +133,22 @@ public class CommonProxy {
                 new ItemStack(Item.getItemFromBlock(Blocks.PLANKS), 1, OreDictionary.WILDCARD_VALUE)
         );
 
-        //todo: Iterate over a list of recipes
+        //todo: Iterate over a list of recipes instead
         SpellAltarRecipe.addRecipe(
                 new ItemStack(ModItems.LIGHT_SPELL_ITEM),
                 null,
                 new ArrayList<ItemStack>() {{
                     add(new ItemStack(Items.SLIME_BALL, 1, OreDictionary.WILDCARD_VALUE));
                     add(new ItemStack(Item.getItemFromBlock(Blocks.TORCH), 1, OreDictionary.WILDCARD_VALUE));
+                }}
+        );
+        SpellAltarRecipe.addRecipe(
+                new ItemStack(ModItems.DIG_SPELL_ITEM),
+                null,
+                new ArrayList<ItemStack>() {{
+                    add(new ItemStack(Items.WOODEN_PICKAXE, 1, OreDictionary.WILDCARD_VALUE));
+                    add(new ItemStack(Items.WOODEN_AXE, 1, OreDictionary.WILDCARD_VALUE));
+                    add(new ItemStack(Items.WOODEN_SHOVEL, 1, OreDictionary.WILDCARD_VALUE));
                 }}
         );
     }

@@ -4,6 +4,7 @@ import magikareborn.ModRoot;
 import magikareborn.base.BaseBlock;
 import magikareborn.gui.SpellAltarGuiContainer;
 import magikareborn.helpers.ResourceHelper;
+import magikareborn.helpers.ToolHelper;
 import magikareborn.tileentities.SpellAltarTileEntity;
 import net.minecraft.block.BlockWorkbench;
 import net.minecraft.block.ITileEntityProvider;
@@ -35,7 +36,7 @@ public class SpellAltarBlock extends BaseBlock implements ITileEntityProvider {
         //todo: needed? - this.setSoundType(SoundType.WOOD);
         setLightLevel(16 / 16f);
         setHardness(1.5f);
-        //todo: does this do anything? - setHarvestLevel(ToolHelper.TOOLCLASS_AXE, 1);
+        setHarvestLevel(ToolHelper.TOOLCLASS_AXE, ToolHelper.MININGLEVEL_WOOD);
 
     }
 

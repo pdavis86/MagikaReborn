@@ -1,6 +1,9 @@
 package magikareborn.items;
 
 import magikareborn.base.BaseSpell;
+import magikareborn.capabilities.IOpusCapability;
+import magikareborn.capabilities.OpusCapability;
+import magikareborn.capabilities.OpusCapabilityStorage;
 import magikareborn.entities.LightSpellEntity;
 import magikareborn.helpers.ResourceHelper;
 import magikareborn.helpers.SoundHelper;
@@ -41,22 +44,12 @@ public class LightSpellItem extends BaseSpell {
 
     @Override
     public int getMinMagicLevel() {
-        return 10; //todo: 1
+        return 1;
     }
 
     @Override
     public int getCraftingXpCost() {
-        return 2; //todo: 0
-    }
-
-    @Override
-    public float getCraftingManaCost() {
-        return 20f;
-    }
-
-    @Override
-    public float getCastingManaCost() {
-        return 5f;
+        return 0;
     }
 
     @Nonnull
@@ -71,6 +64,13 @@ public class LightSpellItem extends BaseSpell {
                 //todo: change sound
                 SoundHelper.playSoundForAll(playerIn, SoundEvents.ENTITY_ENDERPEARL_THROW, 1, 1);
                 worldIn.spawnEntity(new LightSpellEntity(worldIn, playerIn));
+
+                IOpusCapability opusCapability = playerIn.getCapability(OpusCapabilityStorage.CAPABILITY, null);
+                if (opusCapability == null) {
+                    OpusCapability.logNullWarning(playerIn.getName());
+                } else {
+                    opusCapability.subtractMana(getCastingManaCost());
+                }
 
                 playerIn.addStat(StatList.getObjectUseStats(this), 1);
             }

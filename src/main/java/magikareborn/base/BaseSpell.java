@@ -4,6 +4,7 @@ import magikareborn.ModRoot;
 import magikareborn.capabilities.IOpusCapability;
 import magikareborn.capabilities.OpusCapability;
 import magikareborn.capabilities.OpusCapabilityStorage;
+import magikareborn.helpers.LevellingHelper;
 import magikareborn.helpers.SoundHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -22,9 +23,13 @@ public abstract class BaseSpell extends BaseItem {
 
     public abstract int getCraftingXpCost();
 
-    public abstract float getCraftingManaCost();
+    public float getCraftingManaCost() {
+        return LevellingHelper.getManaForCrafting(getMinMagicLevel());
+    }
 
-    public abstract float getCastingManaCost();
+    protected float getCastingManaCost() {
+        return LevellingHelper.getManaForCasting(getMinMagicLevel());
+    }
 
     protected boolean canCast(EntityPlayer playerIn) {
 
@@ -66,10 +71,6 @@ public abstract class BaseSpell extends BaseItem {
 
         } else {
             okToCast = true;
-        }
-
-        if (okToCast && !world.isRemote) {
-            opusCapability.subtractMana(getCastingManaCost());
         }
 
         return okToCast;

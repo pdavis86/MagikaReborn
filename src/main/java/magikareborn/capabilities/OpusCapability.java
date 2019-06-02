@@ -1,6 +1,7 @@
 package magikareborn.capabilities;
 
 import magikareborn.ModRoot;
+import magikareborn.helpers.LevellingHelper;
 import magikareborn.helpers.SoundHelper;
 import magikareborn.network.OpusRequestPacket;
 import magikareborn.network.OpusUpdatePacket;
@@ -153,7 +154,7 @@ public class OpusCapability implements IOpusCapability {
             //todo: allow things to increase this speed temporarily
             _manaRegenCooldown = 40;
             //todo: is this a good amount to regen?
-            _mana += (float)_manaMax / 22;
+            _mana += (float) _manaMax / 22;
             if (_mana > _manaMax) {
                 _mana = _manaMax;
             }
@@ -165,14 +166,9 @@ public class OpusCapability implements IOpusCapability {
 
     //Magic level
     public void setMagicLevel(int level) {
-
-        //System.out.println("Setting magic level to " + level);
-
         _magicLevel = level;
-
-        //todo: are these values OK?
-        _manaMax = _magicLevel * 20;
-        _xpMax = (int)Math.pow((float)_magicLevel, 1.2f);
+        _xpMax = LevellingHelper.getXpToLevelUp(_magicLevel);
+        _manaMax = LevellingHelper.getManaMax(_magicLevel);
     }
 
     public int getMagicLevel() {
@@ -203,9 +199,6 @@ public class OpusCapability implements IOpusCapability {
             //todo: replace sound event
             SoundHelper.playSoundForPlayer(_entity, SoundEvents.ENTITY_PLAYER_LEVELUP, 1f, 1f);
 
-        } else {
-            //todo: replace sound event
-            SoundHelper.playSoundForPlayer(_entity, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
         }
 
         sendToPlayer();

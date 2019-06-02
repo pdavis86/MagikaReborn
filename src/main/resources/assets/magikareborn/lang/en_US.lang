@@ -17,6 +17,9 @@ tile.magikareborn.spellaltarblock.name=Spell Altar
 item.magikareborn.lightspellitem.name=Illuminate
 jei.light_spell=Crafted in a Spell Altar, this spell allows the caster to project delicate clusters of light
 
+item.magikareborn.digspellitem.name=Dig
+jei.dig_spell=Crafted in a Spell Altar, this spell allows the caster to dig blocks
+
 jei.category.title.spellaltar=Spell Altar
 jei.category.title.manapool=Pool of Mana
 

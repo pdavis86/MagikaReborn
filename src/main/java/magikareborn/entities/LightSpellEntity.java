@@ -87,6 +87,9 @@ public class LightSpellEntity extends ProjectileSpellEntity {
             //System.out.println("oldLightValue is: " + oldLightValue + ", XP is: " + xp);
 
             opusCapability.addXp(xp);
+
+            //todo: replace sound event
+            SoundHelper.playSoundForPlayer(thrower, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
         }
 
         /*IBlockState collisionBlockState = world.getBlockState(result.getBlockPos());

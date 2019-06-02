@@ -2,6 +2,7 @@ package magikareborn.blocks;
 
 import magikareborn.ModRoot;
 import magikareborn.helpers.ResourceHelper;
+import magikareborn.helpers.ToolHelper;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -24,6 +25,7 @@ public class MagicalWoodLogBlock extends BlockLog {
         setUnlocalizedName(ModRoot.MODID.toLowerCase() + "." + name.toLowerCase());
         setCreativeTab(ModRoot.MAGIKA_REBORN_CREATIVE_TAB);
         setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
+        setHarvestLevel(ToolHelper.TOOLCLASS_AXE, ToolHelper.MININGLEVEL_IRON);
     }
 
     @SuppressWarnings("ConstantConditions")
