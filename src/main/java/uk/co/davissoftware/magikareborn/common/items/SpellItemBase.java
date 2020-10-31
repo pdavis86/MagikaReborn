@@ -40,6 +40,8 @@ abstract class SpellItemBase extends Item {
 
         boolean okToCast = false;
 
+        ModRoot.LOGGER.warn("TEST");
+
         IOpusCapability opusCapability = OpusCapability.getFromPlayer(playerIn);
         if (opusCapability == null) {
             return false;

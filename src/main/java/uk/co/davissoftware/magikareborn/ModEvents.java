@@ -27,15 +27,11 @@ public class ModEvents {
     @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-
         PlayerEntity player = event.getPlayer();
-
-        IOpusCapability opusCapability = player.getCapability(OpusCapabilityStorage.CAPABILITY, null).orElse(null);
+        IOpusCapability opusCapability = OpusCapability.getFromPlayer(player);
         if (opusCapability == null) {
-            OpusCapability.logNullWarning(player.getName().toString());
             return;
         }
-
         opusCapability.init(player);
     }
 
@@ -63,11 +59,10 @@ public class ModEvents {
             return;
         }*/
 
-        IOpusCapability oldCapability = originalPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null).orElse(null);
-        IOpusCapability newCapability = newPlayer.getCapability(OpusCapabilityStorage.CAPABILITY, null).orElse(null);
+        IOpusCapability oldCapability = OpusCapability.getFromPlayer(originalPlayer);
+        IOpusCapability newCapability = OpusCapability.getFromPlayer(newPlayer);
 
         if (oldCapability == null || newCapability == null) {
-            OpusCapability.logNullWarning(originalPlayer.getName().getString());
             return;
         }
 

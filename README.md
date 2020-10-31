@@ -11,9 +11,6 @@ Inspired by Ars Magica 2, Skyrim, Borderlands and Final Fantasy 12, this magic-b
 - I looked at the source code for Ars Magika 2, Immersive Engineering and Tinkers Construct for coding guidance.
 - Some of the spell artwork from J. W. Bjerk (eleazzaar) -- www.jwbjerk.com/art  -- find this and other open art at: http://opengameart.org
 
-## Setting up your dev workspace
-.\gradlew.bat setupDecompWorkspace idea
-
 ## Feedback
 - Got an idea? Great! Let me know.
 - Don't like my code? That's OK. I'm a C# developer so may not have written this mod in the "Java way". Feedback is always welcome.

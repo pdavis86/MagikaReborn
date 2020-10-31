@@ -3,15 +3,14 @@ package uk.co.davissoftware.magikareborn.common.entities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import uk.co.davissoftware.magikareborn.ModRoot;
 import uk.co.davissoftware.magikareborn.common.capabilities.IOpusCapability;
 import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapability;
-import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapabilityStorage;
 import uk.co.davissoftware.magikareborn.common.helpers.LightHelper;
 import uk.co.davissoftware.magikareborn.common.helpers.SoundHelper;
 import uk.co.davissoftware.magikareborn.common.util.RegistryHandler;
@@ -39,7 +38,6 @@ public class LightSpellEntity extends ProjectileSpellEntityBase {
         this.shoot(f, f1, f2, 0.8f, 1f);
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onImpact(@Nonnull RayTraceResult result) {
 
@@ -82,22 +80,19 @@ public class LightSpellEntity extends ProjectileSpellEntityBase {
 
         world.setBlockState(newBlockPos, RegistryHandler.LIGHTSPELL_BLOCK.get().getDefaultState());
 
-        ModRoot.LOGGER.warn("After placing block");
+        if (thrower instanceof PlayerEntity) {
+            IOpusCapability opusCapability = OpusCapability.getFromPlayer((PlayerEntity) thrower);
+            if (opusCapability == null) {
+                return;
+            }
 
-        IOpusCapability opusCapability = thrower.getCapability(OpusCapabilityStorage.CAPABILITY, null).orElse(null);
-        if (opusCapability == null) {
-            OpusCapability.logNullWarning(thrower.getScoreboardName());
-            return;
+            int oldLightValue = LightHelper.getLightLevelAtPos(world, newBlockPos);
+            float xp = (float) Math.abs(oldLightValue - 16) / 100;
+            opusCapability.addXp(xp);
+
+            //todo: replace sound event
+            SoundHelper.playSoundForPlayer(thrower, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
         }
-
-        int oldLightValue = LightHelper.getLightLevelAtPos(world, newBlockPos);
-        float xp = (float) Math.abs(oldLightValue - 16) / 100;
-        opusCapability.addXp(xp);
-
-        ModRoot.LOGGER.warn("Added " + xp);
-
-        //todo: replace sound event
-        SoundHelper.playSoundForPlayer(thrower, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
     }
 
 }

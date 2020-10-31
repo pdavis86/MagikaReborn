@@ -4,10 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.SoundEvents;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.util.LazyOptional;
 import org.apache.logging.log4j.Level;
 import uk.co.davissoftware.magikareborn.ModRoot;
 import uk.co.davissoftware.magikareborn.common.helpers.LevellingHelper;
@@ -23,9 +19,9 @@ public class OpusCapability implements IOpusCapability {
     public OpusCapability() {
     }
 
-    public OpusCapability(Entity entity) {
-        init(entity);
-    }
+//    public OpusCapability(Entity entity) {
+//        init(entity);
+//    }
 
     //Flags
     //public static final int FLAG_UPDATE_MANA = 0x1;
@@ -215,25 +211,21 @@ public class OpusCapability implements IOpusCapability {
 
     public boolean isSpellUnlocked() {
 
-        if (_entity instanceof PlayerEntity && ((PlayerEntity) _entity).isCreative()) {
-            return true;
-        }
-
         //todo: implement skill tree unlocking
+
+//        if (_entity instanceof PlayerEntity && ((PlayerEntity) _entity).isCreative()) {
+//            return true;
+//        }
+
         return true;
     }
 
-    public static IOpusCapability getFromPlayer(PlayerEntity player){
+    public static IOpusCapability getFromPlayer(PlayerEntity player) {
         Optional<IOpusCapability> cap = player.getCapability(OpusCapabilityStorage.CAPABILITY, null).resolve();
         if (!cap.isPresent()) {
-            ModRoot.LOGGER.warn("Could not find Capability for entity " + player.getName().toString());
+            ModRoot.LOGGER.warn("Could not find Capability for entity " + player.getScoreboardName());
             return null;
         }
         return cap.get();
-    }
-
-    //todo: get rid of this
-    public static void logNullWarning(String name) {
-        ModRoot.LOGGER.warn("Could not find Capability for entity " + name);
     }
 }

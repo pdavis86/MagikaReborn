@@ -55,9 +55,8 @@ public class OpusUpdatePacket implements ISimplePacket {
             }
         }
 
-        IOpusCapability opusCapability = player.getCapability(OpusCapabilityStorage.CAPABILITY, null).orElse(null);
+        IOpusCapability opusCapability = OpusCapability.getFromPlayer(player);
         if (opusCapability == null) {
-            OpusCapability.logNullWarning(player.getName().getString());
             return;
         }
 
