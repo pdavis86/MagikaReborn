@@ -1,69 +1,100 @@
-package magikareborn;
+package uk.co.davissoftware.magikareborn;
 
-import magikareborn.commands.ResetCommand;
-import magikareborn.init.ModCreativeTab;
-import magikareborn.proxy.CommonProxy;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapabilityStorage;
+import uk.co.davissoftware.magikareborn.common.network.PacketHandler;
+import uk.co.davissoftware.magikareborn.common.util.RegistryHandler;
+import uk.co.davissoftware.magikareborn.init.ModBlocks;
 
-@SuppressWarnings("unused")
-@Mod(modid = ModRoot.MODID, name = ModRoot.MODNAME, version = ModRoot.MODVERSION, useMetadata = true)
+@Mod("magikareborn")
 public class ModRoot {
 
     public static final String MODID = "magikareborn";
-    public static final String MODNAME = "Magika Reborn";
-    static final String MODVERSION = "0.0.1";
+    //public static final String MODNAME = "Magika Reborn";
+    //static final String MODVERSION = "0.0.1";
 
-    public static final CreativeTabs MAGIKA_REBORN_CREATIVE_TAB = new ModCreativeTab();
+    public static final ItemGroup CREATIVE_TAB = new ItemGroup(MODID) {
 
-    @SidedProxy(clientSide = "magikareborn.proxy.ClientProxy", serverSide = "magikareborn.proxy.ServerProxy")
-    private static CommonProxy proxy;
+        @Override
+        public ItemStack createIcon() {
+            //todo: change this to ModItems.MAGIKA_OPUS_ITEM
+            return new ItemStack(Blocks.DIRT);
+        }
+    };
 
-    @Mod.Instance
-    public static ModRoot instance;
+    public static final Logger LOGGER = LogManager.getLogger();
 
-    public static Logger logger;
-	
-	//todo: Charge time
-	//todo: Target self
-	//todo: Recycler block
-	//todo: Tooltips
-	//todo: Cooldown is one of the stats
+    public ModRoot() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-    static {
-        FluidRegistry.enableUniversalBucket();
+        RegistryHandler.init();
+
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
+    private void setup(final FMLCommonSetupEvent event) {
+        // some preinit code
+        //LOGGER.info("HELLO FROM PREINIT");
+        //LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 
-        logger = event.getModLog();
-        //logger.log(Level.ERROR, "Test!");
-
-        //System.out.println("preInit() " + event.getModMetadata().name);
-
-        proxy.preInit(event);
+        MinecraftForge.EVENT_BUS.register(new ModEvents());
+        PacketHandler.init();
+        OpusCapabilityStorage.register();
     }
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent e) {
-        proxy.init(e);
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        // do something that can only be done on the client
+        //LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+
+        ModBlocks.initModels();
     }
 
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent e) {
-        proxy.postInit(e);
+//    private void enqueueIMC(final InterModEnqueueEvent event) {
+//        // some example code to dispatch IMC to another mod
+//        InterModComms.sendTo("magikareborn", "helloworld", () -> {
+//            LOGGER.info("Hello world from the MDK");
+//            return "Hello world";
+//        });
+//    }
+//
+//    private void processIMC(final InterModProcessEvent event) {
+//        // some example code to receive and process InterModComms from other mods
+//        LOGGER.info("Got IMC {}", event.getIMCStream().
+//                map(m -> m.getMessageSupplier().get()).
+//                collect(Collectors.toList()));
+//    }
+
+    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    public void onServerStarting(FMLServerStartingEvent event) {
+        // do something when the server starts
+        LOGGER.info("HELLO from server starting");
     }
 
-    @Mod.EventHandler
-    public void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new ResetCommand());
+    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
+    // Event bus for receiving Registry Events)
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+            // register a new block here
+            LOGGER.info("HELLO from Register Block");
+        }
     }
 }
