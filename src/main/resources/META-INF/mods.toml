@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[34,)"
+license="All rights reserved"
+#issueTrackerURL="http://my.issue.tracker/" #optional
+
+[[mods]]
+	modId="magikareborn"
+	version="${file.jarVersion}"
+	displayName="Magika Reborn"
+	#updateJSONURL="http://myurl.me/" #optional
+	#displayURL="http://example.com/" #optional
+	#logoFile="examplemod.png" #optional
+	#credits="Thanks for this example mod goes to Java" #optional
+	#authors="Love, Cheese and small house plants" #optional
+	description='''
+	Inspired by Ars Magica 2, Skyrim, Borderlands and Final Fantasy 12, this magic-based Minecraft mod allows the player to explore their abilities in a new way.
+	'''
+
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.magikareborn]]
+    modId="forge" 
+    mandatory=true
+    versionRange="[34,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.magikareborn]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3]"
+    ordering="NONE"
+    side="BOTH"
