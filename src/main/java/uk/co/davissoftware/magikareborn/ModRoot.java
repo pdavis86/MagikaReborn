@@ -18,6 +18,7 @@ import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapabilityStorag
 import uk.co.davissoftware.magikareborn.common.network.PacketHandler;
 import uk.co.davissoftware.magikareborn.common.util.RegistryHandler;
 import uk.co.davissoftware.magikareborn.init.ModBlocks;
+import uk.co.davissoftware.magikareborn.init.ModEvents;
 
 @Mod("magikareborn")
 public class ModRoot {

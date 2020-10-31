@@ -1,4 +1,4 @@
-package uk.co.davissoftware.magikareborn;
+package uk.co.davissoftware.magikareborn.init;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.Mod;
 import uk.co.davissoftware.magikareborn.common.capabilities.IOpusCapability;
 import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapability;
 import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapabilitySerializer;
-import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapabilityStorage;
 import uk.co.davissoftware.magikareborn.common.helpers.ResourceHelper;
 
 @SuppressWarnings("unused")
