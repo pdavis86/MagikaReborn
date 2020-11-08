@@ -2,27 +2,42 @@ package uk.co.davissoftware.magikareborn.client.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import uk.co.davissoftware.magikareborn.ModRoot;
 import uk.co.davissoftware.magikareborn.common.containers.SpellAltarContainer;
 import uk.co.davissoftware.magikareborn.common.helpers.ResourceHelper;
 
 @OnlyIn(Dist.CLIENT)
-public class SpellAltarScreen extends ContainerScreenBase<SpellAltarContainer> {
+public class SpellAltarScreen extends ContainerScreen<SpellAltarContainer> {
 
     private static final ResourceLocation _background = ResourceHelper.getGuiResource("spellaltar");
 
     public SpellAltarScreen(SpellAltarContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+
+//        this.guiLeft = 0;
+//        this.guiTop = 0;
+        this.xSize = 178;
+        this.ySize = 151;
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
     protected void func_230450_a_(MatrixStack p_230450_1_, float p_230450_2_, int p_230450_3_, int p_230450_4_) {
         drawGuiContainerBackgroundLayer(p_230450_1_, p_230450_2_, p_230450_3_, p_230450_4_);
+    }
+
+    private int getWidth() {
+        return field_230708_k_;
+    }
+
+    private int getHeight(){
+        return field_230709_l_;
     }
 
     @SuppressWarnings({"deprecation", "ConstantConditions", "unused"})

@@ -6,6 +6,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
+import uk.co.davissoftware.magikareborn.ModRoot;
 import uk.co.davissoftware.magikareborn.common.tileentities.SpellAltarTileEntity;
 import uk.co.davissoftware.magikareborn.common.util.RegistryHandler;
 

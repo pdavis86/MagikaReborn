@@ -30,6 +30,7 @@ public class RegistryHandler {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     //Items
@@ -40,7 +41,7 @@ public class RegistryHandler {
     public static final RegistryObject<Block> LIGHTSPELL_BLOCK = BLOCKS.register(LightSpellBlock.NAME, LightSpellBlock::new);
 
     //Block Items
-    public static final RegistryObject<Item> SPELLALTAR_BLOCK_ITEM = ITEMS.register(
+    public static final RegistryObject<Item> SPELLALTAR_BLOCKITEM = ITEMS.register(
             SpellAltarBlock.NAME,
             () -> BlockHelper.GetBlockItem(SPELLALTAR_BLOCK.get()));
 

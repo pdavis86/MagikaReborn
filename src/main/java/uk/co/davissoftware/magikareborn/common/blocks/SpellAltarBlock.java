@@ -19,6 +19,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
+import uk.co.davissoftware.magikareborn.ModRoot;
 import uk.co.davissoftware.magikareborn.common.helpers.BlockHelper;
 import uk.co.davissoftware.magikareborn.common.helpers.ToolHelper;
 import uk.co.davissoftware.magikareborn.common.tileentities.SpellAltarTileEntity;
@@ -48,9 +49,15 @@ public class SpellAltarBlock extends BlockBase {
         return list;
     }
 
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
+    }
+
     @SuppressWarnings({"deprecation", "NullableProblems"})
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+
         if (worldIn.isRemote) {
             return ActionResultType.SUCCESS;
         }
@@ -64,12 +71,17 @@ public class SpellAltarBlock extends BlockBase {
         }
 
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        if (!(tileentity instanceof INamedContainerProvider)) {
+        if (!(tileentity instanceof SpellAltarTileEntity)) {
             return ActionResultType.PASS;
         }
 
         NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileentity, pos);
         return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
     }
 
     @Override
