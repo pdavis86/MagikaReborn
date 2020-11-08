@@ -19,17 +19,21 @@ import javax.annotation.Nonnull;
 
 public class LightSpellEntity extends ProjectileSpellEntityBase {
 
-//    public LightSpellEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World worldIn) {
-//        super(type, throwerIn, worldIn);
-//    }
+    public LightSpellEntity(EntityType<? extends LightSpellEntity> type, World worldIn) {
+        super(type, worldIn);
+    }
 
     public LightSpellEntity(LivingEntity throwerIn, World worldIn) {
-        //todo: replace snowball
+        //todo: figure out why no texture is visible - super(RegistryHandler.LIGHTSPELL_ENTITY.get(), throwerIn, worldIn);
         super(EntityType.SNOWBALL, throwerIn, worldIn);
         this.setNoGravity(true);
         this.setShooter(throwerIn);
         this.shoot(throwerIn.rotationPitch, throwerIn.rotationYaw, throwerIn.getEyeHeight());
     }
+
+//    public LightSpellEntity(World worldIn, double x, double y, double z) {
+//        super(RegistryHandler.LIGHTSPELL_ENTITY.get(), x, y, z, worldIn);
+//    }
 
     private void shoot(float rotationPitchIn, float rotationYawIn, float pitchOffset) {
         float f = -MathHelper.sin(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);

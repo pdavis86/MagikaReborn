@@ -42,8 +42,6 @@ public class OpusUpdatePacket implements ISimplePacket {
     public void handleThreadsafe(NetworkEvent.Context context) {
         //NOTE: only access blocks and tile entities if world.isBlockLoaded(pos) is true.
 
-        ModRoot.LOGGER.warn("Received OpusUpdatePacket");
-
         PlayerEntity player = context.getSender();
         if (player == null) {
             //Message was sent by the server so grab the client-side player

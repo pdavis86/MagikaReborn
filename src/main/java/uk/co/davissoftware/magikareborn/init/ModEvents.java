@@ -23,7 +23,6 @@ public class ModEvents {
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         PlayerEntity player = event.getPlayer();
@@ -39,7 +38,11 @@ public class ModEvents {
 //        new UiOverlayGui(Minecraft.getMinecraft());
 //    }
 
-    @SuppressWarnings("ConstantConditions")
+    //    @SubscribeEvent
+//    public void onServerStarting(FMLServerStartingEvent event) {
+//        event.registerServerCommand(new ResetCommand());
+//    }
+
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone evt) {
         if (!evt.isWasDeath() || evt.isCanceled()) {

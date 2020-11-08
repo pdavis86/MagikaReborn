@@ -52,7 +52,7 @@ Inspired by Ars Magica 2, Skyrim, Borderlands and Final Fantasy 12, this magic-b
   - Regen
   - Haste
   - Strength
-  - Shield (booth to max health)
+  - Shield (boost to max health)
 
 ### v0.4 - More stuff
 - Portals

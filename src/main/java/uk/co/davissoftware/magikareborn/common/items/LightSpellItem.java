@@ -2,10 +2,13 @@ package uk.co.davissoftware.magikareborn.common.items;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+import uk.co.davissoftware.magikareborn.common.capabilities.IOpusCapability;
+import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapability;
 import uk.co.davissoftware.magikareborn.common.entities.LightSpellEntity;
 import uk.co.davissoftware.magikareborn.common.helpers.SoundHelper;
 
@@ -43,14 +46,12 @@ public class LightSpellItem extends SpellItemBase {
                 SoundHelper.playSoundForAll(playerIn, SoundEvents.ENTITY_ENDER_PEARL_THROW, 1, 1);
                 worldIn.addEntity(new LightSpellEntity(playerIn, worldIn));
 
-//                IOpusCapability opusCapability = playerIn.getCapability(OpusCapabilityStorage.CAPABILITY, null);
-//                if (opusCapability == null) {
-//                    OpusCapability.logNullWarning(playerIn.getName());
-//                } else {
-//                    opusCapability.subtractMana(getCastingManaCost());
-//                }
+                IOpusCapability opusCapability = OpusCapability.getFromPlayer(playerIn);
+                if (opusCapability != null) {
+                    opusCapability.subtractMana(getCastingManaCost());
+                }
 
-                //playerIn.addStat(StatList.getObjectUseStats(this), 1);
+                playerIn.addStat(Stats.ITEM_USED.get(this));
             }
         }
 

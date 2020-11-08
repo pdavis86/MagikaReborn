@@ -65,8 +65,6 @@ public class OpusCapability implements IOpusCapability {
 
     public void fillFrom(IOpusCapability oldCapability, boolean updateSecureProps) {
 
-        ModRoot.LOGGER.warn("Updating secure props: " + updateSecureProps);
-
         setSelectedTab(oldCapability.getSelectedTab());
 
         //Prevent cheating
@@ -80,29 +78,18 @@ public class OpusCapability implements IOpusCapability {
     }
 
     public void requestFromServer() {
-
-        ModRoot.LOGGER.warn("Requesting OpusCapability from server");
-
         PacketHandler.getInstance().sendToServer(new OpusRequestPacket());
     }
 
     public void sendToServer() {
-
-        ModRoot.LOGGER.warn("Sending OpusCapability to server");
-
         if (!(_entity instanceof PlayerEntity)) {
-            ModRoot.LOGGER.warn("Sending OpusCapability to server: entity not player");
             return;
         }
         PacketHandler.getInstance().sendToServer(new OpusUpdatePacket(this));
     }
 
     public void sendToPlayer() {
-
-        ModRoot.LOGGER.warn("Sending OpusCapability to player");
-
         if (!(_entity instanceof ServerPlayerEntity)) {
-            ModRoot.LOGGER.warn("Sending OpusCapability to player: entity not player");
             return;
         }
         PacketHandler.getInstance().sendToPlayer(new OpusUpdatePacket(this), (ServerPlayerEntity) _entity);

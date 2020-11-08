@@ -14,13 +14,11 @@ public class OpusRequestPacket implements ISimplePacket {
 
     public OpusRequestPacket() {
         //For creating a packet to send
-        ModRoot.LOGGER.warn("Creating an OpusRequestPacket");
     }
 
     @SuppressWarnings("unused")
     public OpusRequestPacket(PacketBuffer buffer) {
         //For when this packet has been received
-        ModRoot.LOGGER.warn("Receving an OpusRequestPacket");
     }
 
     @Override
@@ -28,7 +26,6 @@ public class OpusRequestPacket implements ISimplePacket {
         //Nothing here
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public void handleThreadsafe(NetworkEvent.Context context) {
         ServerPlayerEntity player = context.getSender();

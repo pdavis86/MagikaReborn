@@ -30,12 +30,24 @@ public class ProjectileSpellEntityBase extends ThrowableEntity {
 
     private final int _maxTicksToLive;
 
+    protected ProjectileSpellEntityBase(EntityType<? extends ThrowableEntity> type, World worldIn) {
+        super(type, worldIn);
+
+        //15 seconds * 20 ticks per second (as standard)
+        _maxTicksToLive = 15 * 20;
+    }
+
     protected ProjectileSpellEntityBase(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World worldIn) {
         super(type, throwerIn, worldIn);
         this.thrower = throwerIn;
 
         //15 seconds * 20 ticks per second (as standard)
         _maxTicksToLive = 15 * 20;
+    }
+
+    protected ProjectileSpellEntityBase(EntityType<? extends ThrowableEntity> type, double x, double y, double z, World worldIn) {
+        this(type, worldIn);
+        this.setPosition(x, y, z);
     }
 
     @SuppressWarnings("NullableProblems")

@@ -1,10 +1,29 @@
 package uk.co.davissoftware.magikareborn.common.blocks;
 
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.network.NetworkHooks;
+import uk.co.davissoftware.magikareborn.common.helpers.BlockHelper;
 import uk.co.davissoftware.magikareborn.common.helpers.ToolHelper;
+import uk.co.davissoftware.magikareborn.common.tileentities.SpellAltarTileEntity;
+
+import java.util.List;
 
 public class SpellAltarBlock extends BlockBase {
 
@@ -21,25 +40,40 @@ public class SpellAltarBlock extends BlockBase {
         );
     }
 
-//    @SideOnly(Side.CLIENT)
-//    public void initModel() {
-//        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getResourceLocation(), ResourceHelper.INVENTORY_VARIANT));
-//    }
-//
-//    @Override
-//    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-//
-//        if (worldIn.isRemote) {
-//            return true;
-//        }
-//
-//        playerIn.openGui(ModRoot.instance, SpellAltarGuiContainer.GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
-//        return true;
-//    }
-//
-//    @Nullable
-//    @Override
-//    public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-//        return new SpellAltarTileEntity();
-//    }
+    @SuppressWarnings({"deprecation", "NullableProblems"})
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> list = Lists.newArrayList();
+        list.add(new ItemStack(BlockHelper.GetBlockItem(state.getBlock())));
+        return list;
+    }
+
+    @SuppressWarnings({"deprecation", "NullableProblems"})
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (worldIn.isRemote) {
+            return ActionResultType.SUCCESS;
+        }
+
+        if (player.isSuppressingBounce()) {
+            return ActionResultType.PASS;
+        }
+
+        if (!(player instanceof ServerPlayerEntity)) {
+            return ActionResultType.PASS;
+        }
+
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (!(tileentity instanceof INamedContainerProvider)) {
+            return ActionResultType.PASS;
+        }
+
+        NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileentity, pos);
+        return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new SpellAltarTileEntity();
+    }
 }

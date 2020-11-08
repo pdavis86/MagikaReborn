@@ -5,17 +5,15 @@ import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import uk.co.davissoftware.magikareborn.ModRoot;
 import uk.co.davissoftware.magikareborn.common.capabilities.IOpusCapability;
 import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapability;
 import uk.co.davissoftware.magikareborn.common.helpers.LevellingHelper;
 import uk.co.davissoftware.magikareborn.common.helpers.SoundHelper;
 
-abstract class SpellItemBase extends Item {
+abstract class SpellItemBase extends ItemBase {
 
     SpellItemBase() {
         super(new Item.Properties()
-                .group(ModRoot.CREATIVE_TAB)
                 .maxStackSize(1)
         );
     }
@@ -39,8 +37,6 @@ abstract class SpellItemBase extends Item {
         }
 
         boolean okToCast = false;
-
-        ModRoot.LOGGER.warn("TEST");
 
         IOpusCapability opusCapability = OpusCapability.getFromPlayer(playerIn);
         if (opusCapability == null) {
