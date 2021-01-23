@@ -1,12 +1,16 @@
 package uk.co.davissoftware.magikareborn.init;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import uk.co.davissoftware.magikareborn.client.gui.GuiOverlay;
 import uk.co.davissoftware.magikareborn.common.capabilities.IOpusCapability;
 import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapability;
 import uk.co.davissoftware.magikareborn.common.capabilities.OpusCapabilitySerializer;
@@ -34,8 +38,10 @@ public class ModEvents {
     }
 
 //    @SubscribeEvent
-//    public static void onRenderGui(RenderGameOverlayEvent.Text event) {
-//        new UiOverlayGui(Minecraft.getMinecraft());
+//    public static void onRenderGui(RenderGameOverlayEvent.Pre event) {
+//        if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH) {
+//            new GuiOverlay(Minecraft.getInstance());
+//        }
 //    }
 
     //    @SubscribeEvent
@@ -44,20 +50,20 @@ public class ModEvents {
 //    }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone evt) {
-        if (!evt.isWasDeath() || evt.isCanceled()) {
+    public static void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+        if (!event.isWasDeath() || event.isCanceled()) {
             return;
         }
 
-        PlayerEntity originalPlayer = evt.getOriginal();
-        PlayerEntity newPlayer = evt.getPlayer();
+        PlayerEntity originalPlayer = event.getOriginal();
+        PlayerEntity newPlayer = event.getPlayer();
 
         if (originalPlayer == null || newPlayer == null) {
             return;
         }
 
         //todo: necessary?
-        /*if(evt.getEntityPlayer().getEntityWorld().getGameRules().getBoolean("keepInventory")) {
+        /*if(event.getEntityPlayer().getEntityWorld().getGameRules().getBoolean("keepInventory")) {
             return;
         }*/
 

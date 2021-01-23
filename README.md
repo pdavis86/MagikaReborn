@@ -35,12 +35,13 @@ Inspired by Ars Magica 2, Skyrim, Borderlands and Final Fantasy 12, this magic-b
 - Utility Spells
   - Dig
   - Beckon (Summon a merchant)
-  - Rift (gravity grenade)
-  - Immobilise
 - Support Spells
   - Heal
   - Jump
   - Lunge
+  - Rift (gravity grenade)
+  - Immobilise
+  - Repel
 - Offensive Spells
   - Fire
   - Thunder
